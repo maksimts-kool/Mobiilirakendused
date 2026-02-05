@@ -6,9 +6,18 @@
     xmlns:local="clr-namespace:Tund2"
     Title="Tund2">
 
+    <Shell.TitleView>
+        <Label Text="Tund2"
+               FontSize="24"
+               FontFamily="NunitoSansRegular"
+               TextColor="Black"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+    </Shell.TitleView>
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate local:StartPage}"
+        Route="StartPage"/>
 
 </Shell>
