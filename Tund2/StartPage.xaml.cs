@@ -4,10 +4,16 @@ public partial class StartPage : ContentPage
 {
 	VerticalStackLayout layout;
 	ScrollView scrollView;
-	public List<ContentPage> pages = new List<ContentPage>() { new TextPage(), new FigurePage() };
-	public List<string> pageNames = new List<string>() { "Tekst", "Kujund" };
+	public List<ContentPage> pages = new List<ContentPage>()
+{
+	new TextPage(0),
+	new FigurePage(1),
+	new Timer_Page()
+};
+	public List<string> pageNames = new List<string>() { "Tekst", "Kujund", "Taimer" };
 	public StartPage()
 	{
+		InitializeComponent();
 		Title = "Avaleht";
 		layout = new VerticalStackLayout()
 		{
