@@ -8,9 +8,10 @@ public partial class StartPage : ContentPage
 {
 	new TextPage(0),
 	new FigurePage(1),
-	new Timer_Page()
+	new Timer_Page(),
+	new ValgusfoorPage()
 };
-	public List<string> pageNames = new List<string>() { "Tekst", "Kujund", "Taimer" };
+	public List<string> pageNames = new List<string>() { "Tekst", "Kujund", "Taimer", "Valgusfoor" };
 	public StartPage()
 	{
 		InitializeComponent();

@@ -38,6 +38,6 @@ public partial class Timer_Page : ContentPage
 
 	private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
 	{
-		await DisplayAlert("Info", "See on label, mida saab vajutada!", "OK");
+		await DisplayAlertAsync("Info", "See on label, mida saab vajutada!", "OK");
 	}
 }
