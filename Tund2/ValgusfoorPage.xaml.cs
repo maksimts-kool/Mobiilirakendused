@@ -1,5 +1,3 @@
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Layouts;
 using Microsoft.Maui.Controls.Shapes;
 
@@ -7,7 +5,6 @@ namespace Tund2
 {
 	public partial class ValgusfoorPage : ContentPage
 	{
-		// Defineerime muutujad klassi tasemel, et neile igalt poolt ligi pääseda
 		Label headerLabel;
 		Border redLight, yellowLight, greenLight;
 		Button onButton, offButton, autoButton, nightButton;
@@ -32,7 +29,7 @@ namespace Tund2
 				TextColor = Colors.Black
 			};
 
-			// 2. Loome foori tuled (kasutame abifunktsiooni CreateLight, et koodi mitte korrata)
+			// 2. Loome foori tuled
 			redLight = CreateLight("Punane");
 			yellowLight = CreateLight("Kollane");
 			greenLight = CreateLight("Roheline");
@@ -56,7 +53,6 @@ namespace Tund2
 			};
 			offButton.Clicked += OnSwitchOff;
 
-			// Lisavõimalus: Automaatrežiimi nupp
 			autoButton = new Button
 			{
 				Text = "Auto",
@@ -76,7 +72,6 @@ namespace Tund2
 			};
 			nightButton.Clicked += OnNightMode;
 
-			// Paigutame nupud paindlikult (FlexLayout), et nad oleksid alati keskel ja mahuksid ekraanile
 			var buttonsLayout = new FlexLayout
 			{
 				Children = { onButton, offButton, autoButton, nightButton },
@@ -139,7 +134,6 @@ namespace Tund2
 			};
 		}
 
-		// Abifunktsioon tulede loomiseks
 		private Border CreateLight(string colorName)
 		{
 			Border lightBorder = new Border
@@ -152,14 +146,13 @@ namespace Tund2
 				HorizontalOptions = LayoutOptions.Center
 			};
 
-			// Lisame puudutuse tuvastaja (TapGestureRecognizer)
 			var tapGesture = new TapGestureRecognizer();
 			tapGesture.Tapped += async (s, e) =>
 			{
 				if (!isTrafficLightOn)
 				{
 					headerLabel.Text = "Lülita esmalt foor sisse!";
-					// Väike raputusanimatsioon, et anda märku veast
+					// Väike animatsioon, et anda märku veast
 					await lightBorder.TranslateToAsync(-5, 0, 50);
 					await lightBorder.TranslateToAsync(5, 0, 50);
 					await lightBorder.TranslateToAsync(0, 0, 50);
@@ -175,7 +168,7 @@ namespace Tund2
 				}
 				else if (colorName == "Kollane")
 				{
-					// Kui punast vajutati vähem kui 2 sekundit tagasi
+					// Kui punast vajutati vähem kui 1 sekundit tagasi
 					if (DateTime.Now - lastRedPress < TimeSpan.FromSeconds(1))
 					{
 						text = "Valmista";
@@ -192,7 +185,7 @@ namespace Tund2
 
 				headerLabel.Text = text;
 
-				// Animatsioon (Sinu näite põhjal)
+				// Animatsioon
 				await Task.WhenAll(
 					lightBorder.ScaleToAsync(1.2, 150),
 					lightBorder.FadeToAsync(0.5, 150)
@@ -215,8 +208,6 @@ namespace Tund2
 			isNightMode = false;
 			headerLabel.Text = "Vali valgus";
 
-			// Taastame algsed värvid, aga tuhmimalt või "ooterežiimis"
-			// Või lülitame kõik sisse. Siin teen nii, et nad on aktiivsed (värvilised)
 			redLight.Background = Colors.Red;
 			yellowLight.Background = Colors.Yellow;
 			greenLight.Background = Colors.Green;
@@ -229,16 +220,13 @@ namespace Tund2
 			isNightMode = false;
 			headerLabel.Text = "Foor on väljas";
 
-			// Kõik halliks
-			redLight.Background = Colors.Gray;
-			yellowLight.Background = Colors.Gray;
-			greenLight.Background = Colors.Gray;
+			ResetColors();
 		}
 
-		// Boonus: Automaatrežiim (tsükkel)
+		// Automaatrežiim (tsükkel)
 		private async void OnAutoMode(object? sender, EventArgs e)
 		{
-			if (isAutoMode) return; // Juba töötab
+			if (isAutoMode) return;
 
 			isTrafficLightOn = true;
 			isAutoMode = true;
@@ -285,7 +273,6 @@ namespace Tund2
 			}
 		}
 
-		// Abifunktsioon taimeri näitamiseks
 		private async Task CountdownDelay(int seconds, string statusText)
 		{
 			for (int i = seconds; i > 0; i--)
@@ -296,10 +283,9 @@ namespace Tund2
 			}
 		}
 
-		// Öörežiim: Ainult kollane vilgub
 		private async void OnNightMode(object? sender, EventArgs e)
 		{
-			if (isNightMode) return; // Juba töötab
+			if (isNightMode) return;
 
 			isTrafficLightOn = true;
 			isAutoMode = false;
@@ -321,8 +307,6 @@ namespace Tund2
 
 		private void ResetColors()
 		{
-			// Abifunktsioon automaatrežiimi jaoks, teeb kõik halliks enne uue värvi süttimist
-			// (või jätab halliks need, mis ei põle)
 			redLight.Background = Colors.Gray;
 			yellowLight.Background = Colors.Gray;
 			greenLight.Background = Colors.Gray;
