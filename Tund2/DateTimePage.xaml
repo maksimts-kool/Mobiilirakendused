@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.DateTimePage"
+             Title="Kuupäev ja kellaaeg"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray950}}">
+
+       <ScrollView>
+              <VerticalStackLayout Spacing="20"
+                                   Padding="30"
+                                   VerticalOptions="Center">
+
+                     <Label Text="Aja määramine"
+                            FontSize="32"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"
+                            FontFamily="OpenSans-Regular"
+                            Margin="0,0,0,10"/>
+
+                     <Border Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}"
+                             Stroke="Transparent"
+                             Padding="20">
+                            <Border.StrokeShape>
+                                   <RoundRectangle CornerRadius="15"/>
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="15">
+                                   <VerticalStackLayout Spacing="5">
+                                          <Label Text="VALI KUUPÄEV"
+                                                 FontSize="Caption"
+                                                 FontAttributes="Bold"
+                                                 TextColor="{StaticResource Gray500}"/>
+                                          <DatePicker x:Name="datePicker"
+                                                      DateSelected="OnDateSelected"
+                                                      Format="dd.MM.yyyy"
+                                                      TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>
+                                   </VerticalStackLayout>
+
+                                   <BoxView HeightRequest="1"
+                                            Color="{StaticResource Gray200}"
+                                            Margin="0,5"/>
+
+                                   <VerticalStackLayout Spacing="5">
+                                          <Label Text="VALI KELLAAEG"
+                                                 FontSize="Caption"
+                                                 FontAttributes="Bold"
+                                                 TextColor="{StaticResource Gray500}"/>
+                                          <TimePicker x:Name="timePicker"
+                                                      PropertyChanged="OnTimePropertyChanged"
+                                                      Format="HH:mm"
+                                                      TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>
+                                   </VerticalStackLayout>
+                            </VerticalStackLayout>
+                     </Border>
+
+                     <Border Background="{StaticResource Primary}"
+                             Padding="25"
+                             Stroke="Transparent">
+                            <Border.StrokeShape>
+                                   <RoundRectangle CornerRadius="15"/>
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="5">
+                                   <Label x:Name="lblResult"
+                                          Text="Siia tuleb valitud aeg"
+                                          TextColor="White"
+                                          FontSize="20"
+                                          FontAttributes="Bold"
+                                          HorizontalTextAlignment="Center"
+                                          VerticalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                     </Border>
+
+              </VerticalStackLayout>
+       </ScrollView>
+</ContentPage>

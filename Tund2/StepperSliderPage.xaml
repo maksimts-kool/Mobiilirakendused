@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.StepperSliderPage"
+             Title="RGB Slider &amp; Stepper">
+
+       <ScrollView>
+              <VerticalStackLayout Spacing="20"
+                                   Padding="30"
+                                   VerticalOptions="Center">
+
+                     <Border x:Name="ColorBox"
+                             Background="Black"
+                             Padding="20"
+                             HorizontalOptions="Center"
+                             HeightRequest="150"
+                             WidthRequest="250">
+                            <Border.StrokeShape>
+                                   <RoundRectangle CornerRadius="0"/>
+                            </Border.StrokeShape>
+                            <Border.Shadow>
+                                   <Shadow Offset="0,2"
+                                           Radius="5"
+                                           Opacity="0.2"
+                                           Brush="Black"/>
+                            </Border.Shadow>
+
+                            <Label x:Name="lblHex"
+                                   Text="#000000"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   TextColor="White"
+                                   FontSize="24"
+                                   FontAttributes="Bold"/>
+                     </Border>
+
+                     <VerticalStackLayout Spacing="10"
+                                          HorizontalOptions="Center"
+                                          WidthRequest="350">
+                            <Grid ColumnDefinitions="*, Auto">
+                                   <Label Text="Punane (0-255):"
+                                          TextColor="Red"
+                                          VerticalOptions="Center"/>
+                                   <Label x:Name="lblRedValue"
+                                          Grid.Column="1"
+                                          Text="0"
+                                          TextColor="Red"
+                                          FontAttributes="Bold"
+                                          WidthRequest="40"
+                                          HorizontalTextAlignment="End"/>
+                            </Grid>
+                            <Grid ColumnDefinitions="*, 40"
+                                  ColumnSpacing="10">
+                                   <Slider x:Name="sldRed"
+                                           Minimum="0"
+                                           Maximum="255"
+                                           ValueChanged="OnColorSliderChanged"
+                                           ThumbColor="Red"
+                                           MinimumTrackColor="Red"/>
+                                   <Border x:Name="boxRed"
+                                           Grid.Column="1"
+                                           WidthRequest="30"
+                                           HeightRequest="30"
+                                           Background="Red"
+                                           StrokeThickness="0"
+                                           VerticalOptions="Center">
+                                          <Border.StrokeShape>
+                                                 <RoundRectangle CornerRadius="5"/>
+                                          </Border.StrokeShape>
+                                   </Border>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*, Auto"
+                                  Margin="0,10,0,0">
+                                   <Label Text="Roheline (0-255):"
+                                          TextColor="Green"
+                                          VerticalOptions="Center"/>
+                                   <Label x:Name="lblGreenValue"
+                                          Grid.Column="1"
+                                          Text="0"
+                                          TextColor="Green"
+                                          FontAttributes="Bold"
+                                          WidthRequest="40"
+                                          HorizontalTextAlignment="End"/>
+                            </Grid>
+                            <Grid ColumnDefinitions="*, 40"
+                                  ColumnSpacing="10">
+                                   <Slider x:Name="sldGreen"
+                                           Minimum="0"
+                                           Maximum="255"
+                                           ValueChanged="OnColorSliderChanged"
+                                           ThumbColor="Green"
+                                           MinimumTrackColor="Green"/>
+                                   <Border x:Name="boxGreen"
+                                           Grid.Column="1"
+                                           WidthRequest="30"
+                                           HeightRequest="30"
+                                           Background="Green"
+                                           StrokeThickness="0"
+                                           VerticalOptions="Center">
+                                          <Border.StrokeShape>
+                                                 <RoundRectangle CornerRadius="5"/>
+                                          </Border.StrokeShape>
+                                   </Border>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*, Auto"
+                                  Margin="0,10,0,0">
+                                   <Label Text="Sinine (0-255):"
+                                          TextColor="Blue"
+                                          VerticalOptions="Center"/>
+                                   <Label x:Name="lblBlueValue"
+                                          Grid.Column="1"
+                                          Text="0"
+                                          TextColor="Blue"
+                                          FontAttributes="Bold"
+                                          WidthRequest="40"
+                                          HorizontalTextAlignment="End"/>
+                            </Grid>
+                            <Grid ColumnDefinitions="*, 40"
+                                  ColumnSpacing="10">
+                                   <Slider x:Name="sldBlue"
+                                           Minimum="0"
+                                           Maximum="255"
+                                           ValueChanged="OnColorSliderChanged"
+                                           ThumbColor="Blue"
+                                           MinimumTrackColor="Blue"/>
+                                   <Border x:Name="boxBlue"
+                                           Grid.Column="1"
+                                           WidthRequest="30"
+                                           HeightRequest="30"
+                                           Background="Blue"
+                                           StrokeThickness="0"
+                                           VerticalOptions="Center">
+                                          <Border.StrokeShape>
+                                                 <RoundRectangle CornerRadius="5"/>
+                                          </Border.StrokeShape>
+                                   </Border>
+                            </Grid>
+                     </VerticalStackLayout>
+
+                     <VerticalStackLayout Spacing="10"
+                                          HorizontalOptions="Center"
+                                          Margin="0,20,0,0">
+                            <Label Text="Nurkade ümarus:"
+                                   HorizontalOptions="Center"/>
+                            <HorizontalStackLayout Spacing="15"
+                                                   HorizontalOptions="Center">
+                                   <Stepper x:Name="stpCorner"
+                                            Minimum="0"
+                                            Maximum="75"
+                                            Increment="5"
+                                            ValueChanged="OnStepperValueChanged"/>
+                                   <Label x:Name="lblCornerRadius"
+                                          Text="0"
+                                          FontAttributes="Bold"
+                                          VerticalOptions="Center"
+                                          FontSize="18"/>
+                            </HorizontalStackLayout>
+                     </VerticalStackLayout>
+
+                     <Button Text="Juhuslik Värv"
+                             Clicked="OnRandomColorClicked"
+                             BackgroundColor="{StaticResource Primary}"
+                             TextColor="White"
+                             HorizontalOptions="Center"
+                             WidthRequest="200"
+                             Margin="0,20,0,0"/>
+
+              </VerticalStackLayout>
+       </ScrollView>
+</ContentPage>

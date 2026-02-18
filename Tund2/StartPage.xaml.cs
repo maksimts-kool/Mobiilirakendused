@@ -9,9 +9,11 @@ public partial class StartPage : ContentPage
 	new TextPage(0),
 	new FigurePage(1),
 	new Timer_Page(),
-	new ValgusfoorPage()
+	new ValgusfoorPage(),
+	new DateTimePage(),
+	new StepperSliderPage()
 };
-	public List<string> pageNames = new List<string>() { "Tekst", "Kujund", "Taimer", "Valgusfoor" };
+	public List<string> pageNames = new List<string>() { "Tekst", "Kujund", "Taimer", "Valgusfoor", "DateTime", "Slider" };
 	public StartPage()
 	{
 		InitializeComponent();
