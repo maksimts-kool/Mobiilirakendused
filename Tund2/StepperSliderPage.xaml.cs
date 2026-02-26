@@ -58,7 +58,7 @@ public partial class StepperSliderPage : ContentPage
 		int targetG = rnd.Next(0, 256);
 		int targetB = rnd.Next(0, 256);
 
-		// Animeerime liugurid (peame arvestama inversiooniga: sld = 255 - target)
+		// Animeerime liugurid
 		sldRed.Value = targetR;
 		await Task.Delay(50);
 		sldGreen.Value = targetG;

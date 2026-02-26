@@ -24,7 +24,6 @@
                                            Opacity="0.2"
                                            Brush="Black"/>
                             </Border.Shadow>
-
                             <Label x:Name="lblHex"
                                    Text="#000000"
                                    HorizontalOptions="Center"
@@ -37,28 +36,30 @@
                      <VerticalStackLayout Spacing="10"
                                           HorizontalOptions="Center"
                                           WidthRequest="350">
-                            <Grid ColumnDefinitions="*, Auto">
+
+                            <!-- RED -->
+                            <StackLayout Orientation="Horizontal">
                                    <Label Text="Punane (0-255):"
                                           TextColor="Red"
-                                          VerticalOptions="Center"/>
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="FillAndExpand"/>
                                    <Label x:Name="lblRedValue"
-                                          Grid.Column="1"
                                           Text="0"
                                           TextColor="Red"
                                           FontAttributes="Bold"
                                           WidthRequest="40"
                                           HorizontalTextAlignment="End"/>
-                            </Grid>
-                            <Grid ColumnDefinitions="*, 40"
-                                  ColumnSpacing="10">
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal"
+                                          Spacing="10">
                                    <Slider x:Name="sldRed"
                                            Minimum="0"
                                            Maximum="255"
                                            ValueChanged="OnColorSliderChanged"
                                            ThumbColor="Red"
-                                           MinimumTrackColor="Red"/>
+                                           MinimumTrackColor="Red"
+                                           HorizontalOptions="FillAndExpand"/>
                                    <Border x:Name="boxRed"
-                                           Grid.Column="1"
                                            WidthRequest="30"
                                            HeightRequest="30"
                                            Background="Red"
@@ -68,31 +69,32 @@
                                                  <RoundRectangle CornerRadius="5"/>
                                           </Border.StrokeShape>
                                    </Border>
-                            </Grid>
+                            </StackLayout>
 
-                            <Grid ColumnDefinitions="*, Auto"
-                                  Margin="0,10,0,0">
+                            <!-- GREEN -->
+                            <StackLayout Orientation="Horizontal"
+                                          Margin="0,10,0,0">
                                    <Label Text="Roheline (0-255):"
                                           TextColor="Green"
-                                          VerticalOptions="Center"/>
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="FillAndExpand"/>
                                    <Label x:Name="lblGreenValue"
-                                          Grid.Column="1"
                                           Text="0"
                                           TextColor="Green"
                                           FontAttributes="Bold"
                                           WidthRequest="40"
                                           HorizontalTextAlignment="End"/>
-                            </Grid>
-                            <Grid ColumnDefinitions="*, 40"
-                                  ColumnSpacing="10">
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal"
+                                          Spacing="10">
                                    <Slider x:Name="sldGreen"
                                            Minimum="0"
                                            Maximum="255"
                                            ValueChanged="OnColorSliderChanged"
                                            ThumbColor="Green"
-                                           MinimumTrackColor="Green"/>
+                                           MinimumTrackColor="Green"
+                                           HorizontalOptions="FillAndExpand"/>
                                    <Border x:Name="boxGreen"
-                                           Grid.Column="1"
                                            WidthRequest="30"
                                            HeightRequest="30"
                                            Background="Green"
@@ -102,31 +104,32 @@
                                                  <RoundRectangle CornerRadius="5"/>
                                           </Border.StrokeShape>
                                    </Border>
-                            </Grid>
+                            </StackLayout>
 
-                            <Grid ColumnDefinitions="*, Auto"
-                                  Margin="0,10,0,0">
+                            <!-- BLUE -->
+                            <StackLayout Orientation="Horizontal"
+                                          Margin="0,10,0,0">
                                    <Label Text="Sinine (0-255):"
                                           TextColor="Blue"
-                                          VerticalOptions="Center"/>
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="FillAndExpand"/>
                                    <Label x:Name="lblBlueValue"
-                                          Grid.Column="1"
                                           Text="0"
                                           TextColor="Blue"
                                           FontAttributes="Bold"
                                           WidthRequest="40"
                                           HorizontalTextAlignment="End"/>
-                            </Grid>
-                            <Grid ColumnDefinitions="*, 40"
-                                  ColumnSpacing="10">
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal"
+                                          Spacing="10">
                                    <Slider x:Name="sldBlue"
                                            Minimum="0"
                                            Maximum="255"
                                            ValueChanged="OnColorSliderChanged"
                                            ThumbColor="Blue"
-                                           MinimumTrackColor="Blue"/>
+                                           MinimumTrackColor="Blue"
+                                           HorizontalOptions="FillAndExpand"/>
                                    <Border x:Name="boxBlue"
-                                           Grid.Column="1"
                                            WidthRequest="30"
                                            HeightRequest="30"
                                            Background="Blue"
@@ -136,7 +139,8 @@
                                                  <RoundRectangle CornerRadius="5"/>
                                           </Border.StrokeShape>
                                    </Border>
-                            </Grid>
+                            </StackLayout>
+
                      </VerticalStackLayout>
 
                      <VerticalStackLayout Spacing="10"
