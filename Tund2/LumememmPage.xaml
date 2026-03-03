@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.LumememmPage"
+             Title="Lumememm">
+    <ScrollView>
+        <VerticalStackLayout Spacing="12"
+                             Padding="20">
+
+            <!-- LUMEMEMM  -->
+            <Border Stroke="LightBlue"
+                    StrokeThickness="2"
+                    Padding="0"
+                    BackgroundColor="#EEF6FF"
+                    HorizontalOptions="Center"
+                    WidthRequest="320">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <Grid>
+                    <Image x:Name="boxBackgroundDay"
+                           Source="snownormal.png"
+                           Aspect="AspectFill"/>
+                    <Image x:Name="boxBackgroundNight"
+                           Source="snownormalnight.png"
+                           Aspect="AspectFill"
+                           Opacity="0"/>
+                    <AbsoluteLayout x:Name="snowmanLayout"
+                                    HeightRequest="400"
+                                    WidthRequest="300"
+                                    HorizontalOptions="Center">
+
+                        <!-- Ämber – keha -->
+                        <BoxView x:Name="hatBody"
+                                 Color="#8B4513"
+                                 CornerRadius="4"
+                                 AbsoluteLayout.LayoutBounds="105, 62, 90, 55"
+                                 AbsoluteLayout.LayoutFlags="None"/>
+
+                        <!-- Ämber – ääris -->
+                        <BoxView x:Name="hatBrim"
+                                 Color="#6B3410"
+                                 CornerRadius="4"
+                                 AbsoluteLayout.LayoutBounds="78, 114, 144, 14"
+                                 AbsoluteLayout.LayoutFlags="None"/>
+
+                        <!-- Pea -->
+                        <Border x:Name="headFrame"
+                                BackgroundColor="White"
+                                Stroke="#CCCCCC"
+                                StrokeThickness="1"
+                                AbsoluteLayout.LayoutBounds="100, 128, 100, 100"
+                                AbsoluteLayout.LayoutFlags="None"
+                                Padding="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="50"/>
+                            </Border.StrokeShape>
+                        </Border>
+
+                        <!-- Vasak silm -->
+                        <BoxView x:Name="leftEye"
+                                 Color="#222222"
+                                 CornerRadius="5"
+                                 AbsoluteLayout.LayoutBounds="126, 154, 12, 12"
+                                 AbsoluteLayout.LayoutFlags="None"/>
+
+                        <!-- Parem silm -->
+                        <BoxView x:Name="rightEye"
+                                 Color="#222222"
+                                 CornerRadius="5"
+                                 AbsoluteLayout.LayoutBounds="162, 154, 12, 12"
+                                 AbsoluteLayout.LayoutFlags="None"/>
+
+                        <!-- Nina -->
+                        <BoxView x:Name="nose"
+                                 Color="OrangeRed"
+                                 CornerRadius="3"
+                                 AbsoluteLayout.LayoutBounds="144, 170, 14, 9"
+                                 AbsoluteLayout.LayoutFlags="None"/>
+
+                        <!-- Keha -->
+                        <Border x:Name="bodyFrame"
+                                BackgroundColor="White"
+                                Stroke="#CCCCCC"
+                                StrokeThickness="1"
+                                AbsoluteLayout.LayoutBounds="75, 228, 150, 150"
+                                AbsoluteLayout.LayoutFlags="None"
+                                Padding="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="75"/>
+                            </Border.StrokeShape>
+                        </Border>
+
+                        <!-- Nupud kehal -->
+                        <BoxView x:Name="bodyBtn1"
+                                 Color="#333333"
+                                 CornerRadius="6"
+                                 AbsoluteLayout.LayoutBounds="144, 255, 12, 12"
+                                 AbsoluteLayout.LayoutFlags="None"/>
+                        <BoxView x:Name="bodyBtn2"
+                                 Color="#333333"
+                                 CornerRadius="6"
+                                 AbsoluteLayout.LayoutBounds="144, 278, 12, 12"
+                                 AbsoluteLayout.LayoutFlags="None"/>
+                        <BoxView x:Name="bodyBtn3"
+                                 Color="#333333"
+                                 CornerRadius="6"
+                                 AbsoluteLayout.LayoutBounds="144, 301, 12, 12"
+                                 AbsoluteLayout.LayoutFlags="None"/>
+
+                    </AbsoluteLayout>
+                </Grid>
+            </Border>
+
+            <!-- VALITUD TEGEVUSE NIMI -->
+            <Label x:Name="actionLabel"
+                   Text="Vali tegevus Pickerist"
+                   FontSize="17"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#3366CC"/>
+
+            <!-- tegevuse valik -->
+            <Label Text="Tegevus:"
+                   FontSize="14"
+                   TextColor="Gray"/>
+            <Picker x:Name="actionPicker"
+                    Title="-- Vali tegevus --"
+                    FontSize="15"
+                    SelectedIndexChanged="OnPickerChanged">
+                <Picker.Items>
+                    <x:String>Peida lumememm</x:String>
+                    <x:String>Näita lumememm</x:String>
+                    <x:String>Muuda värvi</x:String>
+                    <x:String>Sulata</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <!-- ÖÖ/PÄEV -->
+            <Grid ColumnDefinitions="Auto, Auto, *"
+                  ColumnSpacing="10"
+                  VerticalOptions="Center">
+                <Label Text="Päev / Öö tsükkel:"
+                       FontSize="14"
+                       TextColor="Gray"
+                       VerticalOptions="Center"/>
+                <Switch x:Name="dayNightSwitch"
+                        Grid.Column="1"
+                        Toggled="OnDayNightSwitchToggled"
+                        VerticalOptions="Center"/>
+                <Label x:Name="timeLabel"
+                       Grid.Column="2"
+                       Text="12:00"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- KÄIVITA -->
+            <Button x:Name="executeButton"
+                    Text="Käivita tegevus"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    BackgroundColor="#3366CC"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Clicked="OnExecuteClicked"/>
+
+            <!-- läbipaistvus -->
+            <Label Text="Läbipaistvus:"
+                   FontSize="14"
+                   TextColor="Gray"/>
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="0%"
+                       FontSize="12"
+                       VerticalOptions="Center"/>
+                <Slider x:Name="opacitySlider"
+                        Minimum="0"
+                        Maximum="1"
+                        Value="1"
+                        HorizontalOptions="Fill"
+                        ValueChanged="OnOpacityChanged"/>
+                <Label Text="100%"
+                       FontSize="12"
+                       VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+
+            <!-- kiirus -->
+            <Label Text="Animatsiooni kiirus:"
+                   FontSize="14"
+                   TextColor="Gray"/>
+            <HorizontalStackLayout Spacing="12"
+                                   VerticalOptions="Center">
+                <Label Text="Aeglane"
+                       FontSize="12"
+                       VerticalOptions="Center"/>
+                <Stepper x:Name="speedStepper"
+                         Minimum="100"
+                         Maximum="3000"
+                         Increment="100"
+                         Value="1000"
+                         ValueChanged="OnSpeedChanged"/>
+                <Label Text="Kiire"
+                       FontSize="12"
+                       VerticalOptions="Center"/>
+                <Label x:Name="speedLabel"
+                       Text="1000 ms"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       TextColor="#3366CC"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
