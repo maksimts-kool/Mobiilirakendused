@@ -76,7 +76,7 @@ public partial class LumememmPage : ContentPage
         while (isCycleRunning)
         {
             int tickDelay = 40; // fps
-            double timeStep = 10.0 / ((int)speedStepper.Value * 4.0 / tickDelay);
+            double timeStep = 5.0 / ((int)speedStepper.Value * 4.0 / tickDelay);
 
             // Uuenda kellaaega
             currentTimeHour += timeStep;

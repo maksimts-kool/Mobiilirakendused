@@ -9,15 +9,15 @@ public partial class StartPage : ContentPage
 		InitializeComponent();
 		Title = "Minu Projektid";
 
-		var pages = new (string Name, string Description, ContentPage Page, string Icon)[]
+		var pages = new (string Name, string Description, Func<ContentPage> CreatePage, string Icon)[]
 		{
-("Tekst", "Töö tekstiga", new TextPage(0), "📝"),
-("Kujund", "Erinevad kujundid", new FigurePage(1), "🟡"),
-("Taimer", "Taimeri kasutamine", new Timer_Page(), "⏱️"),
-("Valgusfoor", "Klassikaline valgusfoor", new ValgusfoorPage(), "🚦"),
-("DateTime", "Kuupäev ja kellaaeg", new DateTimePage(), "📅"),
-("Slider", "Liugurid ja väärtused", new StepperSliderPage(), "🎚️"),
-("Lumememm", "Lumememme joonistamine", new LumememmPage(), "⛄")
+("Tekst", "Töö tekstiga", () => new TextPage(0), "📝"),
+("Kujund", "Erinevad kujundid", () => new FigurePage(1), "🟡"),
+("Taimer", "Taimeri kasutamine", () => new Timer_Page(), "⏱️"),
+("Valgusfoor", "Klassikaline valgusfoor", () => new ValgusfoorPage(), "🚦"),
+("DateTime", "Kuupäev ja kellaaeg", () => new DateTimePage(), "📅"),
+("Slider", "Liugurid ja väärtused", () => new StepperSliderPage(), "🎚️"),
+("Lumememm", "Lumememme joonistamine", () => new LumememmPage(), "⛄")
 		};
 
 		var layout = new VerticalStackLayout
@@ -102,11 +102,21 @@ new ColumnDefinition { Width = GridLength.Star }
 			border.Content = grid;
 
 			var tapGesture = new TapGestureRecognizer();
+			bool isNavigating = false;
 			tapGesture.Tapped += async (s, e) =>
 			{
-				await border.ScaleToAsync(0.95, 100);
-				await border.ScaleToAsync(1, 100);
-				await Navigation.PushAsync(item.Page);
+				if (isNavigating) return;
+				isNavigating = true;
+				try
+				{
+					await border.ScaleToAsync(0.95, 100);
+					await border.ScaleToAsync(1, 100);
+					await Navigation.PushAsync(item.CreatePage());
+				}
+				finally
+				{
+					isNavigating = false;
+				}
 			};
 			border.GestureRecognizers.Add(tapGesture);
 
