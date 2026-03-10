@@ -17,7 +17,8 @@ public partial class StartPage : ContentPage
 ("Valgusfoor", "Klassikaline valgusfoor", () => new ValgusfoorPage(), "🚦"),
 ("DateTime", "Kuupäev ja kellaaeg", () => new DateTimePage(), "📅"),
 ("Slider", "Liugurid ja väärtused", () => new StepperSliderPage(), "🎚️"),
-("Lumememm", "Lumememme joonistamine", () => new LumememmPage(), "⛄")
+("Lumememm", "Lumememme joonistamine", () => new LumememmPage(), "⛄"),
+("Pop-up aknad", "Dialoogiaknad ja hüpikud", () => new Pop_Up_Page(), "💬")
 		};
 
 		var layout = new VerticalStackLayout
