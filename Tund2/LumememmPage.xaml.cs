@@ -75,7 +75,7 @@ public partial class LumememmPage : ContentPage
     {
         while (isCycleRunning)
         {
-            int tickDelay = 40; // fps
+            int tickDelay = 40; // ms
             double timeStep = 5.0 / ((int)speedStepper.Value * 4.0 / tickDelay);
 
             // Uuenda kellaaega
@@ -178,7 +178,7 @@ public partial class LumememmPage : ContentPage
         isMelted = true;
         actionLabel.Text = "Lumememm sulab... 💧";
 
-        uint duration = (uint)(durationMs * 2);
+        uint duration = (uint)(durationMs * 2); // ainult positiivsed
 
         var tasks = Task.WhenAll(
             snowmanLayout.FadeToAsync(0, duration, Easing.CubicIn),
