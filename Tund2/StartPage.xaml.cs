@@ -18,7 +18,8 @@ public partial class StartPage : ContentPage
 ("DateTime", "Kuupäev ja kellaaeg", () => new DateTimePage(), "📅"),
 ("Slider", "Liugurid ja väärtused", () => new StepperSliderPage(), "🎚️"),
 ("Lumememm", "Lumememme joonistamine", () => new LumememmPage(), "⛄"),
-("Pop-up aknad", "Dialoogiaknad ja hüpikud", () => new Pop_Up_Page(), "💬")
+("Pop-up aknad", "Dialoogiaknad ja hüpikud", () => new Pop_Up_Page(), "💬"),
+("Kohvikonstruktor", "Ideaalse kohvi tellimine", () => new KohvikPage(), "☕")
 		};
 
 		var layout = new VerticalStackLayout

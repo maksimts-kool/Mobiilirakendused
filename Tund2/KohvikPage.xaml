@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Tund2.KohvikPage"
+    Title="Kohviku konstruktor"
+    BackgroundColor="#3E2A1A">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Pealkiri -->
+        <Label Grid.Row="0"
+               Text="☕ Ideaalne kohv"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="#F5DEB3"
+               HorizontalOptions="Center"
+               Margin="0,24,0,0"/>
+
+        <!-- Keskel: staakanik + infopaneel -->
+        <VerticalStackLayout Grid.Row="1"
+                             VerticalOptions="Center"
+                             Spacing="20"
+                             Padding="20,0">
+
+            <!-- Staakanik (visuaalne) -->
+            <Border x:Name="cupBorder"
+                    WidthRequest="150"
+                    HeightRequest="190"
+                    HorizontalOptions="Center"
+                    BackgroundColor="#FAEBD7"
+                    Stroke="#8B4513"
+                    StrokeThickness="3"
+                    Padding="8">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,10,30,30"/>
+                </Border.StrokeShape>
+                <Grid RowDefinitions="*,Auto">
+                    <!-- Emoji staakanik -->
+                    <Label x:Name="cupEmojiLabel"
+                           Grid.Row="0"
+                           Text="☕"
+                           FontSize="80"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                    <!-- Kliendi nimi (baristamärkuse imitatsioon) -->
+                    <Label x:Name="nameOnCupLabel"
+                           Grid.Row="1"
+                           Text=""
+                           FontSize="15"
+                           FontAttributes="Bold,Italic"
+                           TextColor="#5C2A00"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"
+                           Margin="0,0,0,4"
+                           IsVisible="False"/>
+                </Grid>
+            </Border>
+
+            <!-- Infopaneel -->
+            <Border Padding="15,12"
+                    StrokeThickness="0"
+                    BackgroundColor="#5C3317">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <Label x:Name="infoLabel"
+                       Text="Vajuta 'Uus tellimus', et koostada oma ideaalne kohv..."
+                       FontSize="14"
+                       TextColor="#F5DEB3"
+                       HorizontalTextAlignment="Center"
+                       LineBreakMode="WordWrap"/>
+            </Border>
+
+        </VerticalStackLayout>
+
+        <!-- Nupud -->
+        <VerticalStackLayout Grid.Row="2"
+                             Spacing="10"
+                             Padding="20,0,20,35">
+
+            <Button x:Name="newOrderButton"
+                    Text="☕  Uus tellimus"
+                    BackgroundColor="#C8860A"
+                    TextColor="White"
+                    CornerRadius="12"
+                    HeightRequest="56"
+                    FontSize="17"
+                    FontAttributes="Bold"
+                    Clicked="NewOrder_Clicked"/>
+
+            <Button x:Name="manageOrderButton"
+                    Text="⚙️  Halda tellimust"
+                    BackgroundColor="#4A2E10"
+                    TextColor="#888888"
+                    CornerRadius="12"
+                    HeightRequest="50"
+                    FontSize="16"
+                    IsEnabled="False"
+                    Clicked="ManageOrder_Clicked"/>
+
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>
