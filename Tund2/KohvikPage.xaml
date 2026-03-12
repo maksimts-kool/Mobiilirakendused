@@ -10,7 +10,7 @@
 
         <!-- Pealkiri -->
         <Label Grid.Row="0"
-               Text="☕ Ideaalne kohv"
+               Text="Ideaalne kohv"
                FontSize="24"
                FontAttributes="Bold"
                TextColor="#F5DEB3"
@@ -23,42 +23,65 @@
                              Spacing="20"
                              Padding="20,0">
 
-            <!-- Staakanik (visuaalne) -->
-            <Border x:Name="cupBorder"
-                    WidthRequest="150"
-                    HeightRequest="190"
-                    HorizontalOptions="Center"
-                    BackgroundColor="#FAEBD7"
-                    Stroke="#8B4513"
-                    StrokeThickness="3"
-                    Padding="8">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10,10,30,30"/>
-                </Border.StrokeShape>
-                <Grid RowDefinitions="*,Auto">
-                    <!-- Emoji staakanik -->
-                    <Label x:Name="cupEmojiLabel"
-                           Grid.Row="0"
-                           Text="☕"
-                           FontSize="80"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"/>
-                    <!-- Kliendi nimi (baristamärkuse imitatsioon) -->
-                    <Label x:Name="nameOnCupLabel"
-                           Grid.Row="1"
-                           Text=""
-                           FontSize="15"
-                           FontAttributes="Bold,Italic"
-                           TextColor="#5C2A00"
-                           HorizontalOptions="Center"
-                           HorizontalTextAlignment="Center"
-                           Margin="0,0,0,4"
-                           IsVisible="False"/>
-                </Grid>
-            </Border>
+            <!-- Staakanik + käepide -->
+            <Grid x:Name="cupWrapper"
+                  WidthRequest="185"
+                  HeightRequest="190"
+                  HorizontalOptions="Center">
+
+                <!-- Käepide (taga, joonistatud enne tassi) -->
+                <Border x:Name="cupHandle"
+                        WidthRequest="55"
+                        HeightRequest="85"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        BackgroundColor="#FAEBD7"
+                        Stroke="#8B4513"
+                        StrokeThickness="3">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0,4,0,28"/>
+                    </Border.StrokeShape>
+                </Border>
+
+                <!-- Tassi keha (ees, katab käepide vasaku serva) -->
+                <Border x:Name="cupBorder"
+                        WidthRequest="150"
+                        HeightRequest="190"
+                        HorizontalOptions="Start"
+                        BackgroundColor="#FAEBD7"
+                        Stroke="#8B4513"
+                        StrokeThickness="3"
+                        Padding="8">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,30,30"/>
+                    </Border.StrokeShape>
+                    <Grid RowDefinitions="*,Auto">
+                        <!-- Emoji staakanik -->
+                        <Label x:Name="cupEmojiLabel"
+                               Grid.Row="0"
+                               Text="☕"
+                               FontSize="80"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        <!-- Kliendi nimi (baristamärkuse imitatsioon) -->
+                        <Label x:Name="nameOnCupLabel"
+                               Grid.Row="1"
+                               Text=""
+                               FontSize="15"
+                               FontAttributes="Bold,Italic"
+                               TextColor="#5C2A00"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,0,0,4"
+                               IsVisible="False"/>
+                    </Grid>
+                </Border>
+
+            </Grid>
 
             <!-- Infopaneel -->
-            <Border Padding="15,12"
+            <Border x:Name="infoBorder"
+                    Padding="15,12"
                     StrokeThickness="0"
                     BackgroundColor="#5C3317">
                 <Border.StrokeShape>
@@ -78,6 +101,33 @@
         <VerticalStackLayout Grid.Row="2"
                              Spacing="10"
                              Padding="20,0,20,35">
+
+            <!-- Hinna kaart -->
+            <Border x:Name="priceBorder"
+                    Padding="14,10"
+                    StrokeThickness="1.5"
+                    Stroke="#C8860A"
+                    BackgroundColor="#2A1800"
+                    IsVisible="False">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Grid.Column="0"
+                           Text="KOKKU"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="#C8860A"
+                           VerticalOptions="Center"/>
+                    <Label x:Name="priceLabel"
+                           Grid.Column="1"
+                           Text="0.00 €"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="#F5DEB3"
+                           VerticalOptions="Center"/>
+                </Grid>
+            </Border>
 
             <Button x:Name="newOrderButton"
                     Text="☕  Uus tellimus"
