@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.TicTacToeLosePage"
+             Title="Lose"
+             BackgroundColor="#7EB6FF"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout MaximumWidthRequest="428"
+                             HorizontalOptions="Center"
+                             Padding="30,0"
+                             Spacing="0">
+
+            <!-- Main result image -->
+            <Image x:Name="loserImage"
+                   Source="crosswonlose.png"
+                   WidthRequest="202"
+                   HeightRequest="202"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   Margin="0,140,0,0"/>
+
+            <!-- Player title -->
+            <Label x:Name="loserTitle"
+                   Text="X MÄNGIJA"
+                   FontFamily="PoppinsBold"
+                   FontSize="36"
+                   TextColor="#6E00B7"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,20,0,0"/>
+
+            <!-- Sad faces decoration image -->
+            <Image Source="lostfaces.png"
+                   WidthRequest="340"
+                   HeightRequest="140"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   Margin="0,10,0,0"/>
+
+            <!-- Loss message -->
+            <Label x:Name="loseMessage"
+                   Text="Oih! Sa ei võitnud"
+                   FontFamily="PoppinsMedium"
+                   FontSize="24"
+                   TextColor="#6E00B7"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,25,0,0"/>
+
+            <!-- Subtitle -->
+            <Label x:Name="loseSubMessage"
+                   Text="Võid järgmine kord proovida"
+                   FontFamily="PoppinsMedium"
+                   FontSize="16"
+                   TextColor="#6E00B7"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,5,0,0"/>
+
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*,26,*"
+                  HorizontalOptions="Fill"
+                  Margin="5,50,4,30">
+
+                <Border Grid.Column="0"
+                        HeightRequest="60"
+                        BackgroundColor="#F54066"
+                        StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="13"/>
+                    </Border.StrokeShape>
+                    <Label Text="MINE KOJU"
+                           FontFamily="PoppinsMedium"
+                           FontSize="16"
+                           TextColor="White"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMainMenu"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border Grid.Column="2"
+                        HeightRequest="60"
+                        BackgroundColor="#F54066"
+                        StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="13"/>
+                    </Border.StrokeShape>
+                    <Label Text="MÄNGI UUESTI"
+                           FontFamily="PoppinsMedium"
+                           FontSize="16"
+                           TextColor="White"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnPlayAgain"/>
+                    </Border.GestureRecognizers>
+                </Border>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

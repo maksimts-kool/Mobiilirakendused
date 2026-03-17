@@ -1,42 +1,44 @@
+using Microsoft.Maui.Controls.Shapes;
+
 namespace Tund2;
 
 public partial class TicTacToePage : ContentPage
 {
 	private GameLogic game;
-	private Button[,] boardButtons = new Button[3, 3];
+	private Border[,] boardCells = new Border[3, 3];
+	private Image[,] boardSymbols = new Image[3, 3];
 
 	// Skoor
-	private int xWins, oWins, draws;
-
-	// Teema
-	private bool isDarkTheme = false;
+	private int xWins, oWins;
 
 	// Bot
 	private bool isBotEnabled = false;
 	private bool isBotThinking = false;
 
-	// Seaded (rakendatakse "Uus mäng" vajutamisel)
-	private string selectedFirstPlayer = "X";
-	private int selectedBoardSize = 3;
-
 	// Värvid
-	private Color bgLight = Color.FromArgb("#f0f0f5");
-	private Color bgDark = Color.FromArgb("#1a1a2e");
-	private Color cardLight = Color.FromArgb("#ffffff");
-	private Color cardDark = Color.FromArgb("#16213e");
-	private Color textLight = Color.FromArgb("#2f3542");
-	private Color textDark = Color.FromArgb("#e0e0e0");
-	private Color xColor = Color.FromArgb("#e74c3c");
-	private Color oColor = Color.FromArgb("#3498db");
+	private Color xBgColor = Color.FromArgb("#6E00B8");
+	private Color oBgColor = Color.FromArgb("#FF8000");
+	private Color emptyCellBg = Colors.White;
 
 	public TicTacToePage()
 	{
 		InitializeComponent();
 		LoadScore();
 		game = new GameLogic(3);
-		scoreLabel.Text = GetScoreText();
+		UpdateScoreLabels();
 		BuildBoard(3);
-		UpdateFirstPlayerButtons();
+	}
+
+	public TicTacToePage(bool botEnabled) : this()
+	{
+		isBotEnabled = botEnabled;
+	}
+
+	// ===== Back navigation =====
+
+	private async void OnBackTapped(object? sender, TappedEventArgs e)
+	{
+		await Navigation.PopAsync();
 	}
 
 	// ===== Mänguvälja ehitamine =====
@@ -47,10 +49,12 @@ public partial class TicTacToePage : ContentPage
 		boardGrid.RowDefinitions.Clear();
 		boardGrid.ColumnDefinitions.Clear();
 
-		boardButtons = new Button[size, size];
+		boardCells = new Border[size, size];
+		boardSymbols = new Image[size, size];
 
-		int cellSize = size <= 3 ? 90 : (size == 4 ? 72 : 60);
-		int fontSize = size <= 3 ? 36 : (size == 4 ? 28 : 22);
+		const int cellSize = 108;
+		const int imageSize = 108;
+		const int outerCornerRadius = 26;
 
 		for (int i = 0; i < size; i++)
 		{
@@ -62,34 +66,51 @@ public partial class TicTacToePage : ContentPage
 		{
 			for (int col = 0; col < size; col++)
 			{
-				var btn = new Button
+				var symbolImage = new Image
 				{
-					Text = "",
-					FontSize = fontSize,
-					FontAttributes = FontAttributes.Bold,
+					WidthRequest = imageSize,
+					HeightRequest = imageSize,
+					Aspect = Aspect.AspectFit,
+					HorizontalOptions = LayoutOptions.Center,
+					VerticalOptions = LayoutOptions.Center,
+					IsVisible = false
+				};
+
+				var cell = new Border
+				{
 					WidthRequest = cellSize,
 					HeightRequest = cellSize,
-					CornerRadius = 12,
-					BackgroundColor = isDarkTheme ? cardDark : cardLight,
-					TextColor = textLight,
-					BorderWidth = 2,
-					BorderColor = isDarkTheme ? Color.FromArgb("#2a2a4a") : Color.FromArgb("#d0d0d8"),
-					Shadow = new Shadow
+					Padding = 0,
+					StrokeThickness = 0,
+					BackgroundColor = emptyCellBg,
+					Content = symbolImage,
+					StrokeShape = new RoundRectangle
 					{
-						Brush = Brush.Black,
-						Offset = new Point(0, 2),
-						Opacity = 0.15f,
-						Radius = 4
+						CornerRadius = GetCellCornerRadius(row, col, size, outerCornerRadius)
 					}
 				};
 
 				int r = row, c = col;
-				btn.Clicked += async (s, e) => await OnCellClicked(r, c);
+				cell.GestureRecognizers.Add(new TapGestureRecognizer
+				{
+					Command = new Command(async () => await OnCellClicked(r, c))
+				});
 
-				boardButtons[row, col] = btn;
-				boardGrid.Add(btn, col, row);
+				boardCells[row, col] = cell;
+				boardSymbols[row, col] = symbolImage;
+				boardGrid.Add(cell, col, row);
 			}
 		}
+	}
+
+	private static CornerRadius GetCellCornerRadius(int row, int col, int size, double radius)
+	{
+		double topLeft = row == 0 && col == 0 ? radius : 0;
+		double topRight = row == 0 && col == size - 1 ? radius : 0;
+		double bottomLeft = row == size - 1 && col == 0 ? radius : 0;
+		double bottomRight = row == size - 1 && col == size - 1 ? radius : 0;
+
+		return new CornerRadius(topLeft, topRight, bottomLeft, bottomRight);
 	}
 
 	// ===== Lahtri vajutus =====
@@ -102,15 +123,24 @@ public partial class TicTacToePage : ContentPage
 		string player = game.CurrentPlayer;
 		if (!game.MakeMove(row, col)) return;
 
-		UpdateSettingsEnabled();
-
-		var btn = boardButtons[row, col];
-		btn.Text = player;
-		btn.TextColor = player == "X" ? xColor : oColor;
+		var cell = boardCells[row, col];
+		var symbol = boardSymbols[row, col];
+		if (player == "X")
+		{
+			symbol.Source = "crossbox.png";
+			symbol.IsVisible = true;
+			cell.BackgroundColor = xBgColor;
+		}
+		else
+		{
+			symbol.Source = "circlebox.png";
+			symbol.IsVisible = true;
+			cell.BackgroundColor = oBgColor;
+		}
 
 		// Skaala-animatsioon
-		await btn.ScaleToAsync(1.2, 80);
-		await btn.ScaleToAsync(1.0, 80);
+		await cell.ScaleToAsync(1.08, 90);
+		await cell.ScaleToAsync(1.0, 90);
 
 		// Kontrolli võitjat
 		string? winner = game.CheckWinner();
@@ -120,27 +150,29 @@ public partial class TicTacToePage : ContentPage
 			if (winner == "X") xWins++;
 			else oWins++;
 			SaveScore();
-			scoreLabel.Text = GetScoreText();
-			statusLabel.Text = $"Mängija {winner} võitis!";
-
-			// Kaotaja alustab järgmist mängu
-			selectedFirstPlayer = winner == "X" ? "O" : "X";
-			UpdateFirstPlayerButtons();
+			UpdateScoreLabels();
+			statusLabel.Text = $"Mängija {winner} võitis! 🎉";
 
 			await AnimateWinningCells();
-			UpdateSettingsEnabled();
-			await DisplayAlertAsync("Mäng läbi!", $"Mängija {winner} võitis!", "OK");
+
+			// Navigate to Won page for the winner
+			string loser = winner == "X" ? "O" : "X";
+			if (isBotEnabled && winner == "O")
+			{
+				// Bot won — player lost
+				await Navigation.PushAsync(new TicTacToeLosePage("X", isBotEnabled));
+			}
+			else
+			{
+				await Navigation.PushAsync(new TicTacToeWonPage(winner, isBotEnabled));
+			}
 			return;
 		}
 
 		if (game.IsBoardFull())
 		{
 			game.EndGame();
-			draws++;
-			SaveScore();
-			scoreLabel.Text = GetScoreText();
-			statusLabel.Text = "Viik!";
-			UpdateSettingsEnabled();
+			statusLabel.Text = "Viik! 🤝";
 			await DisplayAlertAsync("Mäng läbi!", "Viik!", "OK");
 			return;
 		}
@@ -152,7 +184,7 @@ public partial class TicTacToePage : ContentPage
 		if (isBotEnabled && game.CurrentPlayer == "O" && !game.IsGameOver)
 		{
 			isBotThinking = true;
-			await Task.Delay(300);
+			await Task.Delay(400);
 			await BotMove();
 			isBotThinking = false;
 		}
@@ -169,7 +201,7 @@ public partial class TicTacToePage : ContentPage
 	private (int Row, int Col) GetBotMove()
 	{
 		int n = game.BoardSize;
-		int winLength = n <= 3 ? n : 4;
+		int winLength = n;
 
 		// 1. Proovi võita
 		var winMove = FindWinningMove("O", winLength);
@@ -210,7 +242,6 @@ public partial class TicTacToePage : ContentPage
 			{
 				if (!string.IsNullOrEmpty(game.Board[r, c])) continue;
 
-				// Simuleeri käik
 				game.Board[r, c] = player;
 				bool wins = game.CheckWinner() == player;
 				game.Board[r, c] = "";
@@ -230,44 +261,34 @@ public partial class TicTacToePage : ContentPage
 		for (int flash = 0; flash < 3; flash++)
 		{
 			foreach (var (row, col) in cells)
-				boardButtons[row, col].BackgroundColor = Colors.Gold;
+				boardCells[row, col].BackgroundColor = Color.FromArgb("#FFD600");
 			await Task.Delay(250);
 
 			foreach (var (row, col) in cells)
-				boardButtons[row, col].BackgroundColor = isDarkTheme ? cardDark : cardLight;
+			{
+				string cellVal = game.Board[row, col];
+				boardCells[row, col].BackgroundColor = cellVal == "X" ? xBgColor : oBgColor;
+			}
 			await Task.Delay(250);
 		}
 
 		foreach (var (row, col) in cells)
-			boardButtons[row, col].BackgroundColor = Colors.Gold;
+			boardCells[row, col].BackgroundColor = Color.FromArgb("#FFD600");
 	}
 
 	// ===== Nuppude sündmused =====
 
 	private async void OnNewGame(object? sender, EventArgs e)
 	{
-		// Rakenda seaded
-		if (selectedBoardSize != game.BoardSize)
-		{
-			game.SetBoardSize(selectedBoardSize);
-			BuildBoard(selectedBoardSize);
-			ApplyTheme();
-		}
-		else
-		{
-			game.ResetBoard();
-		}
-
-		game.SetStartingPlayer(selectedFirstPlayer);
+		game.ResetBoard();
 		RefreshBoard();
-		UpdateSettingsEnabled();
-		statusLabel.Text = $"Mängija {selectedFirstPlayer} käik";
+		statusLabel.Text = $"Mängija {game.CurrentPlayer} käik";
 
 		await statusLabel.ScaleToAsync(1.2, 100);
 		await statusLabel.ScaleToAsync(1.0, 100);
 
 		// Kui bot on sees ja O alustab
-		if (isBotEnabled && selectedFirstPlayer == "O")
+		if (isBotEnabled && game.CurrentPlayer == "O")
 		{
 			isBotThinking = true;
 			await Task.Delay(300);
@@ -276,86 +297,7 @@ public partial class TicTacToePage : ContentPage
 		}
 	}
 
-	private void OnSelectFirstX(object? sender, EventArgs e)
-	{
-		if (game.IsGameInProgress()) return;
-		selectedFirstPlayer = "X";
-		UpdateFirstPlayerButtons();
-	}
-
-	private void OnSelectFirstO(object? sender, EventArgs e)
-	{
-		if (game.IsGameInProgress()) return;
-		selectedFirstPlayer = "O";
-		UpdateFirstPlayerButtons();
-	}
-
-	private void UpdateFirstPlayerButtons()
-	{
-		firstXBtn.BackgroundColor = selectedFirstPlayer == "X" ? Color.FromArgb("#e74c3c") : Color.FromArgb("#95a5a6");
-		firstOBtn.BackgroundColor = selectedFirstPlayer == "O" ? Color.FromArgb("#3498db") : Color.FromArgb("#95a5a6");
-	}
-
-	private async void OnShowRules(object? sender, EventArgs e)
-	{
-		await Navigation.PushAsync(new TicTacToeRulesPage());
-	}
-
-	private void OnToggleTheme(object? sender, EventArgs e)
-	{
-		isDarkTheme = !isDarkTheme;
-		ApplyTheme();
-	}
-
-	private void OnToggleBot(object? sender, EventArgs e)
-	{
-		if (game.IsGameInProgress()) return;
-		isBotEnabled = !isBotEnabled;
-		botButton.Text = isBotEnabled ? "Sees" : "Väljas";
-		botButton.BackgroundColor = isBotEnabled ? Color.FromArgb("#27ae60") : Color.FromArgb("#7f8c8d");
-	}
-
-	private void OnSize3(object? sender, EventArgs e) => SelectBoardSize(3);
-	private void OnSize4(object? sender, EventArgs e) => SelectBoardSize(4);
-	private void OnSize5(object? sender, EventArgs e) => SelectBoardSize(5);
-
-	private void SelectBoardSize(int newSize)
-	{
-		if (game.IsGameInProgress()) return;
-		selectedBoardSize = newSize;
-		sizeBtn3.BackgroundColor = newSize == 3 ? Color.FromArgb("#1abc9c") : Color.FromArgb("#95a5a6");
-		sizeBtn4.BackgroundColor = newSize == 4 ? Color.FromArgb("#1abc9c") : Color.FromArgb("#95a5a6");
-		sizeBtn5.BackgroundColor = newSize == 5 ? Color.FromArgb("#1abc9c") : Color.FromArgb("#95a5a6");
-	}
-
-	private void OnResetScore(object? sender, EventArgs e)
-	{
-		xWins = 0;
-		oWins = 0;
-		draws = 0;
-		SaveScore();
-		scoreLabel.Text = GetScoreText();
-	}
-
 	// ===== Abimeetodid =====
-
-	private void UpdateSettingsEnabled()
-	{
-		bool enabled = !game.IsGameInProgress();
-		firstXBtn.IsEnabled = enabled;
-		firstOBtn.IsEnabled = enabled;
-		botButton.IsEnabled = enabled;
-		sizeBtn3.IsEnabled = enabled;
-		sizeBtn4.IsEnabled = enabled;
-		sizeBtn5.IsEnabled = enabled;
-
-		firstXBtn.Opacity = enabled ? 1.0 : 0.5;
-		firstOBtn.Opacity = enabled ? 1.0 : 0.5;
-		botButton.Opacity = enabled ? 1.0 : 0.5;
-		sizeBtn3.Opacity = enabled ? 1.0 : 0.5;
-		sizeBtn4.Opacity = enabled ? 1.0 : 0.5;
-		sizeBtn5.Opacity = enabled ? 1.0 : 0.5;
-	}
 
 	private void RefreshBoard()
 	{
@@ -363,75 +305,28 @@ public partial class TicTacToePage : ContentPage
 		for (int row = 0; row < size; row++)
 			for (int col = 0; col < size; col++)
 			{
-				boardButtons[row, col].Text = "";
-				boardButtons[row, col].BackgroundColor = isDarkTheme ? cardDark : cardLight;
+				boardSymbols[row, col].Source = null;
+				boardSymbols[row, col].IsVisible = false;
+				boardCells[row, col].BackgroundColor = emptyCellBg;
 			}
 	}
 
-	private void ApplyTheme()
+	private void UpdateScoreLabels()
 	{
-		Color bg = isDarkTheme ? bgDark : bgLight;
-		Color text = isDarkTheme ? textDark : textLight;
-		Color card = isDarkTheme ? cardDark : cardLight;
-		Color borderStroke = isDarkTheme ? Color.FromArgb("#2a2a4a") : Color.FromArgb("#d0d0d8");
-
-		BackgroundColor = bg;
-
-		// Title
-		titleLabel.TextColor = text;
-
-		// Status
-		statusBorder.BackgroundColor = isDarkTheme ? Color.FromArgb("#2a2a4a") : Color.FromArgb("#e8e8f0");
-		statusLabel.TextColor = text;
-
-		// Score
-		scoreBorder.BackgroundColor = card;
-		scoreBorder.Stroke = isDarkTheme ? Color.FromArgb("#2a2a4a") : Color.FromArgb("#ddd");
-		scoreLabel.TextColor = text;
-
-		// Board border
-		boardBorder.BackgroundColor = isDarkTheme ? Color.FromArgb("#0f3460") : Color.FromArgb("#e4e4ec");
-		boardBorder.Stroke = borderStroke;
-
-		// Settings border
-		settingsBorder.BackgroundColor = card;
-		settingsBorder.Stroke = borderStroke;
-
-		// Settings labels
-		firstLabel.TextColor = text;
-		botLabel.TextColor = text;
-		sizeLabel.TextColor = text;
-
-		// Reset score button
-		resetScoreBtn.BackgroundColor = isDarkTheme ? Color.FromArgb("#4a4a6a") : Color.FromArgb("#bdc3c7");
-		resetScoreBtn.TextColor = text;
-
-		// Board cells
-		int size = game.BoardSize;
-		for (int row = 0; row < size; row++)
-			for (int col = 0; col < size; col++)
-			{
-				var btn = boardButtons[row, col];
-				if (btn.BackgroundColor != Colors.Gold)
-					btn.BackgroundColor = card;
-				btn.BorderColor = borderStroke;
-			}
+		xScoreLabel.Text = $"Võit: {xWins}";
+		oScoreLabel.Text = $"Võit: {oWins}";
 	}
-
-	private string GetScoreText() => $"X: {xWins}  |  O: {oWins}  |  Viik: {draws}";
 
 	private void LoadScore()
 	{
 		xWins = Preferences.Default.Get("TTT_XWins", 0);
 		oWins = Preferences.Default.Get("TTT_OWins", 0);
-		draws = Preferences.Default.Get("TTT_Draws", 0);
 	}
 
 	private void SaveScore()
 	{
 		Preferences.Default.Set("TTT_XWins", xWins);
 		Preferences.Default.Set("TTT_OWins", oWins);
-		Preferences.Default.Set("TTT_Draws", draws);
 	}
 
 	// ===== Mänguloogika klass (OOP) =====
@@ -467,7 +362,7 @@ public partial class TicTacToePage : ContentPage
 		public string? CheckWinner()
 		{
 			int n = BoardSize;
-			int winLength = n <= 3 ? n : 4;
+			int winLength = n;
 
 			for (int row = 0; row < n; row++)
 			{
@@ -542,7 +437,7 @@ public partial class TicTacToePage : ContentPage
 		public List<(int Row, int Col)>? GetWinningCells()
 		{
 			int n = BoardSize;
-			int winLength = n <= 3 ? n : 4;
+			int winLength = n;
 
 			for (int row = 0; row < n; row++)
 			{

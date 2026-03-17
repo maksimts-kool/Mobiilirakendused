@@ -2,110 +2,162 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tund2.TicTacToeRulesPage"
-             Title="Mängureeglid">
+             Title="Mängureeglid"
+             BackgroundColor="#7EB6FF"
+             Shell.NavBarIsVisible="False">
 
     <ScrollView>
-        <VerticalStackLayout Spacing="15" Padding="25">
-
-            <Label Text="Trips-Traps-Trull"
-                   FontSize="26"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   Margin="0,10,0,15"/>
+        <VerticalStackLayout Spacing="15"
+                             Padding="25,50,25,30">
 
             <!-- Eesmärk -->
-            <Border Padding="15" Stroke="Transparent" BackgroundColor="#f1f2f6">
+            <Border Padding="15"
+                    Stroke="Transparent"
+                    BackgroundColor="White">
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="12"/>
+                    <RoundRectangle CornerRadius="14"/>
                 </Border.StrokeShape>
                 <Border.Shadow>
-                    <Shadow Brush="Black" Offset="0,2" Opacity="0.15" Radius="4"/>
+                    <Shadow Brush="Black"
+                            Offset="0,3"
+                            Opacity="0.12"
+                            Radius="6"/>
                 </Border.Shadow>
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Eesmärk" FontSize="17" FontAttributes="Bold" TextColor="#2f3542"/>
+                    <Label Text="🎯 Eesmärk"
+                           FontSize="17"
+                           FontFamily="PoppinsBold"
+                           TextColor="#6E00B8"/>
                     <Label Text="Mängu eesmärk on saada oma märke (X või O) rida — horisontaalselt, vertikaalselt või diagonaalselt."
-                           FontSize="14" TextColor="#57606f"/>
+                           FontSize="14"
+                           FontFamily="PoppinsMedium"
+                           TextColor="#546E7A"/>
                 </VerticalStackLayout>
             </Border>
 
             <!-- Mängijad -->
-            <Border Padding="15" Stroke="Transparent" BackgroundColor="#f1f2f6">
+            <Border Padding="15"
+                    Stroke="Transparent"
+                    BackgroundColor="White">
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="12"/>
+                    <RoundRectangle CornerRadius="14"/>
                 </Border.StrokeShape>
                 <Border.Shadow>
-                    <Shadow Brush="Black" Offset="0,2" Opacity="0.15" Radius="4"/>
+                    <Shadow Brush="Black"
+                            Offset="0,3"
+                            Opacity="0.12"
+                            Radius="6"/>
                 </Border.Shadow>
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Mängijad" FontSize="17" FontAttributes="Bold" TextColor="#2f3542"/>
+                    <Label Text="👥 Mängijad"
+                           FontSize="17"
+                           FontFamily="PoppinsBold"
+                           TextColor="#6E00B8"/>
                     <Label Text="Mängus osaleb kaks mängijat. Üks mängib X-iga, teine O-ga. Mängijad teevad käike vaheldumisi."
-                           FontSize="14" TextColor="#57606f"/>
+                           FontSize="14"
+                           FontFamily="PoppinsMedium"
+                           TextColor="#546E7A"/>
                 </VerticalStackLayout>
             </Border>
 
             <!-- Käik -->
-            <Border Padding="15" Stroke="Transparent" BackgroundColor="#f1f2f6">
+            <Border Padding="15"
+                    Stroke="Transparent"
+                    BackgroundColor="White">
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="12"/>
+                    <RoundRectangle CornerRadius="14"/>
                 </Border.StrokeShape>
                 <Border.Shadow>
-                    <Shadow Brush="Black" Offset="0,2" Opacity="0.15" Radius="4"/>
+                    <Shadow Brush="Black"
+                            Offset="0,3"
+                            Opacity="0.12"
+                            Radius="6"/>
                 </Border.Shadow>
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Käik" FontSize="17" FontAttributes="Bold" TextColor="#2f3542"/>
+                    <Label Text="👆 Käik"
+                           FontSize="17"
+                           FontFamily="PoppinsBold"
+                           TextColor="#6E00B8"/>
                     <Label Text="Oma käigul vajuta tühjale ruudule, et asetada oma märk. Juba täidetud ruudule ei saa vajutada."
-                           FontSize="14" TextColor="#57606f"/>
+                           FontSize="14"
+                           FontFamily="PoppinsMedium"
+                           TextColor="#546E7A"/>
                 </VerticalStackLayout>
             </Border>
 
             <!-- Võit -->
-            <Border Padding="15" Stroke="Transparent" BackgroundColor="#f1f2f6">
+            <Border Padding="15"
+                    Stroke="Transparent"
+                    BackgroundColor="White">
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="12"/>
+                    <RoundRectangle CornerRadius="14"/>
                 </Border.StrokeShape>
                 <Border.Shadow>
-                    <Shadow Brush="Black" Offset="0,2" Opacity="0.15" Radius="4"/>
+                    <Shadow Brush="Black"
+                            Offset="0,3"
+                            Opacity="0.12"
+                            Radius="6"/>
                 </Border.Shadow>
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Võit" FontSize="17" FontAttributes="Bold" TextColor="#2f3542"/>
-                    <Label FontSize="14" TextColor="#57606f">
-                        <Label.Text>Võidab mängija, kes saab esimesena oma märgid ritta.
-&#x2022; 3×3 väljal: 3 järjest
-&#x2022; 4×4 ja 5×5 väljal: 4 järjest</Label.Text>
-                    </Label>
+                    <Label Text="🏆 Võit"
+                           FontSize="17"
+                           FontFamily="PoppinsBold"
+                           TextColor="#6E00B8"/>
+                    <Label Text="Võidab mängija, kes saab esimesena 3 oma märki ritta (horisontaalselt, vertikaalselt või diagonaalselt)."
+                           FontSize="14"
+                           FontFamily="PoppinsMedium"
+                           TextColor="#546E7A"/>
                 </VerticalStackLayout>
             </Border>
 
             <!-- Viik -->
-            <Border Padding="15" Stroke="Transparent" BackgroundColor="#f1f2f6">
+            <Border Padding="15"
+                    Stroke="Transparent"
+                    BackgroundColor="White">
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="12"/>
+                    <RoundRectangle CornerRadius="14"/>
                 </Border.StrokeShape>
                 <Border.Shadow>
-                    <Shadow Brush="Black" Offset="0,2" Opacity="0.15" Radius="4"/>
+                    <Shadow Brush="Black"
+                            Offset="0,3"
+                            Opacity="0.12"
+                            Radius="6"/>
                 </Border.Shadow>
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Viik" FontSize="17" FontAttributes="Bold" TextColor="#2f3542"/>
+                    <Label Text="🤝 Viik"
+                           FontSize="17"
+                           FontFamily="PoppinsBold"
+                           TextColor="#6E00B8"/>
                     <Label Text="Kui kõik ruudud on täidetud ja kumbki mängija ei saanud rida, on tulemus viik."
-                           FontSize="14" TextColor="#57606f"/>
+                           FontSize="14"
+                           FontFamily="PoppinsMedium"
+                           TextColor="#546E7A"/>
                 </VerticalStackLayout>
             </Border>
 
-            <!-- Lisavõimalused -->
-            <Border Padding="15" Stroke="Transparent" BackgroundColor="#f1f2f6">
+            <!-- Mängurežiimid -->
+            <Border Padding="15"
+                    Stroke="Transparent"
+                    BackgroundColor="White">
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="12"/>
+                    <RoundRectangle CornerRadius="14"/>
                 </Border.StrokeShape>
                 <Border.Shadow>
-                    <Shadow Brush="Black" Offset="0,2" Opacity="0.15" Radius="4"/>
+                    <Shadow Brush="Black"
+                            Offset="0,3"
+                            Opacity="0.12"
+                            Radius="6"/>
                 </Border.Shadow>
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Lisavõimalused" FontSize="17" FontAttributes="Bold" TextColor="#2f3542"/>
-                    <Label FontSize="14" TextColor="#57606f">
-                        <Label.Text>&#x2022; Välja suurus: vali 3×3, 4×4 või 5×5
-&#x2022; Kes alustab: juhuslik valik
-&#x2022; Teema: hele või tume
-&#x2022; Skoor salvestatakse automaatselt</Label.Text>
+                    <Label Text="🎮 Mängurežiimid"
+                           FontSize="17"
+                           FontFamily="PoppinsBold"
+                           TextColor="#6E00B8"/>
+                    <Label FontSize="14"
+                           FontFamily="PoppinsMedium"
+                           TextColor="#546E7A">
+                        <Label.Text>• Bot mäng — mängi arvuti vastu
+• Mitme mäng — mängi sõbraga samast seadmest</Label.Text>
                     </Label>
                 </VerticalStackLayout>
             </Border>

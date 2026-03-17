@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.TicTacToeMenuPage"
+             Title="TicTacToe"
+             BackgroundColor="#7EB6FF"
+             Shell.NavBarIsVisible="False">
+
+    <Grid MaximumWidthRequest="500"
+          HorizontalOptions="Center"
+          VerticalOptions="Center"
+          Padding="30,0">
+
+        <!-- Title -->
+        <Label Text="TIC TAC TOE"
+               FontFamily="PoppinsBold"
+               FontSize="49"
+               TextColor="#6E00B8"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               Margin="0,20,0,0"/>
+
+        <!-- Logo image -->
+        <Image Source="logo.png"
+               WidthRequest="220"
+               HeightRequest="220"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               Margin="0,150,0,0"/>
+
+        <!-- Bot game button -->
+        <Border BackgroundColor="#F54066"
+                HeightRequest="70"
+                StrokeThickness="0"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                Margin="0,450,0,0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="25"/>
+            </Border.StrokeShape>
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Spacing="20">
+                <Image Source="singleuser.png"
+                       WidthRequest="28"
+                       HeightRequest="28"
+                       VerticalOptions="Center"/>
+                <Label Text="Bot mäng"
+                       FontFamily="PoppinsBold"
+                       FontSize="20"
+                       TextColor="White"
+                       VerticalTextAlignment="Center"/>
+            </HorizontalStackLayout>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBotGame"/>
+            </Border.GestureRecognizers>
+        </Border>
+
+        <!-- Multiplayer button -->
+        <Border BackgroundColor="#F54066"
+                HeightRequest="70"
+                StrokeThickness="0"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                Margin="0,537,0,0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="25"/>
+            </Border.StrokeShape>
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Spacing="20">
+                <Image Source="multiuser.png"
+                       WidthRequest="28"
+                       HeightRequest="28"
+                       VerticalOptions="Center"/>
+                <Label Text="Mitme mäng"
+                       FontFamily="PoppinsBold"
+                       FontSize="20"
+                       TextColor="White"
+                       VerticalTextAlignment="Center"/>
+            </HorizontalStackLayout>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnMultiGame"/>
+            </Border.GestureRecognizers>
+        </Border>
+
+        <!-- Bottom icon buttons -->
+        <HorizontalStackLayout HorizontalOptions="Center"
+                               VerticalOptions="Start"
+                               Spacing="32"
+                               Margin="0,680,0,0">
+
+            <!-- Info/Rules button -->
+            <Border BackgroundColor="#F54066"
+                    WidthRequest="69"
+                    HeightRequest="69"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="25"/>
+                </Border.StrokeShape>
+                <Image Source="rules.png"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnShowRules"/>
+                </Border.GestureRecognizers>
+            </Border>
+
+            <!-- Reset button -->
+            <Border BackgroundColor="#F54066"
+                    WidthRequest="69"
+                    HeightRequest="69"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="25"/>
+                </Border.StrokeShape>
+                <Image Source="resetdata.png"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnResetScore"/>
+                </Border.GestureRecognizers>
+            </Border>
+
+            <!-- Dark/White mode button -->
+            <Border BackgroundColor="#F54066"
+                    WidthRequest="69"
+                    HeightRequest="69"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="25"/>
+                </Border.StrokeShape>
+                <Image Source="settings.png"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSettings"/>
+                </Border.GestureRecognizers>
+            </Border>
+        </HorizontalStackLayout>
+
+    </Grid>
+
+</ContentPage>
