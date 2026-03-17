@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.TicTacToePage"
+             Title="Trips-Traps-Trull"
+             BackgroundColor="#f0f0f5">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="14"
+                Padding="20"
+                VerticalOptions="Center">
+
+            <!-- Pealkiri -->
+            <Label x:Name="titleLabel"
+                   Text="Trips-Traps-Trull"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#2f3542"/>
+
+            <!-- Staatus -->
+            <Border x:Name="statusBorder"
+                    Padding="8,6"
+                    Stroke="Transparent"
+                    BackgroundColor="#e8e8f0"
+                    HorizontalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Label x:Name="statusLabel"
+                       Text="Mängija X käik"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="#2f3542"/>
+            </Border>
+
+            <!-- Skoor -->
+            <Border x:Name="scoreBorder"
+                    Padding="14,8"
+                    Stroke="#ddd"
+                    BackgroundColor="#ffffff"
+                    HorizontalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="0,2"
+                            Opacity="0.1"
+                            Radius="4"/>
+                </Border.Shadow>
+                <Label x:Name="scoreLabel"
+                       Text="X: 0  |  O: 0  |  Viik: 0"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="#2f3542"/>
+            </Border>
+
+            <!-- Mänguväli -->
+            <Border x:Name="boardBorder"
+                    Padding="12"
+                    Stroke="#d0d0d8"
+                    BackgroundColor="#e4e4ec"
+                    HorizontalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="0,3"
+                            Opacity="0.15"
+                            Radius="6"/>
+                </Border.Shadow>
+                <Grid x:Name="boardGrid"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center"
+                      RowSpacing="4"
+                      ColumnSpacing="4"/>
+            </Border>
+
+            <!-- Seaded: Esimene käik, Bot, Suurus -->
+            <Border x:Name="settingsBorder"
+                    Padding="12,10"
+                    Stroke="#d0d0d8"
+                    BackgroundColor="#ffffff"
+                    HorizontalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="0,2"
+                            Opacity="0.1"
+                            Radius="4"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="10">
+
+                    <!-- Esimene käik -->
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                            Spacing="8">
+                        <Label x:Name="firstLabel"
+                               Text="Esimene:"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               TextColor="#2f3542"/>
+                        <Button x:Name="firstXBtn"
+                                Text="X"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                WidthRequest="50"
+                                HeightRequest="36"
+                                Padding="2"
+                                BackgroundColor="#e74c3c"
+                                TextColor="White"
+                                CornerRadius="8"
+                                Clicked="OnSelectFirstX"/>
+                        <Button x:Name="firstOBtn"
+                                Text="O"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                WidthRequest="50"
+                                HeightRequest="36"
+                                Padding="2"
+                                BackgroundColor="#95a5a6"
+                                TextColor="White"
+                                CornerRadius="8"
+                                Clicked="OnSelectFirstO"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Bot -->
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                            Spacing="8">
+                        <Label x:Name="botLabel"
+                               Text="Bot:"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               TextColor="#2f3542"/>
+                        <Button x:Name="botButton"
+                                Text="Väljas"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                WidthRequest="80"
+                                HeightRequest="36"
+                                Padding="2"
+                                BackgroundColor="#7f8c8d"
+                                TextColor="White"
+                                CornerRadius="8"
+                                Clicked="OnToggleBot"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Välja suurus -->
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                            Spacing="8">
+                        <Label x:Name="sizeLabel"
+                               Text="Suurus:"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               TextColor="#2f3542"/>
+                        <Button x:Name="sizeBtn3"
+                                Text="3×3"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                WidthRequest="55"
+                                HeightRequest="36"
+                                Padding="2"
+                                BackgroundColor="#1abc9c"
+                                TextColor="White"
+                                CornerRadius="8"
+                                Clicked="OnSize3"/>
+                        <Button x:Name="sizeBtn4"
+                                Text="4×4"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                WidthRequest="55"
+                                HeightRequest="36"
+                                Padding="2"
+                                BackgroundColor="#95a5a6"
+                                TextColor="White"
+                                CornerRadius="8"
+                                Clicked="OnSize4"/>
+                        <Button x:Name="sizeBtn5"
+                                Text="5×5"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                WidthRequest="55"
+                                HeightRequest="36"
+                                Padding="2"
+                                BackgroundColor="#95a5a6"
+                                TextColor="White"
+                                CornerRadius="8"
+                                Clicked="OnSize5"/>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Tegevusnupud -->
+            <FlexLayout Wrap="Wrap"
+                        JustifyContent="Center"
+                        AlignItems="Center"
+                        Direction="Row"
+                        HorizontalOptions="Center"
+                        Margin="0,4">
+
+                <Border Margin="4"
+                        Stroke="Transparent"
+                        BackgroundColor="Transparent">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Button Text="Uus mäng"
+                            BackgroundColor="#27ae60"
+                            TextColor="White"
+                            CornerRadius="12"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            HeightRequest="42"
+                            Padding="14,0"
+                            Shadow="{Shadow Brush=Black, Offset='0,2', Opacity=0.2, Radius=3}"
+                            Clicked="OnNewGame"/>
+                </Border>
+
+                <Border Margin="4"
+                        Stroke="Transparent"
+                        BackgroundColor="Transparent">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Button Text="Reeglid"
+                            BackgroundColor="#2980b9"
+                            TextColor="White"
+                            CornerRadius="12"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            HeightRequest="42"
+                            Padding="14,0"
+                            Shadow="{Shadow Brush=Black, Offset='0,2', Opacity=0.2, Radius=3}"
+                            Clicked="OnShowRules"/>
+                </Border>
+
+                <Border Margin="4"
+                        Stroke="Transparent"
+                        BackgroundColor="Transparent">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Button Text="Teema"
+                            BackgroundColor="#8e44ad"
+                            TextColor="White"
+                            CornerRadius="12"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            HeightRequest="42"
+                            Padding="14,0"
+                            Shadow="{Shadow Brush=Black, Offset='0,2', Opacity=0.2, Radius=3}"
+                            Clicked="OnToggleTheme"/>
+                </Border>
+            </FlexLayout>
+
+            <!-- Skoori nullimine -->
+            <Button x:Name="resetScoreBtn"
+                    Text="Nulli skoor"
+                    FontSize="12"
+                    BackgroundColor="#bdc3c7"
+                    TextColor="#2f3542"
+                    CornerRadius="8"
+                    HeightRequest="34"
+                    WidthRequest="110"
+                    HorizontalOptions="Center"
+                    Margin="0,5"
+                    Clicked="OnResetScore"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
