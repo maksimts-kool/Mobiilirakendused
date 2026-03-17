@@ -30,6 +30,14 @@ public partial class TicTacToeWonPage : ContentPage
 
 	private async void OnMainMenu(object? sender, TappedEventArgs e)
 	{
-		await Navigation.PopToRootAsync();
+		// Remove intermediate pages (e.g. TicTacToePage) between MenuPage and this page
+		var pages = Navigation.NavigationStack.ToList();
+		foreach (var page in pages)
+		{
+			if (page != pages[0] && page is not TicTacToeMenuPage && page != this)
+				Navigation.RemovePage(page);
+		}
+		// Pop this page to land on TicTacToeMenuPage
+		await Navigation.PopAsync();
 	}
 }

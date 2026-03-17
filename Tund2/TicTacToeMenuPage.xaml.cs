@@ -44,4 +44,9 @@ public partial class TicTacToeMenuPage : ContentPage
 			await DisplayAlertAsync("Valmis", "Andmed kustutatud!", "OK");
 		}
 	}
+
+	private async void OnSettings(object? sender, TappedEventArgs e)
+	{
+		await Navigation.PushAsync(new TicTacToeSettingsPage());
+	}
 }

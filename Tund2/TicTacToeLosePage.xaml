@@ -4,7 +4,8 @@
              x:Class="Tund2.TicTacToeLosePage"
              Title="Lose"
              BackgroundColor="#7EB6FF"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False">
 
     <ScrollView>
         <VerticalStackLayout MaximumWidthRequest="428"
@@ -19,7 +20,7 @@
                    HeightRequest="202"
                    Aspect="AspectFit"
                    HorizontalOptions="Center"
-                   Margin="0,140,0,0"/>
+                   Margin="0,160,0,0"/>
 
             <!-- Player title -->
             <Label x:Name="loserTitle"
@@ -59,7 +60,7 @@
             <!-- Buttons -->
             <Grid ColumnDefinitions="*,26,*"
                   HorizontalOptions="Fill"
-                  Margin="5,50,4,30">
+                  Margin="5,100,4,30">
 
                 <Border Grid.Column="0"
                         HeightRequest="60"

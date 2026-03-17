@@ -14,6 +14,7 @@ public partial class TicTacToePage : ContentPage
 	// Bot
 	private bool isBotEnabled = false;
 	private bool isBotThinking = false;
+	private string botDifficulty = "Medium";
 
 	// Värvid
 	private Color xBgColor = Color.FromArgb("#6E00B8");
@@ -24,9 +25,11 @@ public partial class TicTacToePage : ContentPage
 	{
 		InitializeComponent();
 		LoadScore();
-		game = new GameLogic(3);
+		int boardSize = Preferences.Default.Get("TTT_BoardSize", 3);
+		botDifficulty = Preferences.Default.Get("TTT_BotDifficulty", "Medium");
+		game = new GameLogic(boardSize);
 		UpdateScoreLabels();
-		BuildBoard(3);
+		BuildBoard(boardSize);
 	}
 
 	public TicTacToePage(bool botEnabled) : this()
@@ -52,9 +55,14 @@ public partial class TicTacToePage : ContentPage
 		boardCells = new Border[size, size];
 		boardSymbols = new Image[size, size];
 
-		const int cellSize = 108;
-		const int imageSize = 108;
-		const int outerCornerRadius = 26;
+		int cellSize = size switch
+		{
+			4 => 82,
+			5 => 65,
+			_ => 108
+		};
+		int imageSize = cellSize;
+		const int outerCornerRadius = 35;
 
 		for (int i = 0; i < size; i++)
 		{
@@ -200,23 +208,43 @@ public partial class TicTacToePage : ContentPage
 
 	private (int Row, int Col) GetBotMove()
 	{
+		return botDifficulty switch
+		{
+			"Easy" => GetBotMoveEasy(),
+			"Hard" => GetBotMoveHard(),
+			_ => GetBotMoveMedium()
+		};
+	}
+
+	// Easy: purely random
+	private (int Row, int Col) GetBotMoveEasy()
+	{
+		int n = game.BoardSize;
+		var empty = new List<(int, int)>();
+		for (int r = 0; r < n; r++)
+			for (int c = 0; c < n; c++)
+				if (string.IsNullOrEmpty(game.Board[r, c]))
+					empty.Add((r, c));
+		var rng = new Random();
+		return empty[rng.Next(empty.Count)];
+	}
+
+	// Medium: block/win + center/corners (original logic)
+	private (int Row, int Col) GetBotMoveMedium()
+	{
 		int n = game.BoardSize;
 		int winLength = n;
 
-		// 1. Proovi võita
 		var winMove = FindWinningMove("O", winLength);
 		if (winMove != null) return winMove.Value;
 
-		// 2. Blokeeri vastane
 		var blockMove = FindWinningMove("X", winLength);
 		if (blockMove != null) return blockMove.Value;
 
-		// 3. Keskmine ruut
 		int center = n / 2;
 		if (string.IsNullOrEmpty(game.Board[center, center]))
 			return (center, center);
 
-		// 4. Nurgad
 		int[][] corners = { new[] { 0, 0 }, new[] { 0, n - 1 }, new[] { n - 1, 0 }, new[] { n - 1, n - 1 } };
 		var rng = new Random();
 		var shuffled = corners.OrderBy(_ => rng.Next()).ToArray();
@@ -224,7 +252,6 @@ public partial class TicTacToePage : ContentPage
 			if (string.IsNullOrEmpty(game.Board[c[0], c[1]]))
 				return (c[0], c[1]);
 
-		// 5. Juhuslik tühi ruut
 		var empty = new List<(int, int)>();
 		for (int r = 0; r < n; r++)
 			for (int c = 0; c < n; c++)
@@ -232,6 +259,85 @@ public partial class TicTacToePage : ContentPage
 					empty.Add((r, c));
 
 		return empty[rng.Next(empty.Count)];
+	}
+
+	// Hard: minimax (depth-limited for larger boards)
+	private (int Row, int Col) GetBotMoveHard()
+	{
+		int n = game.BoardSize;
+		int maxDepth = n switch
+		{
+			3 => 9,
+			4 => 5,
+			_ => 3
+		};
+
+		int bestScore = int.MinValue;
+		(int Row, int Col) bestMove = (-1, -1);
+
+		for (int r = 0; r < n; r++)
+		{
+			for (int c = 0; c < n; c++)
+			{
+				if (!string.IsNullOrEmpty(game.Board[r, c])) continue;
+				game.Board[r, c] = "O";
+				int score = Minimax(game, false, 0, maxDepth, int.MinValue, int.MaxValue);
+				game.Board[r, c] = "";
+				if (score > bestScore)
+				{
+					bestScore = score;
+					bestMove = (r, c);
+				}
+			}
+		}
+		return bestMove;
+	}
+
+	private int Minimax(GameLogic g, bool isMaximizing, int depth, int maxDepth, int alpha, int beta)
+	{
+		string? winner = g.CheckWinner();
+		if (winner == "O") return 100 - depth;
+		if (winner == "X") return depth - 100;
+		if (g.IsBoardFull() || depth >= maxDepth) return 0;
+
+		int n = g.BoardSize;
+
+		if (isMaximizing)
+		{
+			int best = int.MinValue;
+			for (int r = 0; r < n; r++)
+			{
+				for (int c = 0; c < n; c++)
+				{
+					if (!string.IsNullOrEmpty(g.Board[r, c])) continue;
+					g.Board[r, c] = "O";
+					int score = Minimax(g, false, depth + 1, maxDepth, alpha, beta);
+					g.Board[r, c] = "";
+					best = Math.Max(best, score);
+					alpha = Math.Max(alpha, score);
+					if (beta <= alpha) return best;
+				}
+			}
+			return best;
+		}
+		else
+		{
+			int best = int.MaxValue;
+			for (int r = 0; r < n; r++)
+			{
+				for (int c = 0; c < n; c++)
+				{
+					if (!string.IsNullOrEmpty(g.Board[r, c])) continue;
+					g.Board[r, c] = "X";
+					int score = Minimax(g, true, depth + 1, maxDepth, alpha, beta);
+					g.Board[r, c] = "";
+					best = Math.Min(best, score);
+					beta = Math.Min(beta, score);
+					if (beta <= alpha) return best;
+				}
+			}
+			return best;
+		}
 	}
 
 	private (int Row, int Col)? FindWinningMove(string player, int winLength)
@@ -258,22 +364,32 @@ public partial class TicTacToePage : ContentPage
 		var cells = game.GetWinningCells();
 		if (cells == null) return;
 
+		var goldStroke = new SolidColorBrush(Color.FromArgb("#FFD600"));
+
 		for (int flash = 0; flash < 3; flash++)
 		{
 			foreach (var (row, col) in cells)
-				boardCells[row, col].BackgroundColor = Color.FromArgb("#FFD600");
+			{
+				boardCells[row, col].Stroke = goldStroke;
+				boardCells[row, col].StrokeThickness = 5;
+			}
 			await Task.Delay(250);
 
 			foreach (var (row, col) in cells)
 			{
-				string cellVal = game.Board[row, col];
-				boardCells[row, col].BackgroundColor = cellVal == "X" ? xBgColor : oBgColor;
+				boardCells[row, col].Stroke = null;
+				boardCells[row, col].StrokeThickness = 0;
 			}
-			await Task.Delay(250);
+			await Task.Delay(200);
 		}
 
+		// Leave stroke visible at the end
 		foreach (var (row, col) in cells)
-			boardCells[row, col].BackgroundColor = Color.FromArgb("#FFD600");
+		{
+			boardCells[row, col].Stroke = goldStroke;
+			boardCells[row, col].StrokeThickness = 5;
+		}
+		await Task.Delay(300);
 	}
 
 	// ===== Nuppude sündmused =====

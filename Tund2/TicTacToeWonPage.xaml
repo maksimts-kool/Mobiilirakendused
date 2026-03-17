@@ -4,7 +4,8 @@
              x:Class="Tund2.TicTacToeWonPage"
              Title="Won"
              BackgroundColor="#7EB6FF"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False">
 
     <ScrollView>
         <VerticalStackLayout MaximumWidthRequest="428"
@@ -13,7 +14,7 @@
                              Spacing="0">
 
             <!-- Crown + Circle overlapping -->
-            <Grid Margin="0,80,0,0"
+            <Grid Margin="0,120,0,0"
                   HorizontalOptions="Center"
                   HeightRequest="267">
                 <!-- Crown (drawn first = behind) -->
@@ -70,7 +71,7 @@
             <!-- Buttons -->
             <Grid ColumnDefinitions="*,26,*"
                   HorizontalOptions="Fill"
-                  Margin="5,55,4,30">
+                  Margin="5,80,4,30">
 
                 <Border Grid.Column="0"
                         HeightRequest="60"

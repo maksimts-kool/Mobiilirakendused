@@ -132,7 +132,7 @@
                 VerticalOptions="Start"
                 Margin="0,320,0,0">
             <Border.StrokeShape>
-                <RoundRectangle CornerRadius="25"/>
+                <RoundRectangle CornerRadius="35"/>
             </Border.StrokeShape>
             <Grid x:Name="boardGrid"
                   RowSpacing="2"
