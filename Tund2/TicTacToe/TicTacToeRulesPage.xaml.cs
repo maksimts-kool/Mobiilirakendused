@@ -1,4 +1,4 @@
-namespace Tund2;
+namespace Tund2.TicTacToe;
 
 public partial class TicTacToeRulesPage : ContentPage
 {

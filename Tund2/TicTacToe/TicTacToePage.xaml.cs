@@ -1,6 +1,6 @@
 using Microsoft.Maui.Controls.Shapes;
 
-namespace Tund2;
+namespace Tund2.TicTacToe;
 
 public partial class TicTacToePage : ContentPage
 {

@@ -1,3 +1,5 @@
+using Tund2.TicTacToe;
+
 namespace Tund2;
 
 using Microsoft.Maui.Controls.Shapes; // For RoundRectangle

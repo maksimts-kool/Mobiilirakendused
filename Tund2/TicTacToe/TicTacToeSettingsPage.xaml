@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.TicTacToe.TicTacToeSettingsPage"
+             BackgroundColor="#7EB6FF"
+             Shell.NavBarIsVisible="False"
+             Title="Seaded">
+
+    <Grid Padding="27,44,27,32"
+          RowDefinitions="Auto,*,Auto"
+          RowSpacing="16"
+          MaximumWidthRequest="500"
+          HorizontalOptions="Center">
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="16">
+                <Border BackgroundColor="White"
+                        StrokeThickness="0"
+                        Padding="28,26,28,30">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="25"/>
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="22">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Mängulaua suurus"
+                                   FontFamily="PoppinsMedium"
+                                   FontSize="28"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="Black"/>
+                        </VerticalStackLayout>
+
+                        <Grid ColumnDefinitions="*,*,*"
+                              ColumnSpacing="32"
+                              WidthRequest="310"
+                              HorizontalOptions="Center">
+                            <Border x:Name="BoardSize3Button"
+                                    Grid.Column="0"
+                                    BackgroundColor="#FF9900"
+                                    Stroke="#BC7100"
+                                    StrokeThickness="2"
+                                    Padding="12"
+                                    WidthRequest="110"
+                                    HeightRequest="55">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnBoardSize3"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="Auto,*"
+                                      ColumnSpacing="8"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center">
+                                    <Image Source="box33.svg"
+                                           WidthRequest="16"
+                                           HeightRequest="16"
+                                           Aspect="AspectFit"
+                                           VerticalOptions="Center"/>
+
+                                    <Label Grid.Column="1"
+                                           Text="3 x 3"
+                                           FontFamily="PoppinsMedium"
+                                           FontSize="18"
+                                           TextColor="White"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <Border x:Name="BoardSize4Button"
+                                    Grid.Column="1"
+                                    BackgroundColor="#FF9900"
+                                    Stroke="#BC7100"
+                                    StrokeThickness="2"
+                                    Padding="12"
+                                    WidthRequest="110"
+                                    HeightRequest="55">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnBoardSize4"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="Auto,*"
+                                      ColumnSpacing="8"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center">
+                                    <Image Source="maximize44.svg"
+                                           WidthRequest="16"
+                                           HeightRequest="16"
+                                           Aspect="AspectFit"
+                                           VerticalOptions="Center"/>
+
+                                    <Label Grid.Column="1"
+                                           Text="4 x 4"
+                                           FontFamily="PoppinsMedium"
+                                           FontSize="18"
+                                           TextColor="White"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <Border x:Name="BoardSize5Button"
+                                    Grid.Column="2"
+                                    BackgroundColor="#FF9900"
+                                    Stroke="#BC7100"
+                                    StrokeThickness="2"
+                                    Padding="12"
+                                    WidthRequest="110"
+                                    HeightRequest="55">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnBoardSize5"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="Auto,*"
+                                      ColumnSpacing="8"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center">
+                                    <Image Source="maximize55.svg"
+                                           WidthRequest="16"
+                                           HeightRequest="16"
+                                           Aspect="AspectFit"
+                                           VerticalOptions="Center"/>
+
+                                    <Label Grid.Column="1"
+                                           Text="5 x 5"
+                                           FontFamily="PoppinsMedium"
+                                           FontSize="18"
+                                           TextColor="White"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <VerticalStackLayout>
+                            <Label Text="Valige, mitu ruutu soovite mängus kasutada. Mida rohkem, seda raskem"
+                                   FontFamily="PoppinsMedium"
+                                   FontSize="14"
+                                   TextColor="#6E6E6E"
+                                   LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="White"
+                        StrokeThickness="0"
+                        Padding="28,26,28,30">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="25"/>
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="22">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Boti keerukus"
+                                   FontFamily="PoppinsMedium"
+                                   FontSize="28"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="Black"/>
+                        </VerticalStackLayout>
+
+                        <Grid ColumnDefinitions="*,*,*"
+                              ColumnSpacing="35"
+                              WidthRequest="310"
+                              HorizontalOptions="Center">
+                            <Border x:Name="DifficultyEasyButton"
+                                    Grid.Column="0"
+                                    BackgroundColor="#FF9900"
+                                    Stroke="#BC7100"
+                                    StrokeThickness="2"
+                                    Padding="12"
+                                    WidthRequest="110"
+                                    HeightRequest="55">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnDifficultyEasy"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="Auto,*"
+                                      ColumnSpacing="4"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center">
+                                    <Image Source="kergedown.svg"
+                                           WidthRequest="22"
+                                           HeightRequest="22"
+                                           Aspect="AspectFit"
+                                           VerticalOptions="Center"/>
+
+                                    <Label Grid.Column="1"
+                                           Text="Kerge"
+                                           FontFamily="PoppinsMedium"
+                                           FontSize="18"
+                                           TextColor="White"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <Border x:Name="DifficultyMediumButton"
+                                    Grid.Column="1"
+                                    BackgroundColor="#FF9900"
+                                    Stroke="#BC7100"
+                                    StrokeThickness="2"
+                                    Padding="12"
+                                    WidthRequest="110"
+                                    HeightRequest="55">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnDifficultyMedium"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="Auto,Auto"
+                                      RowDefinitions="Auto,Auto"
+                                      ColumnSpacing="6"
+                                      RowSpacing="-12"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center">
+                                    <Image Source="keskup.svg"
+                                           Grid.RowSpan="2"
+                                           WidthRequest="22"
+                                           HeightRequest="22"
+                                           Aspect="AspectFit"
+                                           VerticalOptions="Center"/>
+
+                                    <Label Grid.Column="1"
+                                           Text="Kesk"
+                                           FontFamily="PoppinsMedium"
+                                           FontSize="18"
+                                           TextColor="White"
+                                           HorizontalTextAlignment="Start"
+                                           VerticalTextAlignment="End"/>
+
+                                    <Label Grid.Row="1"
+                                           Grid.Column="1"
+                                           Text="mine"
+                                           FontFamily="PoppinsMedium"
+                                           FontSize="18"
+                                           TextColor="White"
+                                           HorizontalTextAlignment="Start"
+                                           VerticalTextAlignment="Start"/>
+                                </Grid>
+                            </Border>
+
+                            <Border x:Name="DifficultyHardButton"
+                                    Grid.Column="2"
+                                    BackgroundColor="#FF9900"
+                                    Stroke="#BC7100"
+                                    StrokeThickness="2"
+                                    Padding="12"
+                                    WidthRequest="110"
+                                    HeightRequest="55">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnDifficultyHard"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="Auto,*"
+                                      ColumnSpacing="4"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center">
+                                    <Image Source="raskeup.svg"
+                                           WidthRequest="22"
+                                           HeightRequest="22"
+                                           Aspect="AspectFit"
+                                           VerticalOptions="Center"/>
+
+                                    <Label Grid.Column="1"
+                                           Text="Raske"
+                                           FontFamily="PoppinsMedium"
+                                           FontSize="18"
+                                           TextColor="White"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <VerticalStackLayout>
+                            <Label Text="Valige, kui nutikas bot saab olema. Mida nutikam, seda keerulisem"
+                                   FontFamily="PoppinsMedium"
+                                   FontSize="14"
+                                   TextColor="#6E6E6E"
+                                   LineBreakMode="WordWrap"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Button Grid.Row="2"
+                Text="Salvesta"
+                HeightRequest="76"
+                CornerRadius="25"
+                BackgroundColor="#F54066"
+                TextColor="White"
+                FontFamily="PoppinsBold"
+                FontSize="24"
+                Padding="24,0"
+                Clicked="OnSaveClicked"/>
+    </Grid>
+
+</ContentPage>
