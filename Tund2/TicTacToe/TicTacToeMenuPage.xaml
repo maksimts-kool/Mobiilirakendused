@@ -71,8 +71,8 @@
                                    VerticalOptions="Center"
                                    Spacing="20">
                 <Image Source="multiuser.png"
-                       WidthRequest="28"
-                       HeightRequest="28"
+                       WidthRequest="35"
+                       HeightRequest="35"
                        VerticalOptions="Center"/>
                 <Label Text="Mitme mäng"
                        FontFamily="PoppinsBold"
