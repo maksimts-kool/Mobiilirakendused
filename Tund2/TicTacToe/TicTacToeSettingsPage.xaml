@@ -53,7 +53,7 @@
                                       ColumnSpacing="8"
                                       HorizontalOptions="Center"
                                       VerticalOptions="Center">
-                                    <Image Source="box33.svg"
+                                    <Image Source="box33.png"
                                            WidthRequest="16"
                                            HeightRequest="16"
                                            Aspect="AspectFit"
@@ -88,7 +88,7 @@
                                       ColumnSpacing="8"
                                       HorizontalOptions="Center"
                                       VerticalOptions="Center">
-                                    <Image Source="maximize44.svg"
+                                    <Image Source="maximize44.png"
                                            WidthRequest="16"
                                            HeightRequest="16"
                                            Aspect="AspectFit"
@@ -123,7 +123,7 @@
                                       ColumnSpacing="8"
                                       HorizontalOptions="Center"
                                       VerticalOptions="Center">
-                                    <Image Source="maximize55.svg"
+                                    <Image Source="maximize55.png"
                                            WidthRequest="16"
                                            HeightRequest="16"
                                            Aspect="AspectFit"
@@ -188,7 +188,7 @@
                                       ColumnSpacing="4"
                                       HorizontalOptions="Center"
                                       VerticalOptions="Center">
-                                    <Image Source="kergedown.svg"
+                                    <Image Source="kergedown.png"
                                            WidthRequest="22"
                                            HeightRequest="22"
                                            Aspect="AspectFit"
@@ -225,7 +225,7 @@
                                       RowSpacing="-12"
                                       HorizontalOptions="Center"
                                       VerticalOptions="Center">
-                                    <Image Source="keskup.svg"
+                                    <Image Source="keskup.png"
                                            Grid.RowSpan="2"
                                            WidthRequest="22"
                                            HeightRequest="22"
@@ -270,7 +270,7 @@
                                       ColumnSpacing="4"
                                       HorizontalOptions="Center"
                                       VerticalOptions="Center">
-                                    <Image Source="raskeup.svg"
+                                    <Image Source="raskeup.png"
                                            WidthRequest="22"
                                            HeightRequest="22"
                                            Aspect="AspectFit"
