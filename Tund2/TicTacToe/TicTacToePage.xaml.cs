@@ -4,9 +4,13 @@ namespace Tund2.TicTacToe;
 
 public partial class TicTacToePage : ContentPage
 {
+	private const string PlayerX = "X";
+	private const string PlayerO = "O";
+
 	private GameLogic game;
 	private Border[,] boardCells = new Border[3, 3];
 	private Image[,] boardSymbols = new Image[3, 3];
+	private readonly Random random = new();
 
 	// Skoor
 	private int xWins, oWins;
@@ -133,18 +137,9 @@ public partial class TicTacToePage : ContentPage
 
 		var cell = boardCells[row, col];
 		var symbol = boardSymbols[row, col];
-		if (player == "X")
-		{
-			symbol.Source = "crossbox.png";
-			symbol.IsVisible = true;
-			cell.BackgroundColor = xBgColor;
-		}
-		else
-		{
-			symbol.Source = "circlebox.png";
-			symbol.IsVisible = true;
-			cell.BackgroundColor = oBgColor;
-		}
+		symbol.Source = player == PlayerX ? "crossbox.png" : "circlebox.png";
+		symbol.IsVisible = true;
+		cell.BackgroundColor = player == PlayerX ? xBgColor : oBgColor;
 
 		// Skaala-animatsioon
 		await cell.ScaleToAsync(1.08, 90);
@@ -155,7 +150,7 @@ public partial class TicTacToePage : ContentPage
 		if (winner != null)
 		{
 			game.EndGame();
-			if (winner == "X") xWins++;
+			if (winner == PlayerX) xWins++;
 			else oWins++;
 			SaveScore();
 			UpdateScoreLabels();
@@ -164,11 +159,10 @@ public partial class TicTacToePage : ContentPage
 			await AnimateWinningCells();
 
 			// Navigate to Won page for the winner
-			string loser = winner == "X" ? "O" : "X";
-			if (isBotEnabled && winner == "O")
+			if (isBotEnabled && winner == PlayerO)
 			{
 				// Bot won — player lost
-				await Navigation.PushAsync(new TicTacToeLosePage("X", isBotEnabled));
+				await Navigation.PushAsync(new TicTacToeLosePage(PlayerX, isBotEnabled));
 			}
 			else
 			{
@@ -189,31 +183,34 @@ public partial class TicTacToePage : ContentPage
 		statusLabel.Text = $"Mängija {game.CurrentPlayer} käik";
 
 		// Bot käik
-		if (isBotEnabled && game.CurrentPlayer == "O" && !game.IsGameOver)
-		{
-			isBotThinking = true;
-			await Task.Delay(400);
-			await BotMove();
-			isBotThinking = false;
-		}
+		await PlayBotTurnAsync(400);
 	}
 
 	// ===== Bot loogika =====
 
-	private async Task BotMove()
+	private async Task PlayBotTurnAsync(int delay)
 	{
-		var (row, col) = GetBotMove();
-		await OnCellClicked(row, col, isBot: true);
-	}
+		if (!isBotEnabled || game.CurrentPlayer != PlayerO || game.IsGameOver)
+			return;
 
-	private (int Row, int Col) GetBotMove()
-	{
-		return botDifficulty switch
+		isBotThinking = true;
+		try
 		{
-			"Easy" => GetBotMoveEasy(),
-			"Hard" => GetBotMoveHard(),
-			_ => GetBotMoveMedium()
-		};
+			await Task.Delay(delay);
+
+			var (row, col) = botDifficulty switch
+			{
+				"Easy" => GetBotMoveEasy(),
+				"Hard" => GetBotMoveHard(),
+				_ => GetBotMoveMedium()
+			};
+
+			await OnCellClicked(row, col, isBot: true);
+		}
+		finally
+		{
+			isBotThinking = false;
+		}
 	}
 
 	// Easy: purely random
@@ -225,20 +222,18 @@ public partial class TicTacToePage : ContentPage
 			for (int c = 0; c < n; c++)
 				if (string.IsNullOrEmpty(game.Board[r, c]))
 					empty.Add((r, c));
-		var rng = new Random();
-		return empty[rng.Next(empty.Count)];
+		return empty[random.Next(empty.Count)];
 	}
 
 	// Medium: block/win + center/corners (original logic)
 	private (int Row, int Col) GetBotMoveMedium()
 	{
 		int n = game.BoardSize;
-		int winLength = n;
 
-		var winMove = FindWinningMove("O", winLength);
+		var winMove = FindWinningMove(PlayerO);
 		if (winMove != null) return winMove.Value;
 
-		var blockMove = FindWinningMove("X", winLength);
+		var blockMove = FindWinningMove(PlayerX);
 		if (blockMove != null) return blockMove.Value;
 
 		int center = n / 2;
@@ -246,8 +241,7 @@ public partial class TicTacToePage : ContentPage
 			return (center, center);
 
 		int[][] corners = { new[] { 0, 0 }, new[] { 0, n - 1 }, new[] { n - 1, 0 }, new[] { n - 1, n - 1 } };
-		var rng = new Random();
-		var shuffled = corners.OrderBy(_ => rng.Next()).ToArray();
+		var shuffled = corners.OrderBy(_ => random.Next()).ToArray();
 		foreach (var c in shuffled)
 			if (string.IsNullOrEmpty(game.Board[c[0], c[1]]))
 				return (c[0], c[1]);
@@ -258,7 +252,7 @@ public partial class TicTacToePage : ContentPage
 				if (string.IsNullOrEmpty(game.Board[r, c]))
 					empty.Add((r, c));
 
-		return empty[rng.Next(empty.Count)];
+		return empty[random.Next(empty.Count)];
 	}
 
 	// Hard: minimax (depth-limited for larger boards)
@@ -280,7 +274,7 @@ public partial class TicTacToePage : ContentPage
 			for (int c = 0; c < n; c++)
 			{
 				if (!string.IsNullOrEmpty(game.Board[r, c])) continue;
-				game.Board[r, c] = "O";
+				game.Board[r, c] = PlayerO;
 				int score = Minimax(game, false, 0, maxDepth, int.MinValue, int.MaxValue);
 				game.Board[r, c] = "";
 				if (score > bestScore)
@@ -296,51 +290,43 @@ public partial class TicTacToePage : ContentPage
 	private int Minimax(GameLogic g, bool isMaximizing, int depth, int maxDepth, int alpha, int beta)
 	{
 		string? winner = g.CheckWinner();
-		if (winner == "O") return 100 - depth;
-		if (winner == "X") return depth - 100;
+		if (winner == PlayerO) return 100 - depth;
+		if (winner == PlayerX) return depth - 100;
 		if (g.IsBoardFull() || depth >= maxDepth) return 0;
 
 		int n = g.BoardSize;
+		int best = isMaximizing ? int.MinValue : int.MaxValue;
+		string player = isMaximizing ? PlayerO : PlayerX;
 
-		if (isMaximizing)
+		for (int r = 0; r < n; r++)
 		{
-			int best = int.MinValue;
-			for (int r = 0; r < n; r++)
+			for (int c = 0; c < n; c++)
 			{
-				for (int c = 0; c < n; c++)
+				if (!string.IsNullOrEmpty(g.Board[r, c])) continue;
+
+				g.Board[r, c] = player;
+				int score = Minimax(g, !isMaximizing, depth + 1, maxDepth, alpha, beta);
+				g.Board[r, c] = "";
+
+				if (isMaximizing)
 				{
-					if (!string.IsNullOrEmpty(g.Board[r, c])) continue;
-					g.Board[r, c] = "O";
-					int score = Minimax(g, false, depth + 1, maxDepth, alpha, beta);
-					g.Board[r, c] = "";
 					best = Math.Max(best, score);
 					alpha = Math.Max(alpha, score);
-					if (beta <= alpha) return best;
 				}
-			}
-			return best;
-		}
-		else
-		{
-			int best = int.MaxValue;
-			for (int r = 0; r < n; r++)
-			{
-				for (int c = 0; c < n; c++)
+				else
 				{
-					if (!string.IsNullOrEmpty(g.Board[r, c])) continue;
-					g.Board[r, c] = "X";
-					int score = Minimax(g, true, depth + 1, maxDepth, alpha, beta);
-					g.Board[r, c] = "";
 					best = Math.Min(best, score);
 					beta = Math.Min(beta, score);
-					if (beta <= alpha) return best;
 				}
+
+				if (beta <= alpha) return best;
 			}
-			return best;
 		}
+
+		return best;
 	}
 
-	private (int Row, int Col)? FindWinningMove(string player, int winLength)
+	private (int Row, int Col)? FindWinningMove(string player)
 	{
 		int n = game.BoardSize;
 		for (int r = 0; r < n; r++)
@@ -404,13 +390,7 @@ public partial class TicTacToePage : ContentPage
 		await statusLabel.ScaleToAsync(1.0, 100);
 
 		// Kui bot on sees ja O alustab
-		if (isBotEnabled && game.CurrentPlayer == "O")
-		{
-			isBotThinking = true;
-			await Task.Delay(300);
-			await BotMove();
-			isBotThinking = false;
-		}
+		await PlayBotTurnAsync(300);
 	}
 
 	// ===== Abimeetodid =====
@@ -472,13 +452,19 @@ public partial class TicTacToePage : ContentPage
 
 		public void SwitchPlayer()
 		{
-			CurrentPlayer = CurrentPlayer == "X" ? "O" : "X";
+			CurrentPlayer = CurrentPlayer == PlayerX ? PlayerO : PlayerX;
 		}
 
 		public string? CheckWinner()
 		{
+			var winningCells = FindWinningCells();
+			return winningCells == null ? null : Board[winningCells[0].Row, winningCells[0].Col];
+		}
+
+		private List<(int Row, int Col)>? FindWinningCells()
+		{
 			int n = BoardSize;
-			int winLength = n;
+			int[][] directions = { new[] { 0, 1 }, new[] { 1, 0 }, new[] { 1, 1 }, new[] { 1, -1 } };
 
 			for (int row = 0; row < n; row++)
 			{
@@ -487,25 +473,35 @@ public partial class TicTacToePage : ContentPage
 					string cell = Board[row, col];
 					if (string.IsNullOrEmpty(cell)) continue;
 
-					if (col + winLength <= n && CheckLine(row, col, 0, 1, winLength, cell))
-						return cell;
-					if (row + winLength <= n && CheckLine(row, col, 1, 0, winLength, cell))
-						return cell;
-					if (row + winLength <= n && col + winLength <= n && CheckLine(row, col, 1, 1, winLength, cell))
-						return cell;
-					if (row + winLength <= n && col - winLength + 1 >= 0 && CheckLine(row, col, 1, -1, winLength, cell))
-						return cell;
+					foreach (var direction in directions)
+					{
+						var winningCells = GetWinningLine(row, col, direction[0], direction[1], cell);
+						if (winningCells != null)
+							return winningCells;
+					}
 				}
 			}
 			return null;
 		}
 
-		private bool CheckLine(int startRow, int startCol, int dRow, int dCol, int length, string player)
+		private List<(int Row, int Col)>? GetWinningLine(int startRow, int startCol, int dRow, int dCol, string player)
 		{
-			for (int i = 0; i < length; i++)
-				if (Board[startRow + i * dRow, startCol + i * dCol] != player)
-					return false;
-			return true;
+			int endRow = startRow + (BoardSize - 1) * dRow;
+			int endCol = startCol + (BoardSize - 1) * dCol;
+			if (endRow < 0 || endRow >= BoardSize || endCol < 0 || endCol >= BoardSize)
+				return null;
+
+			var cells = new List<(int Row, int Col)>(BoardSize);
+			for (int i = 0; i < BoardSize; i++)
+			{
+				int row = startRow + i * dRow;
+				int col = startCol + i * dCol;
+				if (Board[row, col] != player)
+					return null;
+				cells.Add((row, col));
+			}
+
+			return cells;
 		}
 
 		public bool IsBoardFull()
@@ -530,7 +526,7 @@ public partial class TicTacToePage : ContentPage
 		public void ResetBoard()
 		{
 			Board = new string[BoardSize, BoardSize];
-			CurrentPlayer = "X";
+			CurrentPlayer = PlayerX;
 			IsGameOver = false;
 		}
 
@@ -551,35 +547,6 @@ public partial class TicTacToePage : ContentPage
 		}
 
 		public List<(int Row, int Col)>? GetWinningCells()
-		{
-			int n = BoardSize;
-			int winLength = n;
-
-			for (int row = 0; row < n; row++)
-			{
-				for (int col = 0; col < n; col++)
-				{
-					string cell = Board[row, col];
-					if (string.IsNullOrEmpty(cell)) continue;
-
-					int[][] directions = { new[] { 0, 1 }, new[] { 1, 0 }, new[] { 1, 1 }, new[] { 1, -1 } };
-					foreach (var dir in directions)
-					{
-						int endRow = row + (winLength - 1) * dir[0];
-						int endCol = col + (winLength - 1) * dir[1];
-						if (endRow < 0 || endRow >= n || endCol < 0 || endCol >= n) continue;
-
-						if (CheckLine(row, col, dir[0], dir[1], winLength, cell))
-						{
-							var cells = new List<(int, int)>();
-							for (int i = 0; i < winLength; i++)
-								cells.Add((row + i * dir[0], col + i * dir[1]));
-							return cells;
-						}
-					}
-				}
-			}
-			return null;
-		}
+			=> FindWinningCells();
 	}
 }
