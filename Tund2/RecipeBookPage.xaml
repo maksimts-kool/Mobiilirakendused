@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.RecipeBookPage"
+             Title="Minu retseptiraamat"
+             BackgroundColor="#FFF8F2">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16"
+                             Padding="16,20,16,24">
+            <Label Text="Minu retseptiraamat"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#7C2D12"/>
+
+            <Label Text="Koosta oma retseptikaart: lisa koostisosad, vali valmistamise parameetrid ja kuva kokkuvõte."
+                   FontSize="14"
+                   TextColor="#9A3412"/>
+
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="18">
+                    <Border StrokeThickness="0"
+                            BackgroundColor="#FFF7ED"
+                            Padding="14">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Põhiinfo / Основная информация"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+
+                            <Label Text="Retsepti nimi / Название"
+                                   TextColor="#9A3412"/>
+                            <Entry x:Name="RecipeNameEntryCell"
+                                   Placeholder="Nt Kreemine pasta"
+                                   BackgroundColor="White"
+                                   TextColor="#431407"/>
+
+                            <Label Text="Roa tüüp / Тип блюда"
+                                   TextColor="#9A3412"/>
+                            <Entry x:Name="DishTypeEntryCell"
+                                   Placeholder="Nt supp, salat, magustoit"
+                                   BackgroundColor="White"
+                                   TextColor="#431407"/>
+
+                            <Label Text="Lühikirjeldus / Краткое описание"
+                                   TextColor="#9A3412"/>
+                            <Entry x:Name="DescriptionEntryCell"
+                                   Placeholder="Kirjelda rooga lühidalt"
+                                   BackgroundColor="White"
+                                   TextColor="#431407"/>
+
+                            <Label Text="Autor / Автор"
+                                   TextColor="#9A3412"/>
+                            <Entry x:Name="AuthorEntryCell"
+                                   Placeholder="Nt minu lemmikroog"
+                                   BackgroundColor="White"
+                                   TextColor="#431407"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border StrokeThickness="0"
+                            BackgroundColor="#FFF7ED"
+                            Padding="14">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Koostisosad / Ингредиенты"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+
+                            <Label Text="Koostisosa 1"
+                                   TextColor="#9A3412"/>
+                            <Entry x:Name="Ingredient1EntryCell"
+                                   Placeholder="Nt kanafilee"
+                                   BackgroundColor="White"
+                                   TextColor="#431407"/>
+
+                            <Label Text="Koostisosa 2"
+                                   TextColor="#9A3412"/>
+                            <Entry x:Name="Ingredient2EntryCell"
+                                   Placeholder="Nt paprika"
+                                   BackgroundColor="White"
+                                   TextColor="#431407"/>
+
+                            <Label Text="Koostisosa 3"
+                                   TextColor="#9A3412"/>
+                            <Entry x:Name="Ingredient3EntryCell"
+                                   Placeholder="Nt koor"
+                                   BackgroundColor="White"
+                                   TextColor="#431407"/>
+
+                            <Label Text="Koostisosa 4"
+                                   TextColor="#9A3412"/>
+                            <Entry x:Name="Ingredient4EntryCell"
+                                   Placeholder="Nt juust"
+                                   BackgroundColor="White"
+                                   TextColor="#431407"/>
+
+                            <Label Text="Koostisosa 5"
+                                   TextColor="#9A3412"/>
+                            <Entry x:Name="Ingredient5EntryCell"
+                                   Placeholder="Nt maitseained"
+                                   BackgroundColor="White"
+                                   TextColor="#431407"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border StrokeThickness="0"
+                            BackgroundColor="#FFF7ED"
+                            Padding="14">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="12">
+                            <Label Text="Valmistamise parameetrid / Параметры приготовления"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Valmistamise kuupäev / Дата приготовления"
+                                       FontAttributes="Bold"
+                                       TextColor="#7C2D12"/>
+                                <DatePicker x:Name="CookingDatePicker"/>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Valmistusaeg / Время приготовления"
+                                       FontAttributes="Bold"
+                                       TextColor="#7C2D12"/>
+                                <Label x:Name="CookingTimeValueLabel"
+                                       Text="45 min"
+                                       TextColor="#9A3412"/>
+                                <Slider x:Name="CookingTimeSlider"
+                                        Minimum="10"
+                                        Maximum="180"
+                                        Value="45"
+                                        ValueChanged="OnCookingTimeChanged"
+                                        MinimumTrackColor="#EA580C"
+                                        MaximumTrackColor="#FED7AA"
+                                        ThumbColor="#C2410C"/>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Portsjonid / Порции"
+                                       FontAttributes="Bold"
+                                       TextColor="#7C2D12"/>
+                                <Label x:Name="PortionsValueLabel"
+                                       Text="2 portsjonit"
+                                       TextColor="#9A3412"/>
+                                <Stepper x:Name="PortionsStepper"
+                                         Minimum="1"
+                                         Maximum="12"
+                                         Increment="1"
+                                         Value="2"
+                                         ValueChanged="OnPortionsChanged"/>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Raskusaste / Сложность"
+                                       FontAttributes="Bold"
+                                       TextColor="#7C2D12"/>
+                                <Picker x:Name="DifficultyPicker"
+                                        Title="Vali raskusaste">
+                                    <Picker.Items>
+                                        <x:String>Lihtne</x:String>
+                                        <x:String>Keskmine</x:String>
+                                        <x:String>Keeruline</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </VerticalStackLayout>
+
+                            <Grid ColumnDefinitions="*,Auto"
+                                  ColumnSpacing="12">
+                                <Label Text="Taimetoit / Вегетарианское"
+                                       VerticalOptions="Center"
+                                       TextColor="#431407"/>
+                                <Switch x:Name="VegetarianSwitchCell"
+                                        Grid.Column="1"/>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,Auto"
+                                  ColumnSpacing="12">
+                                <Label Text="Magus roog / Сладкое блюдо"
+                                       VerticalOptions="Center"
+                                       TextColor="#431407"/>
+                                <Switch x:Name="SweetDishSwitchCell"
+                                        Grid.Column="1"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border StrokeThickness="0"
+                            BackgroundColor="#FFF7ED"
+                            Padding="14">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Juhend / Инструкция"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+                            <Label Text="Valmistusviis / Способ приготовления"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+                            <Label Text="Kirjuta lühidalt, kuidas rooga valmistada."
+                                   TextColor="#9A3412"/>
+                            <Editor x:Name="InstructionEditor"
+                                    HeightRequest="150"
+                                    AutoSize="TextChanges"
+                                    Placeholder="1. Valmista koostisosad ette...&#10;2. Küpseta või sega...&#10;3. Serveeri soojalt..."
+                                    BackgroundColor="White"
+                                    TextColor="#431407"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border StrokeThickness="0"
+                            BackgroundColor="#FFF7ED"
+                            Padding="14">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Kuva lisainfo / Показать доп. информацию"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+                            <Grid ColumnDefinitions="*,Auto"
+                                  ColumnSpacing="12">
+                                <Label Text="Näita lisainfo"
+                                       VerticalOptions="Center"
+                                       TextColor="#431407"/>
+                                <Switch x:Name="ExtraInfoSwitchCell"
+                                        Grid.Column="1"
+                                        Toggled="OnExtraInfoChanged"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border x:Name="ExtraInfoSection"
+                            StrokeThickness="0"
+                            BackgroundColor="#FFF7ED"
+                            Padding="14"
+                            IsVisible="False">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Lisainfo / Дополнительная информация"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+
+                            <Image Source="dotnet_bot.png"
+                                   HeightRequest="120"
+                                   Aspect="AspectFit"/>
+                            <Label Text="Roa foto"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+                            <Label Text="Illustratsioon retseptikaardile"
+                                   TextColor="#9A3412"/>
+
+                            <Label Text="Serveerimissoovitus"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+                            <Label x:Name="ServingTipTextCell"
+                                   Text="Serveeri värske salati või ürtidega."
+                                   TextColor="#431407"/>
+
+                            <Label Text="Kalorid"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+                            <Label x:Name="CaloriesTextCell"
+                                   Text="Umbes 420 kcal portsjoni kohta"
+                                   TextColor="#431407"/>
+
+                            <Label Text="Märkus"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+                            <Label x:Name="ExtraNoteTextCell"
+                                   Text="Sobib õhtusöögiks ja perega jagamiseks."
+                                   TextColor="#431407"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border StrokeThickness="0"
+                            BackgroundColor="#FFF7ED"
+                            Padding="14">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Tegevused / Действия"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#7C2D12"/>
+                            <Grid ColumnDefinitions="*,*,*"
+                                  ColumnSpacing="10">
+                                <Button Grid.Column="0"
+                                        Text="SALVESTA"
+                                        CornerRadius="14"
+                                        BackgroundColor="#16A34A"
+                                        TextColor="White"
+                                        Clicked="OnSaveClicked"/>
+                                <Button Grid.Column="1"
+                                        Text="NÄITA KOKKUVÕTE"
+                                        CornerRadius="14"
+                                        FontSize="12"
+                                        BackgroundColor="#EA580C"
+                                        TextColor="White"
+                                        Clicked="OnSummaryClicked"/>
+                                <Button Grid.Column="2"
+                                        Text="PUHASTA"
+                                        CornerRadius="14"
+                                        BackgroundColor="#6B7280"
+                                        TextColor="White"
+                                        Clicked="OnClearClicked"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
