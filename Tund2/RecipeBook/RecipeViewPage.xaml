@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.RecipeViewPage"
+             Title="Retsept"
+             BackgroundColor="#FFF8F2">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16"
+                             Padding="16,20,16,24">
+            <VerticalStackLayout Spacing="6">
+                <Label x:Name="RecipeNameLabel"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="#7C2D12"/>
+                <Label x:Name="RecipeTypeLabel"
+                       FontSize="16"
+                       TextColor="#9A3412"/>
+                <Label x:Name="RecipeDescriptionLabel"
+                       FontSize="14"
+                       TextColor="#78716C"/>
+            </VerticalStackLayout>
+
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Põhiinfo"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#7C2D12"/>
+
+                    <Label x:Name="AuthorLabel"
+                           TextColor="#431407"/>
+                    <Label x:Name="CookingDateLabel"
+                           TextColor="#431407"/>
+                    <Label x:Name="CookingTimeLabel"
+                           TextColor="#431407"/>
+                    <Label x:Name="PortionsLabel"
+                           TextColor="#431407"/>
+                    <Label x:Name="DifficultyLabel"
+                           TextColor="#431407"/>
+                    <Label x:Name="FlagsLabel"
+                           TextColor="#431407"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Koostisosad"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#7C2D12"/>
+                    <VerticalStackLayout x:Name="IngredientsLayout"
+                                         Spacing="8"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Juhend"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#7C2D12"/>
+                    <Label x:Name="InstructionsLabel"
+                           TextColor="#431407"/>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
