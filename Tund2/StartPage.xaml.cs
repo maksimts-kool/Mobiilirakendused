@@ -23,6 +23,7 @@ public partial class StartPage : ContentPage
 ("Pop-up aknad", "Dialoogiaknad ja hüpikud", () => new Pop_Up_Page(), "💬"),
 ("Kohvikonstruktor", "Ideaalse kohvi tellimine", () => new KohvikPage(), "☕"),
 ("Minu retseptiraamat", "Menüü retseptide loomiseks, vaatamiseks ja kustutamiseks", () => new RecipeBookMenuPage(), "🍲"),
+("Euroopa riigid", "Riikide vaatamine, lisamine, muutmine ja kustutamine", () => new EuroopaRiigidPage(), "🌍"),
 ("Trips-Traps-Trull", "Klassikaline lauamäng", () => new TicTacToeMenuPage(), "❌")
 		};
 

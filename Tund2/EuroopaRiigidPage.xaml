@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.EuroopaRiigidPage"
+             x:Name="PageRoot"
+             Title="Euroopa riigid"
+             BackgroundColor="#EEF3FA">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16,20,16,24"
+                             Spacing="16">
+
+            <Border StrokeThickness="0"
+                    BackgroundColor="#17324D"
+                    Padding="20">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="28"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="#0F172A"
+                            Offset="0,8"
+                            Radius="18"
+                            Opacity="0.25"/>
+                </Border.Shadow>
+
+                <Grid ColumnDefinitions="Auto,*"
+                      ColumnSpacing="16">
+
+                    <VerticalStackLayout Grid.Column="1"
+                                         Spacing="4"
+                                         VerticalOptions="Center">
+                        <Label Text="Euroopa riigid"
+                               FontSize="30"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                        <Label Text="Vaata, lisa, muuda ja kustuta riike ühes lihtsas nimekirjas."
+                               FontSize="14"
+                               TextColor="#D9E6F2"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="#94A3B8"
+                            Offset="0,6"
+                            Radius="12"
+                            Opacity="0.15"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Riikide nimekiri"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#17324D"/>
+                    <Label Text="Kasuta paremal olevaid nuppe, et riiki muuta või kustutada."
+                           FontSize="13"
+                           TextColor="#5B6B7B"/>
+
+                    <VerticalStackLayout x:Name="RiigidCardsLayout"
+                                         Spacing="10"
+                                         BindableLayout.ItemsSource="{Binding Source={x:Reference PageRoot}, Path=Riigid}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Border StrokeThickness="0"
+                                        BackgroundColor="#F8FBFF"
+                                        Padding="12">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="18"/>
+                                    </Border.StrokeShape>
+
+                                    <Grid ColumnDefinitions="52,*,Auto"
+                                          ColumnSpacing="12">
+                                        <Border WidthRequest="52"
+                                                HeightRequest="36"
+                                                BackgroundColor="White"
+                                                Stroke="#D8E3F1"
+                                                StrokeThickness="1"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="8"/>
+                                            </Border.StrokeShape>
+                                            <Image Source="{Binding Lipp}"
+                                                   Aspect="AspectFill"/>
+                                        </Border>
+
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Spacing="2"
+                                                             VerticalOptions="Center">
+                                            <HorizontalStackLayout Spacing="8">
+                                                <Label Text="{Binding Nimi}"
+                                                       FontSize="18"
+                                                       FontAttributes="Bold"
+                                                       TextColor="#17324D"
+                                                       VerticalOptions="Center"/>
+                                                <Border Padding="8,2"
+                                                        BackgroundColor="#DCFCE7"
+                                                        StrokeThickness="0"
+                                                        IsVisible="{Binding OnEuroopaLiidus}"
+                                                        VerticalOptions="Center">
+                                                    <Border.StrokeShape>
+                                                        <RoundRectangle CornerRadius="999"/>
+                                                    </Border.StrokeShape>
+                                                    <Label Text="EU"
+                                                           FontSize="11"
+                                                           FontAttributes="Bold"
+                                                           TextColor="#166534"/>
+                                                </Border>
+                                            </HorizontalStackLayout>
+                                            <Label Text="{Binding Pealinn, StringFormat='Pealinn: {0}'}"
+                                                   FontSize="13"
+                                                   TextColor="#5B6B7B"/>
+                                            <Label Text="{Binding Rahvaarv, StringFormat='Rahvaarv: {0}'}"
+                                                   FontSize="13"
+                                                   TextColor="#5B6B7B"/>
+                                        </VerticalStackLayout>
+
+                                        <VerticalStackLayout Grid.Column="2"
+                                                             Spacing="8"
+                                                             VerticalOptions="Center">
+                                            <Button Text="Muuda"
+                                                    Padding="14,8"
+                                                    FontSize="12"
+                                                    CornerRadius="12"
+                                                    BackgroundColor="#DBEAFE"
+                                                    TextColor="#1D4ED8"
+                                                    Clicked="OnEditCountryClicked"
+                                                    CommandParameter="{Binding .}"/>
+                                            <Button Text="Kustuta"
+                                                    Padding="14,8"
+                                                    FontSize="12"
+                                                    CornerRadius="12"
+                                                    BackgroundColor="#FEE2E2"
+                                                    TextColor="#B91C1C"
+                                                    Clicked="OnDeleteCountryClicked"
+                                                    CommandParameter="{Binding .}"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="#94A3B8"
+                            Offset="0,6"
+                            Radius="12"
+                            Opacity="0.15"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Lisa või muuda riiki"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#17324D"/>
+                    <Label Text="Lisa uus riik või muuda valitud riigi andmeid. Kustutamine toimub kaardil oleva nupu kaudu."
+                           FontSize="13"
+                           TextColor="#5B6B7B"/>
+
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Nimi"
+                               FontAttributes="Bold"
+                               TextColor="#17324D"/>
+                        <Entry x:Name="NimiEntry"
+                               Placeholder="Nt Eesti"
+                               BackgroundColor="#F8FBFF"
+                               TextColor="#17324D"/>
+
+                        <Label Text="Pealinn"
+                               FontAttributes="Bold"
+                               TextColor="#17324D"/>
+                        <Entry x:Name="PealinnEntry"
+                               Placeholder="Nt Tallinn"
+                               BackgroundColor="#F8FBFF"
+                               TextColor="#17324D"/>
+
+                        <Label Text="Rahvaarv"
+                               FontAttributes="Bold"
+                               TextColor="#17324D"/>
+                        <Entry x:Name="RahvaarvEntry"
+                               Placeholder="Nt 1365884"
+                               Keyboard="Numeric"
+                               BackgroundColor="#F8FBFF"
+                               TextColor="#17324D"/>
+
+                        <Label Text="Lipu pilt"
+                               FontAttributes="Bold"
+                               TextColor="#17324D"/>
+                        <Grid ColumnDefinitions="*,Auto"
+                              ColumnSpacing="10">
+                            <Entry x:Name="LippEntry"
+                                   Placeholder="Vali foto galeriist"
+                                   IsReadOnly="True"
+                                   TextChanged="OnLippEntryTextChanged"
+                                   BackgroundColor="#F8FBFF"
+                                   TextColor="#17324D"/>
+                            <Button Grid.Column="1"
+                                    Text="Ava galerii"
+                                    CornerRadius="12"
+                                    Padding="16,10"
+                                    BackgroundColor="#DBEAFE"
+                                    TextColor="#1D4ED8"
+                                    Clicked="OnPickFlagImageClicked"/>
+                        </Grid>
+
+                        <Border Padding="8"
+                                BackgroundColor="#F8FBFF"
+                                Stroke="#D8E3F1"
+                                StrokeThickness="1">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14"/>
+                            </Border.StrokeShape>
+                            <Image x:Name="LippPreviewImage"
+                                   HeightRequest="120"
+                                   Aspect="AspectFit"
+                                   BackgroundColor="White"/>
+                        </Border>
+
+                        <Grid ColumnDefinitions="*,Auto"
+                              ColumnSpacing="10">
+                            <Label Text="Kuulub Euroopa Liitu"
+                                   FontAttributes="Bold"
+                                   TextColor="#17324D"
+                                   VerticalOptions="Center"/>
+                            <Switch x:Name="EuSwitch"
+                                    Grid.Column="1"
+                                    OnColor="#22C55E"
+                                    ThumbColor="White"
+                                    HorizontalOptions="End"/>
+                        </Grid>
+                    </VerticalStackLayout>
+
+                    <Grid RowDefinitions="Auto,Auto"
+                          ColumnDefinitions="*,*"
+                          RowSpacing="10"
+                          ColumnSpacing="10">
+                        <Button Text="Lisa uus riik"
+                                CornerRadius="14"
+                                BackgroundColor="#2563EB"
+                                TextColor="White"
+                                Clicked="OnAddClicked"/>
+
+                        <Button Grid.Column="1"
+                                Text="Uuenda valitud"
+                                CornerRadius="14"
+                                BackgroundColor="#16A34A"
+                                TextColor="White"
+                                Clicked="OnSaveChangesClicked"/>
+
+                        <Button Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Text="Tühjenda väljad"
+                                CornerRadius="14"
+                                BackgroundColor="#64748B"
+                                TextColor="White"
+                                Clicked="OnClearClicked"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
