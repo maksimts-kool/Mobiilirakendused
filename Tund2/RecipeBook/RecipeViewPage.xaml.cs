@@ -2,31 +2,17 @@ namespace Tund2;
 
 public partial class RecipeViewPage : ContentPage
 {
-    private readonly Guid recipeId;
+    private readonly RecipeData recipe;
 
-    public RecipeViewPage(Guid recipeId)
+    public RecipeViewPage(RecipeData recipe)
     {
         InitializeComponent();
-        this.recipeId = recipeId;
-    }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
+        this.recipe = recipe;
         LoadRecipe();
     }
 
-    private async void LoadRecipe()
+    private void LoadRecipe()
     {
-        var recipe = RecipeStore.GetById(recipeId);
-
-        if (recipe is null)
-        {
-            await DisplayAlertAsync("Viga", "Retsepti ei leitud.", "OK");
-            await Navigation.PopAsync();
-            return;
-        }
-
         RecipeNameLabel.Text = recipe.Name;
         RecipeTypeLabel.Text = string.IsNullOrWhiteSpace(recipe.DishType) ? "Tüüp puudub" : recipe.DishType;
         RecipeDescriptionLabel.Text = string.IsNullOrWhiteSpace(recipe.Description) ? "Kirjeldus puudub" : recipe.Description;

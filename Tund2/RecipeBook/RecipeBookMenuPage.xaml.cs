@@ -1,23 +1,33 @@
+using System.Collections.ObjectModel;
+
 namespace Tund2;
 
 public partial class RecipeBookMenuPage : ContentPage
 {
+    private readonly ObservableCollection<RecipeData> recipes;
+
     public RecipeBookMenuPage()
+        : this(((App)Application.Current!).Recipes)
+    {
+    }
+
+    private RecipeBookMenuPage(ObservableCollection<RecipeData> recipes)
     {
         InitializeComponent();
-        RecipesCollectionView.ItemsSource = RecipeStore.Recipes;
+        this.recipes = recipes;
+        RecipesCollectionView.ItemsSource = this.recipes;
     }
 
     private async void OnCreateClicked(object? sender, EventArgs e)
     {
-        await Navigation.PushAsync(new RecipeBookPage());
+        await Navigation.PushAsync(new RecipeBookPage(recipes));
     }
 
     private async void OnOpenClicked(object? sender, EventArgs e)
     {
         if (GetRecipeFromSender(sender) is RecipeData recipe)
         {
-            await Navigation.PushAsync(new RecipeViewPage(recipe.Id));
+            await Navigation.PushAsync(new RecipeViewPage(recipe));
         }
     }
 
@@ -36,7 +46,7 @@ public partial class RecipeBookMenuPage : ContentPage
 
         if (shouldDelete)
         {
-            RecipeStore.Delete(recipe.Id);
+            recipes.Remove(recipe);
         }
     }
 

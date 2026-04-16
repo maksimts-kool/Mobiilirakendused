@@ -1,12 +1,21 @@
+using System.Collections.ObjectModel;
+
 namespace Tund2;
 
 public partial class RecipeBookPage : ContentPage
 {
     private readonly List<Entry> ingredientEntries = new();
+    private readonly ObservableCollection<RecipeData> recipes;
 
     public RecipeBookPage()
+        : this(((App)Application.Current!).Recipes)
+    {
+    }
+
+    public RecipeBookPage(ObservableCollection<RecipeData> recipes)
     {
         InitializeComponent();
+        this.recipes = recipes;
         SetDefaultValues();
     }
 
@@ -137,7 +146,7 @@ public partial class RecipeBookPage : ContentPage
             Instructions = InstructionEditor.Text?.Trim() ?? string.Empty
         };
 
-        RecipeStore.Save(recipe);
+        recipes.Insert(0, recipe);
 
         await DisplayAlertAsync(
             "Retsept salvestatud",

@@ -1,9 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Collections.ObjectModel;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Tund2;
 
 public partial class App : Application
 {
+	public ObservableCollection<RecipeData> Recipes { get; } = new();
+
 	public App()
 	{
 		InitializeComponent();
