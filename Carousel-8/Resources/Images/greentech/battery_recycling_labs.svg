@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8fff1"/>
+      <stop offset="100%" stop-color="#8cc6a0"/>
+    </linearGradient>
+    <linearGradient id="battery" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f6e3d"/>
+      <stop offset="100%" stop-color="#154b2f"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <rect x="224" y="126" width="288" height="218" rx="28" fill="url(#battery)"/>
+  <rect x="512" y="196" width="36" height="80" rx="10" fill="#184c31"/>
+  <rect x="260" y="160" width="216" height="150" rx="18" fill="#ecfff2"/>
+  <path d="M332 194 C294 194 280 236 312 258" fill="none" stroke="#2ea35d" stroke-width="20" stroke-linecap="round"/>
+  <path d="M404 276 C442 276 456 234 424 212" fill="none" stroke="#2ea35d" stroke-width="20" stroke-linecap="round"/>
+  <path d="M294 248 L306 216 L332 226 Z" fill="#2ea35d"/>
+  <path d="M442 222 L430 254 L404 244 Z" fill="#2ea35d"/>
+  <path d="M168 382 H312 L284 464 H196 Z" fill="#ffffff" opacity="0.88"/>
+  <path d="M488 382 H632 L604 464 H516 Z" fill="#ffffff" opacity="0.88"/>
+  <rect x="220" y="360" width="40" height="32" rx="10" fill="#dff7e5"/>
+  <rect x="540" y="360" width="40" height="32" rx="10" fill="#dff7e5"/>
+  <path d="M220 382 C248 330 304 330 332 382" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
+  <path d="M540 382 C568 330 624 330 652 382" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
+  <path d="M364 118 L392 72 L420 118 Z" fill="#fff3a4"/>
+  <rect x="384" y="56" width="16" height="38" rx="8" fill="#fff3a4"/>
+</svg>

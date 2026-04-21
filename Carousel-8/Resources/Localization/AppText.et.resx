@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AlertClose" xml:space="preserve">
+    <value>Sule</value>
+  </data>
+  <data name="AlertTitle" xml:space="preserve">
+    <value>Idee detailid</value>
+  </data>
+  <data name="AutoScrollNote" xml:space="preserve">
+    <value>Automaatne liikumine peatub detailide ajal.</value>
+  </data>
+  <data name="Card1Description" xml:space="preserve">
+    <value>Katuselahendused, mis ühendavad päikesepaneelid, akud ja ilma jälgiva juhtimise.</value>
+  </data>
+  <data name="Card1DetailText" xml:space="preserve">
+    <value>Nutikad päikesekatused muudavad kodud ja koolid väikesteks puhta energia keskusteks. Andurid jälgivad päikest, akud salvestavad ülejäägi õhtuks ning tarkvara suunab suurema tarbimise kõige sobivamatele tundidele.</value>
+  </data>
+  <data name="Card1Title" xml:space="preserve">
+    <value>Nutikad päikesekatused</value>
+  </data>
+  <data name="Card2Description" xml:space="preserve">
+    <value>Meretuulikud ujuvplatvormidel, mis jõuavad tugevamate ja ühtlasemate tuulteni.</value>
+  </data>
+  <data name="Card2DetailText" xml:space="preserve">
+    <value>Ujuvad tuulepargid sobivad sügavamatesse rannikuvetesse, kus tuul on stabiilsem. Nii saab toota rohkem taastuvenergiat ilma linnamaad hõivamata ning siduda lahendus sadamate ja vesinikuarendustega.</value>
+  </data>
+  <data name="Card2Title" xml:space="preserve">
+    <value>Ujuvad tuulepargid</value>
+  </data>
+  <data name="Card3Description" xml:space="preserve">
+    <value>Mitmekorruselised sisefarmid, mis säästavad maad ja lühendavad toiduteekonda.</value>
+  </data>
+  <data name="Card3DetailText" xml:space="preserve">
+    <value>Vertikaalfarmid kasvatavad taimi riiulitel LED-valguse ja täpse kastmise abil otse linna lähedal. See aitab vähendada transpordiheidet, säästa vett ja tugevdada kohaliku toidutootmise vastupidavust.</value>
+  </data>
+  <data name="Card3Title" xml:space="preserve">
+    <value>Vertikaalfarmid</value>
+  </data>
+  <data name="Card4Description" xml:space="preserve">
+    <value>Laborid, mis taastavad vanadest akudest liitiumi, niklit ja koobaltit.</value>
+  </data>
+  <data name="Card4DetailText" xml:space="preserve">
+    <value>Akude taaskasutuslaborid hoiavad väärtuslikud materjalid ringluses. Kasutatud akud sorteeritakse, puhastatakse ja suunatakse tagasi uutesse energiasalvestitesse või elektrisõidukitesse.</value>
+  </data>
+  <data name="Card4Title" xml:space="preserve">
+    <value>Akude taaskasutuslaborid</value>
+  </data>
+  <data name="Card5Description" xml:space="preserve">
+    <value>Autonoomsed seadmed, mis koguvad pinnalt prügi ja kaardistavad reostust.</value>
+  </data>
+  <data name="Card5DetailText" xml:space="preserve">
+    <value>Ookeanipuhastus droonid saavad patrullida sadamates ja rannikul, koguda plastprügi ning saata reaalajas infot reostuskollete kohta. Nii saab koristustiim reageerida kiiremini ja kaitsta mereelustikku tõhusamalt.</value>
+  </data>
+  <data name="Card5Title" xml:space="preserve">
+    <value>Ookeanipuhastus droonid</value>
+  </data>
+  <data name="CardTapHint" xml:space="preserve">
+    <value>Puuduta detailideks</value>
+  </data>
+  <data name="CardCollapseHint" xml:space="preserve">
+    <value>Puuduta peitmiseks</value>
+  </data>
+  <data name="HeroEyebrow" xml:space="preserve">
+    <value>Rohelise tuleviku labor</value>
+  </data>
+  <data name="HeroSubtitle" xml:space="preserve">
+    <value>Libista läbi viie praktilise lahenduse, mis muudavad linnad, energia ja ookeanid puhtamaks.</value>
+  </data>
+  <data name="HeroTitle" xml:space="preserve">
+    <value>Rohetehnoloogia ideed</value>
+  </data>
+  <data name="LanguageEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LanguageEstonian" xml:space="preserve">
+    <value>Eesti</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Vali keel</value>
+  </data>
+  <data name="SectionLabel" xml:space="preserve">
+    <value>Puuduta kaarti, et avada detailide hüpikaken.</value>
+  </data>
+</root>

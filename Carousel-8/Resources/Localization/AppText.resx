@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AlertClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AlertTitle" xml:space="preserve">
+    <value>Idea details</value>
+  </data>
+  <data name="AutoScrollNote" xml:space="preserve">
+    <value>Auto-scroll pauses while details are open.</value>
+  </data>
+  <data name="Card1Description" xml:space="preserve">
+    <value>Roof systems that combine solar panels, storage, and weather-aware controls.</value>
+  </data>
+  <data name="Card1DetailText" xml:space="preserve">
+    <value>Smart solar rooftops turn homes and schools into small clean-energy hubs. Sensors can track sunlight, batteries can save extra power for the evening, and software can shift appliance use to the best hours.</value>
+  </data>
+  <data name="Card1Title" xml:space="preserve">
+    <value>Smart solar rooftops</value>
+  </data>
+  <data name="Card2Description" xml:space="preserve">
+    <value>Offshore turbines placed on floating platforms to reach stronger winds.</value>
+  </data>
+  <data name="Card2DetailText" xml:space="preserve">
+    <value>Floating wind farms can be installed in deeper coastal waters where wind is steadier. They expand clean energy production without competing for city land and can be paired with ports and hydrogen projects.</value>
+  </data>
+  <data name="Card2Title" xml:space="preserve">
+    <value>Floating wind farms</value>
+  </data>
+  <data name="Card3Description" xml:space="preserve">
+    <value>Multi-level indoor growing systems that save land and shorten delivery routes.</value>
+  </data>
+  <data name="Card3DetailText" xml:space="preserve">
+    <value>Vertical farms use stacked shelves, LED lighting, and controlled watering to grow food near consumers. That can reduce transport emissions, save water, and give cities more resilient local food production.</value>
+  </data>
+  <data name="Card3Title" xml:space="preserve">
+    <value>Vertical farms</value>
+  </data>
+  <data name="Card4Description" xml:space="preserve">
+    <value>Specialized labs that recover lithium, nickel, and cobalt from old batteries.</value>
+  </data>
+  <data name="Card4DetailText" xml:space="preserve">
+    <value>Battery recycling labs help keep critical minerals in circulation. Instead of throwing used batteries away, the materials are sorted, cleaned, and reused in new energy storage systems or electric vehicles.</value>
+  </data>
+  <data name="Card4Title" xml:space="preserve">
+    <value>Battery recycling labs</value>
+  </data>
+  <data name="Card5Description" xml:space="preserve">
+    <value>Autonomous surface devices that collect floating waste and map pollution.</value>
+  </data>
+  <data name="Card5DetailText" xml:space="preserve">
+    <value>Ocean-cleaning drones can patrol harbors and coastlines, gather plastic waste, and send live data about pollution hotspots. Teams can then target cleanup work faster and protect marine ecosystems.</value>
+  </data>
+  <data name="Card5Title" xml:space="preserve">
+    <value>Ocean-cleaning drones</value>
+  </data>
+  <data name="CardTapHint" xml:space="preserve">
+    <value>Tap for details</value>
+  </data>
+  <data name="CardCollapseHint" xml:space="preserve">
+    <value>Tap to hide details</value>
+  </data>
+  <data name="HeroEyebrow" xml:space="preserve">
+    <value>Green Future Lab</value>
+  </data>
+  <data name="HeroSubtitle" xml:space="preserve">
+    <value>Swipe through five practical concepts shaping cleaner cities, energy, and oceans.</value>
+  </data>
+  <data name="HeroTitle" xml:space="preserve">
+    <value>Green technology ideas</value>
+  </data>
+  <data name="LanguageEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LanguageEstonian" xml:space="preserve">
+    <value>Eesti</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Choose language</value>
+  </data>
+  <data name="SectionLabel" xml:space="preserve">
+    <value>Tap a card to open a popup with details.</value>
+  </data>
+</root>

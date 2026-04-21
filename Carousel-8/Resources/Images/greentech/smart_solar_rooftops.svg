@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8fff0"/>
+      <stop offset="100%" stop-color="#77c79a"/>
+    </linearGradient>
+    <linearGradient id="roof" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a7a42"/>
+      <stop offset="100%" stop-color="#12552f"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#sky)"/>
+  <circle cx="640" cy="105" r="52" fill="#fff7b8"/>
+  <path d="M0 384 C120 330 240 330 360 384 S600 438 800 356 V520 H0 Z" fill="#4ea76f"/>
+  <path d="M150 334 L392 170 L640 334 V388 H150 Z" fill="url(#roof)"/>
+  <rect x="208" y="330" width="376" height="110" rx="18" fill="#f4fff7"/>
+  <rect x="254" y="218" width="84" height="94" rx="8" fill="#153f76"/>
+  <rect x="354" y="218" width="84" height="94" rx="8" fill="#1d5ca6"/>
+  <rect x="454" y="218" width="84" height="94" rx="8" fill="#153f76"/>
+  <path d="M254 249 H338 M254 280 H338 M296 218 V312" stroke="#83d4ff" stroke-width="6" opacity="0.75"/>
+  <path d="M354 249 H438 M354 280 H438 M396 218 V312" stroke="#83d4ff" stroke-width="6" opacity="0.75"/>
+  <path d="M454 249 H538 M454 280 H538 M496 218 V312" stroke="#83d4ff" stroke-width="6" opacity="0.75"/>
+  <rect x="322" y="360" width="116" height="80" rx="10" fill="#d4efd8"/>
+  <rect x="172" y="392" width="68" height="18" rx="9" fill="#1e6d3c"/>
+  <rect x="560" y="392" width="68" height="18" rx="9" fill="#1e6d3c"/>
+  <path d="M112 456 C236 410 390 446 514 420 C602 402 674 380 748 338" fill="none" stroke="#dcfff0" stroke-width="10" opacity="0.5"/>
+</svg>
