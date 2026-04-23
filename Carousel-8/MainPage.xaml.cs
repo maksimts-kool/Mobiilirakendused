@@ -17,11 +17,11 @@ public partial class MainPage : ContentPage
 
 	private static readonly CardDefinition[] CardDefinitions =
 	{
-		new("smart_solar_rooftops.svg", "Card1Title", "Card1Description", "Card1DetailText"),
-		new("floating_wind_farms.svg", "Card2Title", "Card2Description", "Card2DetailText"),
-		new("vertical_farms.svg", "Card3Title", "Card3Description", "Card3DetailText"),
-		new("battery_recycling_labs.svg", "Card4Title", "Card4Description", "Card4DetailText"),
-		new("ocean_cleaning_drones.svg", "Card5Title", "Card5Description", "Card5DetailText")
+		new("solar_home.jpg", "Card1Title", "Card1Description", "Card1DetailText"),
+		new("mps_farm.webp", "Card2Title", "Card2Description", "Card2DetailText"),
+		new("vertical_farm.jpg", "Card3Title", "Card3Description", "Card3DetailText"),
+		new("recycle_plant.jpg", "Card4Title", "Card4Description", "Card4DetailText"),
+		new("drone_underwater.jpg", "Card5Title", "Card5Description", "Card5DetailText")
 	};
 
 	private readonly IDispatcherTimer autoScrollTimer;
