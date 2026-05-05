@@ -1,4 +1,5 @@
 using Tund2.TicTacToe;
+using Tund2.MemoGame;
 
 namespace Tund2;
 
@@ -33,7 +34,8 @@ public partial class StartPage : ContentPage
 			new("Kohvikonstruktor", "Ideaalse kohvi tellimine", () => new KohvikPage(), "KO", "#FFF4EC", "#A65D24"),
 			new("Minu retseptiraamat", "Menüü retseptide loomiseks, vaatamiseks ja kustutamiseks", () => new RecipeBookMenuPage(), "MR", "#F0FAEF", "#2F8D43"),
 			new("Euroopa riigid", "Riikide vaatamine, lisamine, muutmine ja kustutamine", () => new EuroopaRiigidPage(), "ER", "#EEF6FF", "#276FBF"),
-			new("Trips-Traps-Trull", "Klassikaline lauamäng", () => new TicTacToeMenuPage(), "TT", "#F7F1FF", "#7A4BD6")
+			new("Trips-Traps-Trull", "Klassikaline lauamäng", () => new TicTacToeMenuPage(), "TT", "#F7F1FF", "#7A4BD6"),
+			new("Memo", "Mälumäng teemade, punktide ja animatsioonidega", () => new MemoGamePage(), "ME", "#FFF7ED", "#F97316")
 		};
 
 		featuredPages = pages.TakeLast(3).ToArray();
@@ -106,16 +108,17 @@ public partial class StartPage : ContentPage
 			return;
 		}
 
-		var tappedView = (sender as TapGestureRecognizer)?.Parent as VisualElement;
-		if (tappedView is null)
+		var tappedView = sender switch
 		{
-			return;
-		}
+			VisualElement element => element,
+			Element { Parent: VisualElement parent } => parent,
+			_ => null
+		};
 
 		await NavigateWithAnimationAsync(tappedView, page);
 	}
 
-	private async Task NavigateWithAnimationAsync(VisualElement view, MenuPage page)
+	private async Task NavigateWithAnimationAsync(VisualElement? view, MenuPage page)
 	{
 		if (isNavigating)
 		{
@@ -127,12 +130,15 @@ public partial class StartPage : ContentPage
 
 		try
 		{
-			await Task.WhenAll(
-				view.ScaleToAsync(0.97, 90, Easing.CubicOut),
-				view.FadeToAsync(0.82, 90, Easing.CubicOut));
-			await Task.WhenAll(
-				view.ScaleToAsync(1, 150, Easing.SpringOut),
-				view.FadeToAsync(1, 150, Easing.CubicOut));
+			if (view is not null)
+			{
+				await Task.WhenAll(
+					view.ScaleToAsync(0.97, 90, Easing.CubicOut),
+					view.FadeToAsync(0.82, 90, Easing.CubicOut));
+				await Task.WhenAll(
+					view.ScaleToAsync(1, 150, Easing.SpringOut),
+					view.FadeToAsync(1, 150, Easing.CubicOut));
+			}
 
 			await Navigation.PushAsync(page.CreatePage());
 		}

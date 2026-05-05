@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.MemoGame.MemoGamePage"
+             Title="Memo"
+             BackgroundColor="{DynamicResource MemoBackgroundColor}">
+
+    <ContentPage.Resources>
+        <Color x:Key="MemoBackgroundColor">#F4F7FB</Color>
+        <Color x:Key="MemoTextColor">#18212F</Color>
+        <Color x:Key="MemoAccentColor">#2F6FED</Color>
+        <Color x:Key="MemoPanelColor">#FFFFFF</Color>
+        <x:String x:Key="MemoFontFamily">PoppinsMedium</x:String>
+
+        <Style x:Key="MemoLabelStyle"
+               TargetType="Label">
+            <Setter Property="TextColor"
+                    Value="{DynamicResource MemoTextColor}"/>
+            <Setter Property="FontFamily"
+                    Value="{DynamicResource MemoFontFamily}"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid x:Name="RootGrid"
+          Padding="16,18,16,16"
+          RowDefinitions="Auto,Auto,Auto,*,Auto"
+          RowSpacing="14"
+          BackgroundColor="{DynamicResource MemoBackgroundColor}">
+
+        <VerticalStackLayout Grid.Row="0"
+                             Spacing="4">
+            <Label Text="Memo"
+                   Style="{StaticResource MemoLabelStyle}"
+                   FontSize="30"
+                   FontAttributes="Bold"/>
+            <Label Text="Ava kaardid ja leia kõik paarid."
+                   Style="{StaticResource MemoLabelStyle}"
+                   FontSize="14"
+                   Opacity="0.75"/>
+        </VerticalStackLayout>
+
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*,*"
+              ColumnSpacing="10">
+            <Border Grid.Column="0"
+                    BackgroundColor="{DynamicResource MemoPanelColor}"
+                    Stroke="{DynamicResource MemoAccentColor}"
+                    Padding="12,8">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Label x:Name="PlayerNameLabel"
+                       Style="{StaticResource MemoLabelStyle}"
+                       FontSize="14"
+                       VerticalTextAlignment="Center"/>
+            </Border>
+
+            <Picker x:Name="ThemePicker"
+                    Grid.Column="1"
+                    Title="Teema"
+                    SelectedIndexChanged="OnThemeChanged"
+                    TextColor="{DynamicResource MemoTextColor}"
+                    FontFamily="{DynamicResource MemoFontFamily}"
+                    BackgroundColor="{DynamicResource MemoPanelColor}"/>
+        </Grid>
+
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,*,*"
+              ColumnSpacing="8">
+            <Border BackgroundColor="{DynamicResource MemoPanelColor}"
+                    Stroke="{DynamicResource MemoAccentColor}"
+                    Padding="10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="Punktid"
+                           Style="{StaticResource MemoLabelStyle}"
+                           FontSize="12"
+                           Opacity="0.7"/>
+                    <Label x:Name="PointsLabel"
+                           Text="0"
+                           Style="{StaticResource MemoLabelStyle}"
+                           FontSize="20"
+                           FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Column="1"
+                    BackgroundColor="{DynamicResource MemoPanelColor}"
+                    Stroke="{DynamicResource MemoAccentColor}"
+                    Padding="10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="Käigud"
+                           Style="{StaticResource MemoLabelStyle}"
+                           FontSize="12"
+                           Opacity="0.7"/>
+                    <Label x:Name="MovesLabel"
+                           Text="0"
+                           Style="{StaticResource MemoLabelStyle}"
+                           FontSize="20"
+                           FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Column="2"
+                    BackgroundColor="{DynamicResource MemoPanelColor}"
+                    Stroke="{DynamicResource MemoAccentColor}"
+                    Padding="10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="Aeg"
+                           Style="{StaticResource MemoLabelStyle}"
+                           FontSize="12"
+                           Opacity="0.7"/>
+                    <Label x:Name="TimeLabel"
+                           Text="0s"
+                           Style="{StaticResource MemoLabelStyle}"
+                           FontSize="20"
+                           FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="3"
+                BackgroundColor="{DynamicResource MemoPanelColor}"
+                Stroke="{DynamicResource MemoAccentColor}"
+                Padding="10">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16"/>
+            </Border.StrokeShape>
+            <Grid x:Name="BoardGrid"
+                  RowSpacing="8"
+                  ColumnSpacing="8"/>
+        </Border>
+
+        <Grid Grid.Row="4"
+              ColumnDefinitions="*,Auto,Auto"
+              ColumnSpacing="10">
+            <Label x:Name="BestScoreLabel"
+                   Grid.Column="0"
+                   Style="{StaticResource MemoLabelStyle}"
+                   FontSize="13"
+                   VerticalTextAlignment="Center"
+                   Opacity="0.78"/>
+            <Button Grid.Column="1"
+                    Text="Top"
+                    Clicked="OnLeaderboardClicked"
+                    FontFamily="{DynamicResource MemoFontFamily}"
+                    BackgroundColor="{DynamicResource MemoAccentColor}"
+                    TextColor="White"/>
+            <Button Grid.Column="2"
+                    Text="Uus mäng"
+                    Clicked="OnRestartClicked"
+                    FontFamily="{DynamicResource MemoFontFamily}"
+                    BackgroundColor="{DynamicResource MemoAccentColor}"
+                    TextColor="White"/>
+        </Grid>
+    </Grid>
+</ContentPage>
