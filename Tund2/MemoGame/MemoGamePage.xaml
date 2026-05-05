@@ -127,14 +127,18 @@
             </Border>
         </Grid>
 
-        <Border Grid.Row="3"
+        <Border x:Name="BoardFrame"
+                Grid.Row="3"
                 BackgroundColor="{DynamicResource MemoPanelColor}"
                 Stroke="{DynamicResource MemoAccentColor}"
-                Padding="10">
+                Padding="10"
+                SizeChanged="OnBoardFrameSizeChanged">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="16"/>
             </Border.StrokeShape>
             <Grid x:Name="BoardGrid"
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center"
                   RowSpacing="8"
                   ColumnSpacing="8"/>
         </Border>

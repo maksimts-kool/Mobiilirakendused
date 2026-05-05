@@ -4,12 +4,15 @@ namespace Tund2.MemoGame;
 
 public partial class MemoGamePage : ContentPage
 {
+	private const int BoardColumnCount = 3;
+
 	private readonly Player player = new("Mängija");
 	private readonly Game game;
 	private readonly Leaderboard leaderboard = new();
 	private readonly List<Theme> themes;
 	private readonly Dictionary<Card, Border> cardViews = new();
 	private readonly Dictionary<Card, Label> cardLabels = new();
+	private readonly Dictionary<Card, Image> cardImages = new();
 	private readonly Dictionary<Card, Color> strokeOverrides = new();
 	private readonly IDispatcherTimer timer;
 	private Theme currentTheme;
@@ -72,14 +75,17 @@ public partial class MemoGamePage : ContentPage
 		BoardGrid.ColumnDefinitions.Clear();
 		cardViews.Clear();
 		cardLabels.Clear();
+		cardImages.Clear();
 		strokeOverrides.Clear();
 
-		for (var row = 0; row < 4; row++)
+		var rowCount = (int)Math.Ceiling((double)game.Cards.Count / BoardColumnCount);
+
+		for (var row = 0; row < rowCount; row++)
 		{
 			BoardGrid.RowDefinitions.Add(new RowDefinition(GridLength.Star));
 		}
 
-		for (var column = 0; column < 3; column++)
+		for (var column = 0; column < BoardColumnCount; column++)
 		{
 			BoardGrid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
 		}
@@ -88,11 +94,43 @@ public partial class MemoGamePage : ContentPage
 		{
 			var card = game.Cards[index];
 			var cardView = CreateCardView(card);
-			var row = index / 3;
-			var column = index % 3;
+			var row = index / BoardColumnCount;
+			var column = index % BoardColumnCount;
 
 			BoardGrid.Add(cardView, column, row);
 		}
+
+		UpdateBoardSize();
+	}
+
+	private void OnBoardFrameSizeChanged(object? sender, EventArgs e)
+	{
+		UpdateBoardSize();
+	}
+
+	private void UpdateBoardSize()
+	{
+		if (BoardFrame.Width <= 0 || BoardFrame.Height <= 0 || game.Cards.Count == 0)
+		{
+			return;
+		}
+
+		var rowCount = (int)Math.Ceiling((double)game.Cards.Count / BoardColumnCount);
+		var availableWidth = BoardFrame.Width - BoardFrame.Padding.Left - BoardFrame.Padding.Right;
+		var availableHeight = BoardFrame.Height - BoardFrame.Padding.Top - BoardFrame.Padding.Bottom;
+		var totalColumnSpacing = BoardGrid.ColumnSpacing * (BoardColumnCount - 1);
+		var totalRowSpacing = BoardGrid.RowSpacing * (rowCount - 1);
+		var cardWidth = (availableWidth - totalColumnSpacing) / BoardColumnCount;
+		var cardHeight = (availableHeight - totalRowSpacing) / rowCount;
+		var cardSize = Math.Floor(Math.Min(cardWidth, cardHeight));
+
+		if (cardSize <= 0)
+		{
+			return;
+		}
+
+		BoardGrid.WidthRequest = (cardSize * BoardColumnCount) + totalColumnSpacing;
+		BoardGrid.HeightRequest = (cardSize * rowCount) + totalRowSpacing;
 	}
 
 	private Border CreateCardView(Card card)
@@ -100,18 +138,30 @@ public partial class MemoGamePage : ContentPage
 		var label = new Label
 		{
 			Text = "?",
-			FontSize = 30,
+			FontSize = 24,
 			FontAttributes = FontAttributes.Bold,
 			HorizontalTextAlignment = TextAlignment.Center,
 			VerticalTextAlignment = TextAlignment.Center
 		};
 		label.SetDynamicResource(Label.FontFamilyProperty, "MemoFontFamily");
 
+		var image = new Image
+		{
+			Source = card.ImageFile,
+			Aspect = Aspect.AspectFit,
+			IsVisible = false,
+			Margin = 12
+		};
+
+		var content = new Grid();
+		content.Add(image);
+		content.Add(label);
+
 		var cardView = new Border
 		{
 			StrokeThickness = 2,
 			StrokeShape = new RoundRectangle { CornerRadius = 14 },
-			Content = label
+			Content = content
 		};
 
 		var tap = new TapGestureRecognizer();
@@ -121,6 +171,7 @@ public partial class MemoGamePage : ContentPage
 
 		cardViews[card] = cardView;
 		cardLabels[card] = label;
+		cardImages[card] = image;
 		UpdateCardView(card);
 
 		return cardView;
@@ -209,7 +260,8 @@ public partial class MemoGamePage : ContentPage
 	private void UpdateCardView(Card card)
 	{
 		if (!cardViews.TryGetValue(card, out var cardView) ||
-			!cardLabels.TryGetValue(card, out var label))
+			!cardLabels.TryGetValue(card, out var label) ||
+			!cardImages.TryGetValue(card, out var image))
 		{
 			return;
 		}
@@ -220,8 +272,9 @@ public partial class MemoGamePage : ContentPage
 			: currentTheme.SelectedStrokeColor;
 		cardView.Opacity = card.IsMatched ? 0.75 : 1;
 
-		label.Text = card.IsFaceUp ? card.Text : "?";
-		label.TextColor = card.IsFaceUp ? currentTheme.TextColor : Colors.White;
+		label.IsVisible = !card.IsFaceUp;
+		label.TextColor = Colors.White;
+		image.IsVisible = card.IsFaceUp;
 	}
 
 	private void UpdateAllCards()

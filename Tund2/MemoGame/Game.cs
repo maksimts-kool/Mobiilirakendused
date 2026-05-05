@@ -2,7 +2,26 @@ namespace Tund2.MemoGame;
 
 public class Game
 {
-	private readonly string[] cardTexts = { "A", "B", "C", "D", "E", "F" };
+	private const int PairCount = 6;
+
+	private readonly FlagCard[] flagCards =
+	{
+		new("China", "flag_china.png"),
+		new("Estonia", "flag_estonia.png"),
+		new("Finland", "flag_finland.png"),
+		new("Germany", "flag_germany.png"),
+		new("Latvia", "flag_latvia.png"),
+		new("Norway", "flag_norway.png"),
+		new("Poland", "flag_poland.png"),
+		new("Russia", "flag_russia.png"),
+		new("Slovakia", "flag_slovakia.png"),
+		new("Sweden", "flag_sweden.png"),
+		new("Switzerland", "flag_switzerland.png"),
+		new("Ukraine", "flag_ukraine.png"),
+		new("United Kingdom", "flag_united_kingdom.png"),
+		new("United States", "flag_united_states.png")
+	};
+
 	private Card? firstCard;
 	private DateTime startedAt;
 
@@ -22,11 +41,14 @@ public class Game
 	{
 		var cards = new List<Card>();
 		var id = 1;
+		var selectedFlags = flagCards
+			.OrderBy(_ => Random.Shared.Next())
+			.Take(PairCount);
 
-		foreach (var text in cardTexts)
+		foreach (var flagCard in selectedFlags)
 		{
-			cards.Add(new Card(id++, text, text));
-			cards.Add(new Card(id++, text, text));
+			cards.Add(new Card(id++, flagCard.Name, flagCard.Name, flagCard.ImageFile));
+			cards.Add(new Card(id++, flagCard.Name, flagCard.Name, flagCard.ImageFile));
 		}
 
 		Cards = cards
@@ -113,5 +135,17 @@ public class Game
 	{
 		var elapsedSeconds = (int)Math.Ceiling((DateTime.Now - startedAt).TotalSeconds);
 		Seconds = Math.Max(1, elapsedSeconds);
+	}
+
+	private class FlagCard
+	{
+		public string Name { get; }
+		public string ImageFile { get; }
+
+		public FlagCard(string name, string imageFile)
+		{
+			Name = name;
+			ImageFile = imageFile;
+		}
 	}
 }
