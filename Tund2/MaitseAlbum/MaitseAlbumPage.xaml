@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:Tund2"
+            xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+            x:Class="Tund2.MaitseAlbumPage"
+            Title="Maitsealbum"
+            BarBackgroundColor="White"
+            BarTextColor="#0F766E"
+            SelectedTabColor="#0F766E"
+            UnselectedTabColor="#334155"
+            android:TabbedPage.ToolbarPlacement="Bottom">
+
+    <local:UusRetseptPage>
+        <local:UusRetseptPage.IconImageSource>
+            <FontImageSource Glyph="+"
+                             Size="28"
+                             Color="#0F766E"/>
+        </local:UusRetseptPage.IconImageSource>
+    </local:UusRetseptPage>
+
+    <local:RetseptideNimekiriPage>
+        <local:RetseptideNimekiriPage.IconImageSource>
+            <FontImageSource Glyph="&#x2261;"
+                             Size="28"
+                             Color="#0F766E"/>
+        </local:RetseptideNimekiriPage.IconImageSource>
+    </local:RetseptideNimekiriPage>
+
+</TabbedPage>

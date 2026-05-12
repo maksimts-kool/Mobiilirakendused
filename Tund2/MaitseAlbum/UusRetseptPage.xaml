@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.UusRetseptPage"
+             Title="Uus retsept"
+             BackgroundColor="#F7FBF9">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="18,22,18,28"
+                             Spacing="16">
+            <Label Text="Lisa toit"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#134E4A"/>
+
+            <Border Stroke="#CCFBF1"
+                    StrokeThickness="1"
+                    BackgroundColor="White"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Retsepti nimi"
+                           FontAttributes="Bold"
+                           TextColor="#134E4A"/>
+                    <Border x:Name="NimiBorder"
+                            Stroke="#D1FAE5"
+                            StrokeThickness="1"
+                            BackgroundColor="#F8FAFC"
+                            Padding="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8"/>
+                        </Border.StrokeShape>
+                        <Entry x:Name="NimiEntry"
+                               Placeholder="Nt Pasta Carbonara"
+                               BackgroundColor="Transparent"
+                               TextColor="#0F172A"
+                               TextChanged="OnNimiChanged"/>
+                    </Border>
+                    <Label x:Name="NimiVigaLabel"
+                           Text="Sisesta retsepti nimi."
+                           IsVisible="False"
+                           TextColor="#DC2626"
+                           FontSize="12"
+                           Margin="0,-8,0,0"/>
+
+                    <Label Text="Kategooria"
+                           FontAttributes="Bold"
+                           TextColor="#134E4A"/>
+                    <Border x:Name="KategooriaBorder"
+                            Stroke="#D1FAE5"
+                            StrokeThickness="1"
+                            BackgroundColor="#F8FAFC"
+                            Padding="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8"/>
+                        </Border.StrokeShape>
+                        <Picker x:Name="KategooriaPicker"
+                                Title="Vali kategooria"
+                                BackgroundColor="Transparent"
+                                TextColor="#0F172A"
+                                TitleColor="#64748B"
+                                SelectedIndexChanged="OnKategooriaChanged">
+                            <Picker.Items>
+                                <x:String>Hommikusöögid</x:String>
+                                <x:String>Supid</x:String>
+                                <x:String>Pearoad</x:String>
+                                <x:String>Magustoidud</x:String>
+                                <x:String>Snäkid</x:String>
+                                <x:String>Joogid</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Border>
+                    <Label x:Name="KategooriaVigaLabel"
+                           Text="Vali kategooria."
+                           IsVisible="False"
+                           TextColor="#DC2626"
+                           FontSize="12"
+                           Margin="0,-8,0,0"/>
+
+                    <Label Text="Pilt seadmest"
+                           FontAttributes="Bold"
+                           TextColor="#134E4A"/>
+
+                    <Border x:Name="PildiBorder"
+                            Stroke="#D1FAE5"
+                            StrokeThickness="1"
+                            BackgroundColor="#F8FAFC"
+                            HeightRequest="170">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8"/>
+                        </Border.StrokeShape>
+
+                        <Image x:Name="PildiEelvaade"
+                               Aspect="AspectFill"/>
+                    </Border>
+
+                    <Label x:Name="PildiNimiLabel"
+                           Text="Pilt valimata"
+                           TextColor="#64748B"
+                           FontSize="13"/>
+                    <Label x:Name="PildiVigaLabel"
+                           Text="Lisa retseptile pilt."
+                           IsVisible="False"
+                           TextColor="#DC2626"
+                           FontSize="12"
+                           Margin="0,-8,0,0"/>
+
+                    <Button Text="Vali pilt"
+                            CornerRadius="8"
+                            BackgroundColor="#14B8A6"
+                            TextColor="White"
+                            Clicked="OnValiPiltClicked"/>
+
+                    <Button Text="Salvesta"
+                            Margin="0,8,0,0"
+                            CornerRadius="8"
+                            BackgroundColor="#0F766E"
+                            TextColor="White"
+                            Clicked="OnSalvestaClicked"/>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

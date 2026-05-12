@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tund2.RetseptideNimekiriPage"
+             Title="Minu retseptid"
+             BackgroundColor="#F7FBF9">
+
+    <Grid RowDefinitions="Auto,*"
+          Padding="14,18,14,14"
+          RowSpacing="12">
+        <Label Text="Minu toidud"
+               FontSize="28"
+               FontAttributes="Bold"
+               TextColor="#134E4A"/>
+
+        <Grid Grid.Row="1">
+            <ListView x:Name="RetseptidListView"
+                      IsGroupingEnabled="True"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      BackgroundColor="Transparent">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="12,8"
+                                  BackgroundColor="#0F766E">
+                                <Label Text="{Binding Nimetus}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="White"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Kustuta"
+                                          IsDestructive="True"
+                                          Clicked="OnKustutaClicked"
+                                          CommandParameter="{Binding .}"/>
+                            </ViewCell.ContextActions>
+
+                            <Border Margin="0,6"
+                                    Padding="8"
+                                    Stroke="#D1FAE5"
+                                    StrokeThickness="1"
+                                    BackgroundColor="White">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8"/>
+                                </Border.StrokeShape>
+
+                                <Grid ColumnDefinitions="80,*"
+                                      ColumnSpacing="12">
+                                    <Image Source="{Binding PildiLink}"
+                                           WidthRequest="70"
+                                           HeightRequest="70"
+                                           Aspect="AspectFill"
+                                           Grid.Column="0"/>
+
+                                    <VerticalStackLayout Grid.Column="1"
+                                                         VerticalOptions="Center"
+                                                         Spacing="4">
+                                        <Label Text="{Binding Nimi}"
+                                               FontSize="17"
+                                               FontAttributes="Bold"
+                                               TextColor="#0F172A"/>
+                                        <Label Text="{Binding Kategooria}"
+                                               FontSize="13"
+                                               TextColor="#64748B"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Border x:Name="TyhiTeade"
+                    IsVisible="False"
+                    Padding="18"
+                    Stroke="#CCFBF1"
+                    StrokeThickness="1"
+                    BackgroundColor="White"
+                    VerticalOptions="Start">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8"/>
+                </Border.StrokeShape>
+                <Label Text="Retsepte veel ei ole."
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#134E4A"/>
+            </Border>
+        </Grid>
+    </Grid>
+
+</ContentPage>

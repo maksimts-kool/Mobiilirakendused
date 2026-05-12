@@ -35,7 +35,8 @@ public partial class StartPage : ContentPage
 			new("Minu retseptiraamat", "Menüü retseptide loomiseks, vaatamiseks ja kustutamiseks", () => new RecipeBookMenuPage(), "MR", "#F0FAEF", "#2F8D43"),
 			new("Euroopa riigid", "Riikide vaatamine, lisamine, muutmine ja kustutamine", () => new EuroopaRiigidPage(), "ER", "#EEF6FF", "#276FBF"),
 			new("Trips-Traps-Trull", "Klassikaline lauamäng", () => new TicTacToeMenuPage(), "TT", "#F7F1FF", "#7A4BD6"),
-			new("Memo", "Mälumäng teemade, punktide ja animatsioonidega", () => new MemoGamePage(), "ME", "#FFF7ED", "#F97316")
+			new("Memo", "Mälumäng teemade, punktide ja animatsioonidega", () => new MemoGamePage(), "ME", "#FFF7ED", "#F97316"),
+			new("Maitsealbum", "Lihtne failiga retseptileht piltide ja kategooriatega", () => new MaitseAlbumPage(), "MA", "#ECFDF5", "#0F766E")
 		};
 
 		featuredPages = pages.TakeLast(3).ToArray();
@@ -168,13 +169,18 @@ public partial class StartPage : ContentPage
 
 	private void OnAutoScrollTick(object? sender, EventArgs e)
 	{
-		if (featuredPageCount <= 1 || isNavigating)
+		if (featuredPageCount <= 1 || isNavigating || FeaturedCarousel.IsDragging)
 		{
 			return;
 		}
 
-		var nextPosition = (FeaturedCarousel.Position + 1) % featuredPageCount;
+		var nextPosition = (GetFeaturedPosition() + 1) % featuredPageCount;
 		FeaturedCarousel.ScrollTo(nextPosition, position: ScrollToPosition.Center, animate: true);
+	}
+
+	private void OnFeaturedPositionChanged(object? sender, PositionChangedEventArgs e)
+	{
+		UpdateFeaturedCardScales(true);
 	}
 
 	private void OnFeaturedCardLoaded(object? sender, EventArgs e)
@@ -197,19 +203,25 @@ public partial class StartPage : ContentPage
 		}
 	}
 
-	private void OnFeaturedPositionChanged(object? sender, PositionChangedEventArgs e)
+	private int GetFeaturedPosition()
 	{
-		UpdateFeaturedCardScales(true);
+		if (featuredPageCount == 0)
+		{
+			return 0;
+		}
+
+		var position = FeaturedCarousel.Position % featuredPageCount;
+		return position < 0 ? position + featuredPageCount : position;
 	}
 
 	private void UpdateFeaturedCardScales(bool animate)
 	{
-		if (featuredPages.Length == 0)
+		if (featuredPageCount == 0)
 		{
 			return;
 		}
 
-		var selectedPage = featuredPages[FeaturedCarousel.Position % featuredPages.Length];
+		var selectedPage = featuredPages[GetFeaturedPosition()];
 
 		foreach (var (page, card) in featuredCardViews.ToArray())
 		{
@@ -233,7 +245,7 @@ public partial class StartPage : ContentPage
 	private sealed record MenuPage(
 		string Name,
 		string Description,
-		Func<ContentPage> CreatePage,
+		Func<Page> CreatePage,
 		string Initials,
 		Color BackgroundColor,
 		Color AccentColor)
@@ -241,7 +253,7 @@ public partial class StartPage : ContentPage
 		public MenuPage(
 			string name,
 			string description,
-			Func<ContentPage> createPage,
+			Func<Page> createPage,
 			string initials,
 			string backgroundColor,
 			string accentColor)
