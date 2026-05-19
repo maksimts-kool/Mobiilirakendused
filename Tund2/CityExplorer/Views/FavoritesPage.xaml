@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
+             x:Class="Tund2.CityExplorer.Views.FavoritesPage"
+             x:Name="FavoritesRoot"
+             BackgroundColor="#F7F9FB">
+    <Grid RowDefinitions="Auto,*"
+          Padding="{OnIdiom Phone='18,18,18,14', Default='30,26,30,24'}"
+          RowSpacing="18">
+        <VerticalStackLayout Spacing="4">
+            <Label Text="{Binding Localizer[FavoritesTitle]}"
+                   FontFamily="PoppinsBold"
+                   FontSize="28"
+                   TextColor="#17232B"/>
+            <Label Text="{Binding Localizer[FavoritesSubtitle]}"
+                   FontFamily="OpenSansRegular"
+                   FontSize="14"
+                   TextColor="#637083"/>
+        </VerticalStackLayout>
+
+        <Grid Grid.Row="1">
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="#165B66"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+
+            <CollectionView ItemsSource="{Binding Favorites}">
+                <CollectionView.EmptyView>
+                    <Grid Padding="20">
+                        <Label Text="{Binding Source={x:Reference FavoritesRoot}, Path=BindingContext.Localizer[EmptyFavorites]}"
+                               FontFamily="OpenSansRegular"
+                               FontSize="16"
+                               TextColor="#637083"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"/>
+                    </Grid>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,0,0,12"
+                                Padding="12"
+                                Stroke="#D9E4E8"
+                                StrokeThickness="1"
+                                BackgroundColor="White">
+                            <Border.StrokeShape>
+                                <shapes:RoundRectangle CornerRadius="8"/>
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="88,*,Auto"
+                                  ColumnSpacing="12">
+                                <Border WidthRequest="88"
+                                        HeightRequest="74"
+                                        StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <shapes:RoundRectangle CornerRadius="8"/>
+                                    </Border.StrokeShape>
+                                    <Image Source="{Binding Image}"
+                                           Aspect="AspectFill"/>
+                                </Border>
+
+                                <VerticalStackLayout Grid.Column="1"
+                                                     Spacing="4"
+                                                     VerticalOptions="Center">
+                                    <Label Text="{Binding Name}"
+                                           FontFamily="PoppinsBold"
+                                           FontSize="17"
+                                           TextColor="#17232B"
+                                           MaxLines="1"
+                                           LineBreakMode="TailTruncation"/>
+                                    <Label Text="{Binding ShortDescription}"
+                                           FontFamily="OpenSansRegular"
+                                           FontSize="13"
+                                           TextColor="#637083"
+                                           MaxLines="2"
+                                           LineBreakMode="TailTruncation"/>
+                                </VerticalStackLayout>
+
+                                <Button Grid.Column="2"
+                                        Text="{Binding Source={x:Reference FavoritesRoot}, Path=BindingContext.Localizer[Remove]}"
+                                        Command="{Binding Source={x:Reference FavoritesRoot}, Path=BindingContext.RemoveFavoriteCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="#C25A36"
+                                        TextColor="White"
+                                        FontFamily="PoppinsMedium"
+                                        FontSize="12"
+                                        Padding="10,8"
+                                        VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</ContentPage>

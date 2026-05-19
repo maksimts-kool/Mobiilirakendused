@@ -1,5 +1,8 @@
 using Tund2.TicTacToe;
 using Tund2.MemoGame;
+using Tund2.CityExplorer.Services;
+using Tund2.CityExplorer.ViewModels;
+using Tund2.CityExplorer.Views;
 
 namespace Tund2;
 
@@ -36,7 +39,15 @@ public partial class StartPage : ContentPage
 			new("Euroopa riigid", "Riikide vaatamine, lisamine, muutmine ja kustutamine", () => new EuroopaRiigidPage(), "ER", "#EEF6FF", "#276FBF"),
 			new("Trips-Traps-Trull", "Klassikaline lauamäng", () => new TicTacToeMenuPage(), "TT", "#F7F1FF", "#7A4BD6"),
 			new("Memo", "Mälumäng teemade, punktide ja animatsioonidega", () => new MemoGamePage(), "ME", "#FFF7ED", "#F97316"),
-			new("Maitsealbum", "Lihtne failiga retseptileht piltide ja kategooriatega", () => new MaitseAlbumPage(), "MA", "#ECFDF5", "#0F766E")
+			new("Maitsealbum", "Lihtne failiga retseptileht piltide ja kategooriatega", () => new MaitseAlbumPage(), "MA", "#ECFDF5", "#0F766E"),
+			new("CityExplorer", "Nutikas Tallinna giid karusselli, lemmikute ja keelevalikuga", () =>
+			{
+				var databaseService = new DatabaseService();
+				return new MainTabbedPage(
+					new ExplorePage(new ExploreViewModel(databaseService)),
+					new FavoritesPage(new FavoritesViewModel(databaseService)),
+					new SettingsPage(new SettingsViewModel()));
+			}, "CE", "#E8F7F7", "#165B66")
 		};
 
 		featuredPages = pages.TakeLast(3).ToArray();

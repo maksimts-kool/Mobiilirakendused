@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>CityExplorer</value>
+  </data>
+  <data name="ExploreTitle" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="ExploreSubtitle" xml:space="preserve">
+    <value>Просматривайте места Таллинна по категориям.</value>
+  </data>
+  <data name="FavoritesTitle" xml:space="preserve">
+    <value>Избранное</value>
+  </data>
+  <data name="FavoritesSubtitle" xml:space="preserve">
+    <value>Ваши сохраненные места из базы данных SQLite.</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="SettingsSubtitle" xml:space="preserve">
+    <value>Выберите язык приложения.</value>
+  </data>
+  <data name="CategoryHistory" xml:space="preserve">
+    <value>История</value>
+  </data>
+  <data name="CategoryParks" xml:space="preserve">
+    <value>Парки</value>
+  </data>
+  <data name="CategoryFood" xml:space="preserve">
+    <value>Еда</value>
+  </data>
+  <data name="TapForDetails" xml:space="preserve">
+    <value>Нажмите на карточку, чтобы узнать больше.</value>
+  </data>
+  <data name="AddFavorite" xml:space="preserve">
+    <value>Добавить в избранное</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="AddedFavoriteTitle" xml:space="preserve">
+    <value>Добавлено</value>
+  </data>
+  <data name="AddedFavoriteMessage" xml:space="preserve">
+    <value>Место добавлено в избранное.</value>
+  </data>
+  <data name="AlreadyFavoriteTitle" xml:space="preserve">
+    <value>Уже сохранено</value>
+  </data>
+  <data name="AlreadyFavoriteMessage" xml:space="preserve">
+    <value>Это место уже есть в избранном.</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="EmptyFavorites" xml:space="preserve">
+    <value>Избранные места пока не добавлены.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="CurrentLanguage" xml:space="preserve">
+    <value>Текущий язык</value>
+  </data>
+  <data name="Estonian" xml:space="preserve">
+    <value>Эстонский</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Английский</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="DatabaseError" xml:space="preserve">
+    <value>Ошибка базы данных</value>
+  </data>
+  <data name="PlaceToompeaName" xml:space="preserve">
+    <value>Замок Тоомпеа</value>
+  </data>
+  <data name="PlaceToompeaShort" xml:space="preserve">
+    <value>Средневековый центр власти с видом на старый город.</value>
+  </data>
+  <data name="PlaceToompeaDetail" xml:space="preserve">
+    <value>Замок Тоомпеа - одно из самых важных исторических мест Таллинна. Здесь находится парламент Эстонии, а рядом есть смотровые площадки с красивым видом на старый город.</value>
+  </data>
+  <data name="PlaceOldTownName" xml:space="preserve">
+    <value>Ратушная площадь</value>
+  </data>
+  <data name="PlaceOldTownShort" xml:space="preserve">
+    <value>Сердце старого города с кафе и историческими домами.</value>
+  </data>
+  <data name="PlaceOldTownDetail" xml:space="preserve">
+    <value>Ратушная площадь - центр старого города Таллинна. Отсюда начинаются узкие мощеные улицы, проходят ярмарки, и это удобное место для начала прогулки.</value>
+  </data>
+  <data name="PlaceKadriorgName" xml:space="preserve">
+    <value>Парк Кадриорг</value>
+  </data>
+  <data name="PlaceKadriorgShort" xml:space="preserve">
+    <value>Спокойный парк с дворцом, музеями и цветниками.</value>
+  </data>
+  <data name="PlaceKadriorgDetail" xml:space="preserve">
+    <value>Парк Кадриорг подходит для спокойной прогулки. Здесь есть дворец Кадриорг, рядом находится KUMU, а также пруды и аллеи, которые делают парк одной из любимых зеленых зон Таллинна.</value>
+  </data>
+  <data name="PlacePiritaName" xml:space="preserve">
+    <value>Променад Пирита</value>
+  </data>
+  <data name="PlacePiritaShort" xml:space="preserve">
+    <value>Морская дорожка для прогулок и велосипедов.</value>
+  </data>
+  <data name="PlacePiritaDetail" xml:space="preserve">
+    <value>Променад Пирита сочетает морской воздух, вид на город и активное движение. Это хорошее место для утренней пробежки, велопрогулки или спокойной вечерней прогулки.</value>
+  </data>
+  <data name="PlaceMarketName" xml:space="preserve">
+    <value>Рынок Балти Яама</value>
+  </data>
+  <data name="PlaceMarketShort" xml:space="preserve">
+    <value>Живой рынок с уличной едой и местными вкусами.</value>
+  </data>
+  <data name="PlaceMarketDetail" xml:space="preserve">
+    <value>Рынок Балти Яама объединяет свежие продукты, уличную еду, кафе и маленькие магазины. Он хорошо подходит для быстрого обеда или знакомства с местными вкусами.</value>
+  </data>
+  <data name="PlaceTelliskiviName" xml:space="preserve">
+    <value>Творческий городок Теллискиви</value>
+  </data>
+  <data name="PlaceTelliskiviShort" xml:space="preserve">
+    <value>Кафе, рестораны, искусство и творческая атмосфера.</value>
+  </data>
+  <data name="PlaceTelliskiviDetail" xml:space="preserve">
+    <value>Творческий городок Теллискиви - популярный район с ресторанами, галереями, дизайн-магазинами и событиями. Это хороший выбор, если хочется увидеть современную сторону Таллинна.</value>
+  </data>
+</root>

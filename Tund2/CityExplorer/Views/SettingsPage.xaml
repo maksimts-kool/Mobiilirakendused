@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
+             x:Class="Tund2.CityExplorer.Views.SettingsPage"
+             BackgroundColor="#F7F9FB">
+    <Grid RowDefinitions="Auto,*"
+          Padding="{OnIdiom Phone='18,18,18,14', Default='30,26,30,24'}"
+          RowSpacing="18">
+        <VerticalStackLayout Spacing="4">
+            <Label Text="{Binding Localizer[SettingsTitle]}"
+                   FontFamily="PoppinsBold"
+                   FontSize="28"
+                   TextColor="#17232B"/>
+            <Label Text="{Binding Localizer[SettingsSubtitle]}"
+                   FontFamily="OpenSansRegular"
+                   FontSize="14"
+                   TextColor="#637083"/>
+        </VerticalStackLayout>
+
+        <Border Grid.Row="1"
+                Padding="18"
+                Stroke="#D9E4E8"
+                StrokeThickness="1"
+                BackgroundColor="White"
+                VerticalOptions="Start">
+            <Border.StrokeShape>
+                <shapes:RoundRectangle CornerRadius="8"/>
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Spacing="14">
+                <Label Text="{Binding Localizer[Language]}"
+                       FontFamily="PoppinsBold"
+                       FontSize="18"
+                       TextColor="#17232B"/>
+
+                <Label Text="{Binding CurrentLanguageText}"
+                       FontFamily="OpenSansRegular"
+                       FontSize="14"
+                       TextColor="#637083"/>
+
+                <Grid ColumnDefinitions="*,*,*"
+                      ColumnSpacing="10">
+                    <Button Text="{Binding Localizer[Estonian]}"
+                            Command="{Binding ChangeLanguageCommand}"
+                            CommandParameter="et"
+                            BackgroundColor="#165B66"
+                            TextColor="White"
+                            FontFamily="PoppinsMedium"/>
+                    <Button Grid.Column="1"
+                            Text="{Binding Localizer[English]}"
+                            Command="{Binding ChangeLanguageCommand}"
+                            CommandParameter="en"
+                            BackgroundColor="#C25A36"
+                            TextColor="White"
+                            FontFamily="PoppinsMedium"/>
+                    <Button Grid.Column="2"
+                            Text="{Binding Localizer[Russian]}"
+                            Command="{Binding ChangeLanguageCommand}"
+                            CommandParameter="ru"
+                            BackgroundColor="#6E4A7E"
+                            TextColor="White"
+                            FontFamily="PoppinsMedium"/>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

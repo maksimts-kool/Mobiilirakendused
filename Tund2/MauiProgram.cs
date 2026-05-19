@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using Tund2.CityExplorer.Services;
+using Tund2.CityExplorer.ViewModels;
+using Tund2.CityExplorer.Views;
 
 namespace Tund2;
 
@@ -22,6 +25,17 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+
+		builder.Services.AddSingleton<DatabaseService>();
+
+		builder.Services.AddTransient<ExploreViewModel>();
+		builder.Services.AddTransient<FavoritesViewModel>();
+		builder.Services.AddTransient<SettingsViewModel>();
+
+		builder.Services.AddTransient<ExplorePage>();
+		builder.Services.AddTransient<FavoritesPage>();
+		builder.Services.AddTransient<SettingsPage>();
+		builder.Services.AddTransient<MainTabbedPage>();
 
 		return builder.Build();
 	}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>CityExplorer</value>
+  </data>
+  <data name="ExploreTitle" xml:space="preserve">
+    <value>Avasta</value>
+  </data>
+  <data name="ExploreSubtitle" xml:space="preserve">
+    <value>Sirvi Tallinna kohti kategooriate kaupa.</value>
+  </data>
+  <data name="FavoritesTitle" xml:space="preserve">
+    <value>Minu Lemmikud</value>
+  </data>
+  <data name="FavoritesSubtitle" xml:space="preserve">
+    <value>Sinu salvestatud kohad SQLite andmebaasist.</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Seaded</value>
+  </data>
+  <data name="SettingsSubtitle" xml:space="preserve">
+    <value>Vali rakenduse keel.</value>
+  </data>
+  <data name="CategoryHistory" xml:space="preserve">
+    <value>Ajalugu</value>
+  </data>
+  <data name="CategoryParks" xml:space="preserve">
+    <value>Pargid</value>
+  </data>
+  <data name="CategoryFood" xml:space="preserve">
+    <value>Toidukohad</value>
+  </data>
+  <data name="TapForDetails" xml:space="preserve">
+    <value>Puuduta kaarti, et näha rohkem.</value>
+  </data>
+  <data name="AddFavorite" xml:space="preserve">
+    <value>Lisa lemmikutesse</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sulge</value>
+  </data>
+  <data name="AddedFavoriteTitle" xml:space="preserve">
+    <value>Lisatud</value>
+  </data>
+  <data name="AddedFavoriteMessage" xml:space="preserve">
+    <value>Koht lisati lemmikute nimekirja.</value>
+  </data>
+  <data name="AlreadyFavoriteTitle" xml:space="preserve">
+    <value>Juba olemas</value>
+  </data>
+  <data name="AlreadyFavoriteMessage" xml:space="preserve">
+    <value>See koht on juba sinu lemmikutes.</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Eemalda</value>
+  </data>
+  <data name="EmptyFavorites" xml:space="preserve">
+    <value>Lemmikuid ei ole veel lisatud.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Keel</value>
+  </data>
+  <data name="CurrentLanguage" xml:space="preserve">
+    <value>Praegune keel</value>
+  </data>
+  <data name="Estonian" xml:space="preserve">
+    <value>Eesti</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Inglise</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Vene</value>
+  </data>
+  <data name="DatabaseError" xml:space="preserve">
+    <value>Andmebaasi viga</value>
+  </data>
+  <data name="PlaceToompeaName" xml:space="preserve">
+    <value>Toompea loss</value>
+  </data>
+  <data name="PlaceToompeaShort" xml:space="preserve">
+    <value>Keskaegne võimukeskus ja vaade vanalinnale.</value>
+  </data>
+  <data name="PlaceToompeaDetail" xml:space="preserve">
+    <value>Toompea loss on üks Tallinna tähtsamaid ajaloolisi paiku. Seal asub Eesti parlament ning lähedalt leiab mitu vaateplatvormi, kust avaneb ilus vaade vanalinnale.</value>
+  </data>
+  <data name="PlaceOldTownName" xml:space="preserve">
+    <value>Raekoja plats</value>
+  </data>
+  <data name="PlaceOldTownShort" xml:space="preserve">
+    <value>Vanalinna süda kohvikute ja ajalooliste majadega.</value>
+  </data>
+  <data name="PlaceOldTownDetail" xml:space="preserve">
+    <value>Raekoja plats on Tallinna vanalinna keskpunkt. Siit algavad kitsad munakivitänavad, siin toimuvad laadad ning väljak sobib hästi jalutuskäigu alustamiseks.</value>
+  </data>
+  <data name="PlaceKadriorgName" xml:space="preserve">
+    <value>Kadrioru park</value>
+  </data>
+  <data name="PlaceKadriorgShort" xml:space="preserve">
+    <value>Rahulik park, loss, kunstimuuseumid ja lilleaiad.</value>
+  </data>
+  <data name="PlaceKadriorgDetail" xml:space="preserve">
+    <value>Kadrioru park sobib rahulikuks jalutuskäiguks. Pargis asuvad Kadrioru loss, KUMU lähedus, tiigid ja alleed, mis teevad sellest ühe armastatuima rohelise ala Tallinnas.</value>
+  </data>
+  <data name="PlacePiritaName" xml:space="preserve">
+    <value>Pirita promenaad</value>
+  </data>
+  <data name="PlacePiritaShort" xml:space="preserve">
+    <value>Mereäärne tee jalutamiseks ja rattasõiduks.</value>
+  </data>
+  <data name="PlacePiritaDetail" xml:space="preserve">
+    <value>Pirita promenaad ühendab meretuule, linnavaate ja aktiivse liikumise. See on hea koht hommikuseks jooksuks, jalgrattasõiduks või rahulikuks õhtuseks jalutuseks.</value>
+  </data>
+  <data name="PlaceMarketName" xml:space="preserve">
+    <value>Balti Jaama Turg</value>
+  </data>
+  <data name="PlaceMarketShort" xml:space="preserve">
+    <value>Elav turg, tänavatoit ja kohalikud maitsed.</value>
+  </data>
+  <data name="PlaceMarketDetail" xml:space="preserve">
+    <value>Balti Jaama Turg ühendab värske toidu, tänavatoidu, kohvikud ja väikesed poed. See sobib hästi kiireks lõunaks või kohalike maitsete avastamiseks.</value>
+  </data>
+  <data name="PlaceTelliskiviName" xml:space="preserve">
+    <value>Telliskivi Loomelinnak</value>
+  </data>
+  <data name="PlaceTelliskiviShort" xml:space="preserve">
+    <value>Kohvikud, restoranid, kunst ja loominguline õhkkond.</value>
+  </data>
+  <data name="PlaceTelliskiviDetail" xml:space="preserve">
+    <value>Telliskivi Loomelinnak on populaarne piirkond restoranide, galeriide, disainipoodide ja sündmustega. See on hea valik, kui soovid näha Tallinna moodsamat külge.</value>
+  </data>
+</root>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="Tund2.CityExplorer.Views.MainTabbedPage"
+            BarBackgroundColor="#FFFFFF"
+            BarTextColor="#165B66"
+            SelectedTabColor="#165B66"
+            UnselectedTabColor="#697386"
+            BackgroundColor="#F7F9FB">
+</TabbedPage>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>CityExplorer</value>
+  </data>
+  <data name="ExploreTitle" xml:space="preserve">
+    <value>Explore</value>
+  </data>
+  <data name="ExploreSubtitle" xml:space="preserve">
+    <value>Browse Tallinn places by category.</value>
+  </data>
+  <data name="FavoritesTitle" xml:space="preserve">
+    <value>My Favorites</value>
+  </data>
+  <data name="FavoritesSubtitle" xml:space="preserve">
+    <value>Your saved places from the SQLite database.</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsSubtitle" xml:space="preserve">
+    <value>Choose the app language.</value>
+  </data>
+  <data name="CategoryHistory" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="CategoryParks" xml:space="preserve">
+    <value>Parks</value>
+  </data>
+  <data name="CategoryFood" xml:space="preserve">
+    <value>Food</value>
+  </data>
+  <data name="TapForDetails" xml:space="preserve">
+    <value>Tap the card to see more.</value>
+  </data>
+  <data name="AddFavorite" xml:space="preserve">
+    <value>Add to favorites</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AddedFavoriteTitle" xml:space="preserve">
+    <value>Added</value>
+  </data>
+  <data name="AddedFavoriteMessage" xml:space="preserve">
+    <value>The place was added to your favorites.</value>
+  </data>
+  <data name="AlreadyFavoriteTitle" xml:space="preserve">
+    <value>Already saved</value>
+  </data>
+  <data name="AlreadyFavoriteMessage" xml:space="preserve">
+    <value>This place is already in your favorites.</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="EmptyFavorites" xml:space="preserve">
+    <value>No favorites have been added yet.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="CurrentLanguage" xml:space="preserve">
+    <value>Current language</value>
+  </data>
+  <data name="Estonian" xml:space="preserve">
+    <value>Estonian</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Russian</value>
+  </data>
+  <data name="DatabaseError" xml:space="preserve">
+    <value>Database error</value>
+  </data>
+  <data name="PlaceToompeaName" xml:space="preserve">
+    <value>Toompea Castle</value>
+  </data>
+  <data name="PlaceToompeaShort" xml:space="preserve">
+    <value>A medieval center of power with views of the old town.</value>
+  </data>
+  <data name="PlaceToompeaDetail" xml:space="preserve">
+    <value>Toompea Castle is one of Tallinn's most important historic sites. It houses the Estonian parliament, and nearby viewpoints give a beautiful look over the old town.</value>
+  </data>
+  <data name="PlaceOldTownName" xml:space="preserve">
+    <value>Town Hall Square</value>
+  </data>
+  <data name="PlaceOldTownShort" xml:space="preserve">
+    <value>The heart of the old town with cafes and historic houses.</value>
+  </data>
+  <data name="PlaceOldTownDetail" xml:space="preserve">
+    <value>Town Hall Square is the center of Tallinn's old town. Narrow cobblestone streets begin here, markets are held here, and it is a good starting point for a walk.</value>
+  </data>
+  <data name="PlaceKadriorgName" xml:space="preserve">
+    <value>Kadriorg Park</value>
+  </data>
+  <data name="PlaceKadriorgShort" xml:space="preserve">
+    <value>A peaceful park with a palace, museums, and flower gardens.</value>
+  </data>
+  <data name="PlaceKadriorgDetail" xml:space="preserve">
+    <value>Kadriorg Park is perfect for a calm walk. The park has Kadriorg Palace, nearby KUMU, ponds, and avenues that make it one of Tallinn's best loved green areas.</value>
+  </data>
+  <data name="PlacePiritaName" xml:space="preserve">
+    <value>Pirita Promenade</value>
+  </data>
+  <data name="PlacePiritaShort" xml:space="preserve">
+    <value>A seaside path for walking and cycling.</value>
+  </data>
+  <data name="PlacePiritaDetail" xml:space="preserve">
+    <value>Pirita Promenade brings together sea air, city views, and active movement. It is a good place for a morning run, bike ride, or relaxed evening walk.</value>
+  </data>
+  <data name="PlaceMarketName" xml:space="preserve">
+    <value>Balti Jaama Market</value>
+  </data>
+  <data name="PlaceMarketShort" xml:space="preserve">
+    <value>A lively market with street food and local flavors.</value>
+  </data>
+  <data name="PlaceMarketDetail" xml:space="preserve">
+    <value>Balti Jaama Market combines fresh food, street food, cafes, and small shops. It works well for a quick lunch or for discovering local flavors.</value>
+  </data>
+  <data name="PlaceTelliskiviName" xml:space="preserve">
+    <value>Telliskivi Creative City</value>
+  </data>
+  <data name="PlaceTelliskiviShort" xml:space="preserve">
+    <value>Cafes, restaurants, art, and a creative atmosphere.</value>
+  </data>
+  <data name="PlaceTelliskiviDetail" xml:space="preserve">
+    <value>Telliskivi Creative City is a popular area with restaurants, galleries, design shops, and events. It is a good choice when you want to see Tallinn's modern side.</value>
+  </data>
+</root>
