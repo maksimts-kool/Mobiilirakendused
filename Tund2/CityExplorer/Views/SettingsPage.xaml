@@ -3,64 +3,64 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
              x:Class="Tund2.CityExplorer.Views.SettingsPage"
-             BackgroundColor="#F7F9FB">
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#FFFFFF">
     <Grid RowDefinitions="Auto,*"
-          Padding="{OnIdiom Phone='18,18,18,14', Default='30,26,30,24'}"
-          RowSpacing="18">
-        <VerticalStackLayout Spacing="4">
-            <Label Text="{Binding Localizer[SettingsTitle]}"
-                   FontFamily="PoppinsBold"
-                   FontSize="28"
-                   TextColor="#17232B"/>
-            <Label Text="{Binding Localizer[SettingsSubtitle]}"
-                   FontFamily="OpenSansRegular"
-                   FontSize="14"
-                   TextColor="#637083"/>
-        </VerticalStackLayout>
+          Padding="{OnIdiom Phone='28,56,28,24', Default='44,64,44,34'}"
+          RowSpacing="42">
+        <Label Text="{Binding Localizer[SettingsTitle]}"
+               FontFamily="PoppinsBold"
+               FontSize="{OnIdiom Phone=34, Default=38}"
+               TextColor="#202020"/>
 
         <Border Grid.Row="1"
                 Padding="18"
-                Stroke="#D9E4E8"
-                StrokeThickness="1"
-                BackgroundColor="White"
+                StrokeThickness="0"
+                BackgroundColor="#FAFAFA"
                 VerticalOptions="Start">
             <Border.StrokeShape>
-                <shapes:RoundRectangle CornerRadius="8"/>
+                <shapes:RoundRectangle CornerRadius="18"/>
             </Border.StrokeShape>
-
             <VerticalStackLayout Spacing="14">
                 <Label Text="{Binding Localizer[Language]}"
                        FontFamily="PoppinsBold"
                        FontSize="18"
-                       TextColor="#17232B"/>
+                       TextColor="#202020"/>
 
                 <Label Text="{Binding CurrentLanguageText}"
                        FontFamily="OpenSansRegular"
                        FontSize="14"
-                       TextColor="#637083"/>
+                       TextColor="#777777"/>
 
                 <Grid ColumnDefinitions="*,*,*"
-                      ColumnSpacing="10">
+                      ColumnSpacing="10"
+                      Margin="0,4,0,0">
                     <Button Text="{Binding Localizer[Estonian]}"
                             Command="{Binding ChangeLanguageCommand}"
                             CommandParameter="et"
-                            BackgroundColor="#165B66"
-                            TextColor="White"
-                            FontFamily="PoppinsMedium"/>
+                            BackgroundColor="#F45158"
+                            TextColor="#FFFFFF"
+                            FontFamily="PoppinsMedium"
+                            FontSize="13"
+                            CornerRadius="18"/>
                     <Button Grid.Column="1"
                             Text="{Binding Localizer[English]}"
                             Command="{Binding ChangeLanguageCommand}"
                             CommandParameter="en"
-                            BackgroundColor="#C25A36"
-                            TextColor="White"
-                            FontFamily="PoppinsMedium"/>
+                            BackgroundColor="#8BE3C3"
+                            TextColor="#111111"
+                            FontFamily="PoppinsMedium"
+                            FontSize="13"
+                            CornerRadius="18"/>
                     <Button Grid.Column="2"
                             Text="{Binding Localizer[Russian]}"
                             Command="{Binding ChangeLanguageCommand}"
                             CommandParameter="ru"
-                            BackgroundColor="#6E4A7E"
-                            TextColor="White"
-                            FontFamily="PoppinsMedium"/>
+                            BackgroundColor="#F1D38B"
+                            TextColor="#111111"
+                            FontFamily="PoppinsMedium"
+                            FontSize="13"
+                            CornerRadius="18"/>
                 </Grid>
             </VerticalStackLayout>
         </Border>

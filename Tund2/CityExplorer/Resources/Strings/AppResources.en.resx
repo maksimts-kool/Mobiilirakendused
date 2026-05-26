@@ -21,8 +21,20 @@
   <data name="ExploreSubtitle" xml:space="preserve">
     <value>Browse Tallinn places by category.</value>
   </data>
+  <data name="HomeTitle" xml:space="preserve">
+    <value>Tallinn</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Enter a place name</value>
+  </data>
+  <data name="CategoryLabel" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="PlacesLabel" xml:space="preserve">
+    <value>Places</value>
+  </data>
   <data name="FavoritesTitle" xml:space="preserve">
-    <value>My Favorites</value>
+    <value>Favorite places</value>
   </data>
   <data name="FavoritesSubtitle" xml:space="preserve">
     <value>Your saved places from the SQLite database.</value>
@@ -45,6 +57,57 @@
   <data name="TapForDetails" xml:space="preserve">
     <value>Tap the card to see more.</value>
   </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Read more</value>
+  </data>
+  <data name="BuyTour" xml:space="preserve">
+    <value>Buy tour</value>
+  </data>
+  <data name="TourBookedTitle" xml:space="preserve">
+    <value>Tour selected</value>
+  </data>
+  <data name="TourBookedMessage" xml:space="preserve">
+    <value>This is a demo view. The real purchase flow can be added later.</value>
+  </data>
+  <data name="TourPrice" xml:space="preserve">
+    <value>from 90 €</value>
+  </data>
+  <data name="TourPriceHistory" xml:space="preserve">
+    <value>from 90 €</value>
+  </data>
+  <data name="TourPriceNature" xml:space="preserve">
+    <value>from 45 €</value>
+  </data>
+  <data name="TourPriceFood" xml:space="preserve">
+    <value>from 35 €</value>
+  </data>
+  <data name="TourDistance" xml:space="preserve">
+    <value>in center</value>
+  </data>
+  <data name="TourDistanceCenter" xml:space="preserve">
+    <value>in center</value>
+  </data>
+  <data name="TourDistanceQuiet" xml:space="preserve">
+    <value>quiet</value>
+  </data>
+  <data name="TourDistanceSea" xml:space="preserve">
+    <value>by the sea</value>
+  </data>
+  <data name="TourDistanceTram" xml:space="preserve">
+    <value>by tram</value>
+  </data>
+  <data name="TourTag" xml:space="preserve">
+    <value>Food</value>
+  </data>
+  <data name="TourTagHistory" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="TourTagNature" xml:space="preserve">
+    <value>Nature</value>
+  </data>
+  <data name="TourTagFood" xml:space="preserve">
+    <value>Food</value>
+  </data>
   <data name="AddFavorite" xml:space="preserve">
     <value>Add to favorites</value>
   </data>
@@ -62,6 +125,12 @@
   </data>
   <data name="AlreadyFavoriteMessage" xml:space="preserve">
     <value>This place is already in your favorites.</value>
+  </data>
+  <data name="RemovedFavoriteTitle" xml:space="preserve">
+    <value>Removed</value>
+  </data>
+  <data name="RemovedFavoriteMessage" xml:space="preserve">
+    <value>The place was removed from your favorites.</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>

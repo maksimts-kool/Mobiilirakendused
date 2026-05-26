@@ -21,8 +21,20 @@
   <data name="ExploreSubtitle" xml:space="preserve">
     <value>Sirvi Tallinna kohti kategooriate kaupa.</value>
   </data>
+  <data name="HomeTitle" xml:space="preserve">
+    <value>Tallinn</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Sisesta koha nimi</value>
+  </data>
+  <data name="CategoryLabel" xml:space="preserve">
+    <value>Kategooria</value>
+  </data>
+  <data name="PlacesLabel" xml:space="preserve">
+    <value>Kohad</value>
+  </data>
   <data name="FavoritesTitle" xml:space="preserve">
-    <value>Minu Lemmikud</value>
+    <value>Lemmikkohad</value>
   </data>
   <data name="FavoritesSubtitle" xml:space="preserve">
     <value>Sinu salvestatud kohad SQLite andmebaasist.</value>
@@ -45,6 +57,57 @@
   <data name="TapForDetails" xml:space="preserve">
     <value>Puuduta kaarti, et näha rohkem.</value>
   </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Loe edasi</value>
+  </data>
+  <data name="BuyTour" xml:space="preserve">
+    <value>Osta ekskursioon</value>
+  </data>
+  <data name="TourBookedTitle" xml:space="preserve">
+    <value>Ekskursioon valitud</value>
+  </data>
+  <data name="TourBookedMessage" xml:space="preserve">
+    <value>See on demovaade. Päris ostuvoog lisatakse hiljem.</value>
+  </data>
+  <data name="TourPrice" xml:space="preserve">
+    <value>alates 90 €</value>
+  </data>
+  <data name="TourPriceHistory" xml:space="preserve">
+    <value>alates 90 €</value>
+  </data>
+  <data name="TourPriceNature" xml:space="preserve">
+    <value>alates 45 €</value>
+  </data>
+  <data name="TourPriceFood" xml:space="preserve">
+    <value>alates 35 €</value>
+  </data>
+  <data name="TourDistance" xml:space="preserve">
+    <value>keskuses</value>
+  </data>
+  <data name="TourDistanceCenter" xml:space="preserve">
+    <value>keskuses</value>
+  </data>
+  <data name="TourDistanceQuiet" xml:space="preserve">
+    <value>rahulik</value>
+  </data>
+  <data name="TourDistanceSea" xml:space="preserve">
+    <value>mere ääres</value>
+  </data>
+  <data name="TourDistanceTram" xml:space="preserve">
+    <value>trammiga</value>
+  </data>
+  <data name="TourTag" xml:space="preserve">
+    <value>Toit</value>
+  </data>
+  <data name="TourTagHistory" xml:space="preserve">
+    <value>Ajalugu</value>
+  </data>
+  <data name="TourTagNature" xml:space="preserve">
+    <value>Loodus</value>
+  </data>
+  <data name="TourTagFood" xml:space="preserve">
+    <value>Toit</value>
+  </data>
   <data name="AddFavorite" xml:space="preserve">
     <value>Lisa lemmikutesse</value>
   </data>
@@ -62,6 +125,12 @@
   </data>
   <data name="AlreadyFavoriteMessage" xml:space="preserve">
     <value>See koht on juba sinu lemmikutes.</value>
+  </data>
+  <data name="RemovedFavoriteTitle" xml:space="preserve">
+    <value>Eemaldatud</value>
+  </data>
+  <data name="RemovedFavoriteMessage" xml:space="preserve">
+    <value>Koht eemaldati lemmikute nimekirjast.</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Eemalda</value>

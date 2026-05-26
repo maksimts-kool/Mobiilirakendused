@@ -21,8 +21,20 @@
   <data name="ExploreSubtitle" xml:space="preserve">
     <value>Просматривайте места Таллинна по категориям.</value>
   </data>
+  <data name="HomeTitle" xml:space="preserve">
+    <value>Таллинн</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Введите название места</value>
+  </data>
+  <data name="CategoryLabel" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="PlacesLabel" xml:space="preserve">
+    <value>Места</value>
+  </data>
   <data name="FavoritesTitle" xml:space="preserve">
-    <value>Избранное</value>
+    <value>Избранные места</value>
   </data>
   <data name="FavoritesSubtitle" xml:space="preserve">
     <value>Ваши сохраненные места из базы данных SQLite.</value>
@@ -45,6 +57,57 @@
   <data name="TapForDetails" xml:space="preserve">
     <value>Нажмите на карточку, чтобы узнать больше.</value>
   </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Читать дальше</value>
+  </data>
+  <data name="BuyTour" xml:space="preserve">
+    <value>Купить экскурсию</value>
+  </data>
+  <data name="TourBookedTitle" xml:space="preserve">
+    <value>Экскурсия выбрана</value>
+  </data>
+  <data name="TourBookedMessage" xml:space="preserve">
+    <value>Это демо-экран. Реальный сценарий покупки можно добавить позже.</value>
+  </data>
+  <data name="TourPrice" xml:space="preserve">
+    <value>от 90 €</value>
+  </data>
+  <data name="TourPriceHistory" xml:space="preserve">
+    <value>от 90 €</value>
+  </data>
+  <data name="TourPriceNature" xml:space="preserve">
+    <value>от 45 €</value>
+  </data>
+  <data name="TourPriceFood" xml:space="preserve">
+    <value>от 35 €</value>
+  </data>
+  <data name="TourDistance" xml:space="preserve">
+    <value>в центре</value>
+  </data>
+  <data name="TourDistanceCenter" xml:space="preserve">
+    <value>в центре</value>
+  </data>
+  <data name="TourDistanceQuiet" xml:space="preserve">
+    <value>спокойно</value>
+  </data>
+  <data name="TourDistanceSea" xml:space="preserve">
+    <value>у моря</value>
+  </data>
+  <data name="TourDistanceTram" xml:space="preserve">
+    <value>на трамвае</value>
+  </data>
+  <data name="TourTag" xml:space="preserve">
+    <value>Еда</value>
+  </data>
+  <data name="TourTagHistory" xml:space="preserve">
+    <value>История</value>
+  </data>
+  <data name="TourTagNature" xml:space="preserve">
+    <value>Природа</value>
+  </data>
+  <data name="TourTagFood" xml:space="preserve">
+    <value>Еда</value>
+  </data>
   <data name="AddFavorite" xml:space="preserve">
     <value>Добавить в избранное</value>
   </data>
@@ -62,6 +125,12 @@
   </data>
   <data name="AlreadyFavoriteMessage" xml:space="preserve">
     <value>Это место уже есть в избранном.</value>
+  </data>
+  <data name="RemovedFavoriteTitle" xml:space="preserve">
+    <value>Удалено</value>
+  </data>
+  <data name="RemovedFavoriteMessage" xml:space="preserve">
+    <value>Место удалено из избранного.</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Удалить</value>

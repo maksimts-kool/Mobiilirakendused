@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Microsoft.Maui.Graphics;
 using Tund2.CityExplorer.Models;
 using Tund2.CityExplorer.Services;
 
@@ -11,6 +12,7 @@ public class ExploreViewModel : BaseViewModel
     private readonly List<Place> allPlaces;
     private Category? selectedCategory;
     private Place? selectedPlace;
+    private string searchText = string.Empty;
 
     public ExploreViewModel(DatabaseService databaseService)
     {
@@ -19,23 +21,24 @@ public class ExploreViewModel : BaseViewModel
 
         Categories = new ObservableCollection<Category>
         {
-            new() { Key = "history", Emoji = "🏰", TitleKey = "CategoryHistory" },
-            new() { Key = "parks", Emoji = "🌳", TitleKey = "CategoryParks" },
-            new() { Key = "food", Emoji = "🍽️", TitleKey = "CategoryFood" }
+            new() { Key = "history", Emoji = "⭐", Icon = "★", TitleKey = "CategoryHistory", AccentColor = Color.FromArgb("#F1D38B"), SoftColor = Color.FromArgb("#F7F7F7") },
+            new() { Key = "parks", Emoji = "🌳", Icon = "♣", TitleKey = "CategoryParks", AccentColor = Color.FromArgb("#8BE3C3"), SoftColor = Color.FromArgb("#DFF8EF") },
+            new() { Key = "food", Emoji = "🍽", Icon = "◆", TitleKey = "CategoryFood", AccentColor = Color.FromArgb("#FFC78E"), SoftColor = Color.FromArgb("#FFF3E6") }
         };
 
         allPlaces =
         [
-            new() { Id = 1, CategoryKey = "history", Image = "cityexplorer_toompea.png", NameKey = "PlaceToompeaName", ShortDescriptionKey = "PlaceToompeaShort", DetailKey = "PlaceToompeaDetail" },
-            new() { Id = 2, CategoryKey = "history", Image = "cityexplorer_oldtown.png", NameKey = "PlaceOldTownName", ShortDescriptionKey = "PlaceOldTownShort", DetailKey = "PlaceOldTownDetail" },
-            new() { Id = 3, CategoryKey = "parks", Image = "cityexplorer_kadriorg.png", NameKey = "PlaceKadriorgName", ShortDescriptionKey = "PlaceKadriorgShort", DetailKey = "PlaceKadriorgDetail" },
-            new() { Id = 4, CategoryKey = "parks", Image = "cityexplorer_pirita.png", NameKey = "PlacePiritaName", ShortDescriptionKey = "PlacePiritaShort", DetailKey = "PlacePiritaDetail" },
-            new() { Id = 5, CategoryKey = "food", Image = "cityexplorer_market.png", NameKey = "PlaceMarketName", ShortDescriptionKey = "PlaceMarketShort", DetailKey = "PlaceMarketDetail" },
-            new() { Id = 6, CategoryKey = "food", Image = "cityexplorer_telliskivi.png", NameKey = "PlaceTelliskiviName", ShortDescriptionKey = "PlaceTelliskiviShort", DetailKey = "PlaceTelliskiviDetail" }
+            new() { Id = 1, CategoryKey = "history", Image = "cityexplorer_toompea.png", NameKey = "PlaceToompeaName", ShortDescriptionKey = "PlaceToompeaShort", DetailKey = "PlaceToompeaDetail", Rating = "4,9", PriceTextKey = "TourPriceHistory", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagHistory" },
+            new() { Id = 2, CategoryKey = "history", Image = "cityexplorer_oldtown.png", NameKey = "PlaceOldTownName", ShortDescriptionKey = "PlaceOldTownShort", DetailKey = "PlaceOldTownDetail", Rating = "4,8", PriceTextKey = "TourPriceHistory", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagHistory" },
+            new() { Id = 3, CategoryKey = "parks", Image = "cityexplorer_kadriorg.png", NameKey = "PlaceKadriorgName", ShortDescriptionKey = "PlaceKadriorgShort", DetailKey = "PlaceKadriorgDetail", Rating = "5,0", PriceTextKey = "TourPriceNature", DistanceTextKey = "TourDistanceQuiet", TagTextKey = "TourTagNature" },
+            new() { Id = 4, CategoryKey = "parks", Image = "cityexplorer_pirita.png", NameKey = "PlacePiritaName", ShortDescriptionKey = "PlacePiritaShort", DetailKey = "PlacePiritaDetail", Rating = "4,7", PriceTextKey = "TourPriceNature", DistanceTextKey = "TourDistanceSea", TagTextKey = "TourTagNature" },
+            new() { Id = 5, CategoryKey = "food", Image = "cityexplorer_market.png", NameKey = "PlaceMarketName", ShortDescriptionKey = "PlaceMarketShort", DetailKey = "PlaceMarketDetail", Rating = "4,9", PriceTextKey = "TourPriceFood", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagFood" },
+            new() { Id = 6, CategoryKey = "food", Image = "cityexplorer_telliskivi.png", NameKey = "PlaceTelliskiviName", ShortDescriptionKey = "PlaceTelliskiviShort", DetailKey = "PlaceTelliskiviDetail", Rating = "4,8", PriceTextKey = "TourPriceFood", DistanceTextKey = "TourDistanceTram", TagTextKey = "TourTagFood" }
         ];
 
         Places = new ObservableCollection<Place>();
         ChangeCategoryCommand = new Command<Category>(category => SelectedCategory = category);
+        AddFavoriteCommand = new Command<Place>(async place => await AddFavoriteFromCommandAsync(place));
 
         Localizer.CultureChanged += (_, _) =>
         {
@@ -63,6 +66,8 @@ public class ExploreViewModel : BaseViewModel
 
     public ICommand ChangeCategoryCommand { get; }
 
+    public ICommand AddFavoriteCommand { get; }
+
     public Category? SelectedCategory
     {
         get => selectedCategory;
@@ -73,13 +78,7 @@ public class ExploreViewModel : BaseViewModel
                 return;
             }
 
-            Places.Clear();
-            foreach (var place in allPlaces.Where(place => place.CategoryKey == selectedCategory.Key))
-            {
-                Places.Add(place);
-            }
-
-            SelectedPlace = Places.FirstOrDefault();
+            RefreshPlaces();
             OnPropertyChanged(nameof(SelectedCategoryTitle));
         }
     }
@@ -88,6 +87,20 @@ public class ExploreViewModel : BaseViewModel
     {
         get => selectedPlace;
         set => SetProperty(ref selectedPlace, value);
+    }
+
+    public string SearchText
+    {
+        get => searchText;
+        set
+        {
+            if (!SetProperty(ref searchText, value))
+            {
+                return;
+            }
+
+            RefreshPlaces();
+        }
     }
 
     public string SelectedCategoryTitle => SelectedCategory?.Title ?? string.Empty;
@@ -102,4 +115,55 @@ public class ExploreViewModel : BaseViewModel
         await databaseService.SaveFavoriteAsync(place);
         return true;
     }
+
+    public async Task<bool> ToggleFavoriteAsync(Place place)
+    {
+        if (await databaseService.FavoriteExistsAsync(place.Id))
+        {
+            await databaseService.DeleteFavoriteAsync(place.Id);
+            return false;
+        }
+
+        await databaseService.SaveFavoriteAsync(place);
+        return true;
+    }
+
+    private void RefreshPlaces()
+    {
+        Places.Clear();
+
+        if (selectedCategory is null)
+        {
+            SelectedPlace = null;
+            OnPropertyChanged(nameof(HasPlaces));
+            return;
+        }
+
+        var normalizedSearch = searchText.Trim();
+        var filteredPlaces = allPlaces
+            .Where(place => place.CategoryKey == selectedCategory.Key)
+            .Where(place => string.IsNullOrWhiteSpace(normalizedSearch)
+                || place.Name.Contains(normalizedSearch, StringComparison.CurrentCultureIgnoreCase)
+                || place.ShortDescription.Contains(normalizedSearch, StringComparison.CurrentCultureIgnoreCase));
+
+        foreach (var place in filteredPlaces)
+        {
+            Places.Add(place);
+        }
+
+        SelectedPlace = Places.FirstOrDefault();
+        OnPropertyChanged(nameof(HasPlaces));
+    }
+
+    private async Task AddFavoriteFromCommandAsync(Place? place)
+    {
+        if (place is null)
+        {
+            return;
+        }
+
+        await AddFavoriteAsync(place);
+    }
+
+    public bool HasPlaces => Places.Count > 0;
 }

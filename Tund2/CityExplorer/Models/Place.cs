@@ -18,11 +18,25 @@ public class Place : INotifyPropertyChanged
 
     public string DetailKey { get; set; } = string.Empty;
 
+    public string Rating { get; set; } = "4,9";
+
+    public string PriceTextKey { get; set; } = "TourPrice";
+
+    public string DistanceTextKey { get; set; } = "TourDistance";
+
+    public string TagTextKey { get; set; } = "TourTag";
+
     public string Name => LocalizationManager.Instance[NameKey];
 
     public string ShortDescription => LocalizationManager.Instance[ShortDescriptionKey];
 
     public string Detail => LocalizationManager.Instance[DetailKey];
+
+    public string PriceText => LocalizationManager.Instance[PriceTextKey];
+
+    public string DistanceText => LocalizationManager.Instance[DistanceTextKey];
+
+    public string TagText => LocalizationManager.Instance[TagTextKey];
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -31,6 +45,9 @@ public class Place : INotifyPropertyChanged
         OnPropertyChanged(nameof(Name));
         OnPropertyChanged(nameof(ShortDescription));
         OnPropertyChanged(nameof(Detail));
+        OnPropertyChanged(nameof(PriceText));
+        OnPropertyChanged(nameof(DistanceText));
+        OnPropertyChanged(nameof(TagText));
     }
 
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null)

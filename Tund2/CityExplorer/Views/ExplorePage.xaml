@@ -4,141 +4,227 @@
              xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
              x:Class="Tund2.CityExplorer.Views.ExplorePage"
              x:Name="ExploreRoot"
-             BackgroundColor="#F7F9FB">
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#FFFFFF">
     <ContentPage.Resources>
-        <Style x:Key="PageTitleStyle" TargetType="Label">
+        <Style x:Key="SectionLabelStyle" TargetType="Label">
             <Setter Property="FontFamily" Value="PoppinsBold"/>
-            <Setter Property="FontSize" Value="28"/>
-            <Setter Property="TextColor" Value="#17232B"/>
-        </Style>
-
-        <Style x:Key="MutedTextStyle" TargetType="Label">
-            <Setter Property="FontFamily" Value="OpenSansRegular"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="TextColor" Value="#637083"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextColor" Value="#242424"/>
         </Style>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto,*"
-          Padding="{OnIdiom Phone='18,18,18,14', Default='30,26,30,24'}"
-          RowSpacing="18">
-        <VerticalStackLayout Spacing="4">
-            <Label Text="{Binding Localizer[ExploreTitle]}"
-                   Style="{StaticResource PageTitleStyle}"/>
-            <Label Text="{Binding Localizer[ExploreSubtitle]}"
-                   Style="{StaticResource MutedTextStyle}"/>
-        </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="{OnIdiom Phone='28,56,0,24', Default='44,64,0,34'}"
+                             Spacing="28">
+            <Label Text="{Binding Localizer[HomeTitle]}"
+                   FontFamily="PoppinsBold"
+                   FontSize="34"
+                   TextColor="#202020"
+                   Margin="0,0,28,0"/>
 
-        <Grid Grid.Row="1"
-              ColumnDefinitions="*,72"
-              ColumnSpacing="14">
-            <Grid RowDefinitions="*,Auto"
-                  RowSpacing="14">
-                <CarouselView x:Name="PlaceCarousel"
-                              ItemsSource="{Binding Places}"
-                              CurrentItem="{Binding SelectedPlace, Mode=TwoWay}"
-                              IndicatorView="PlaceIndicator"
-                              IsBounceEnabled="True"
-                              IsSwipeEnabled="True"
-                              Loop="True">
-                    <CarouselView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Horizontal"
-                                           SnapPointsAlignment="Center"
-                                           SnapPointsType="MandatorySingle"/>
-                    </CarouselView.ItemsLayout>
-                    <CarouselView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Margin="2"
-                                    Padding="0"
-                                    Stroke="#D9E4E8"
-                                    StrokeThickness="1"
-                                    BackgroundColor="White">
-                                <Border.StrokeShape>
-                                    <shapes:RoundRectangle CornerRadius="8"/>
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnPlaceTapped"
-                                                          CommandParameter="{Binding .}"/>
-                                </Border.GestureRecognizers>
+            <Border Margin="0,18,28,8"
+                    Padding="18,0"
+                    HeightRequest="64"
+                    StrokeThickness="0"
+                    BackgroundColor="#F7F7F7">
+                <Border.StrokeShape>
+                    <shapes:RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="*,Auto"
+                      ColumnSpacing="12">
+                    <Entry Text="{Binding SearchText}"
+                           Placeholder="{Binding Localizer[SearchPlaceholder]}"
+                           FontFamily="OpenSansRegular"
+                           FontSize="16"
+                           TextColor="#2C2C2C"
+                           PlaceholderColor="#B4B4B4"
+                           BackgroundColor="Transparent"
+                           ClearButtonVisibility="WhileEditing"
+                           VerticalOptions="Center"/>
+                    <Image Grid.Column="1"
+                           Source="search.png"
+                           WidthRequest="24"
+                           HeightRequest="24"
+                           Aspect="AspectFit"
+                           VerticalOptions="Center"/>
+                </Grid>
+            </Border>
 
-                                <Grid RowDefinitions="*,Auto">
-                                    <Image Source="{Binding Image}"
-                                           Aspect="AspectFill"
-                                           HeightRequest="{OnIdiom Phone=260, Default=360}"/>
-
-                                    <Grid Grid.Row="1"
-                                          Padding="18,14,18,18"
-                                          RowDefinitions="Auto,Auto,Auto"
-                                          RowSpacing="6"
-                                          BackgroundColor="#FFFFFF">
-                                        <Label Text="{Binding Name}"
-                                               FontFamily="PoppinsBold"
-                                               FontSize="{OnIdiom Phone=22, Default=26}"
-                                               TextColor="#17232B"
-                                               MaxLines="2"
-                                               LineBreakMode="TailTruncation"/>
-                                        <Label Grid.Row="1"
-                                               Text="{Binding ShortDescription}"
-                                               FontFamily="OpenSansRegular"
-                                               FontSize="14"
-                                               TextColor="#536273"
-                                               MaxLines="3"
-                                               LineBreakMode="TailTruncation"/>
-                                        <Label Grid.Row="2"
-                                               Text="{Binding Source={x:Reference ExploreRoot}, Path=BindingContext.Localizer[TapForDetails]}"
-                                               FontFamily="PoppinsMedium"
-                                               FontSize="13"
-                                               TextColor="#C25A36"
-                                               Margin="0,4,0,0"/>
-                                    </Grid>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
-
-                <IndicatorView x:Name="PlaceIndicator"
-                               Grid.Row="1"
-                               HorizontalOptions="Center"
-                               IndicatorColor="#CBD5DD"
-                               SelectedIndicatorColor="#165B66"/>
-            </Grid>
-
-            <VerticalStackLayout Grid.Column="1"
-                                 Spacing="10"
-                                 VerticalOptions="Center">
-                <Label Text="{Binding SelectedCategoryTitle}"
-                       FontFamily="PoppinsMedium"
-                       FontSize="12"
-                       TextColor="#536273"
-                       HorizontalTextAlignment="Center"
-                       MaxLines="2"/>
+            <VerticalStackLayout Spacing="14"
+                                 Margin="0,4,0,0">
+                <Label Text="{Binding Localizer[CategoryLabel]}"
+                       Style="{StaticResource SectionLabelStyle}"
+                       Margin="0,0,28,0"/>
 
                 <CollectionView ItemsSource="{Binding Categories}"
                                 SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
                                 SelectionMode="Single"
-                                HeightRequest="216">
+                                HeightRequest="62"
+                                HorizontalScrollBarVisibility="Never">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"
+                                           ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Border Margin="0,4"
-                                    Padding="8"
-                                    HeightRequest="58"
-                                    WidthRequest="58"
-                                    Stroke="#D9E4E8"
-                                    StrokeThickness="1"
-                                    BackgroundColor="#FFFFFF">
+                            <Border Padding="10,8"
+                                    HeightRequest="54"
+                                    StrokeThickness="0"
+                                    BackgroundColor="{Binding SoftColor}">
                                 <Border.StrokeShape>
-                                    <shapes:RoundRectangle CornerRadius="8"/>
+                                    <shapes:RoundRectangle CornerRadius="14"/>
                                 </Border.StrokeShape>
-                                <Label Text="{Binding Emoji}"
-                                       FontSize="26"
-                                       HorizontalTextAlignment="Center"
-                                       VerticalTextAlignment="Center"/>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{Binding AccentColor}"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Grid ColumnDefinitions="36,Auto"
+                                      ColumnSpacing="10"
+                                      VerticalOptions="Center">
+                                    <Border WidthRequest="36"
+                                            HeightRequest="36"
+                                            StrokeThickness="0"
+                                            BackgroundColor="#FFFFFF">
+                                        <Border.StrokeShape>
+                                            <shapes:RoundRectangle CornerRadius="9"/>
+                                        </Border.StrokeShape>
+                                        <Label Text="{Binding Icon}"
+                                               FontFamily="PoppinsBold"
+                                               FontSize="22"
+                                               TextColor="#F0CC78"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"/>
+                                    </Border>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Title}"
+                                           FontFamily="PoppinsMedium"
+                                           FontSize="15"
+                                           TextColor="#191919"
+                                           VerticalTextAlignment="Center"
+                                           Margin="0,0,8,0"/>
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </VerticalStackLayout>
-        </Grid>
-    </Grid>
+
+            <VerticalStackLayout Spacing="14"
+                                 Margin="0,6,0,0">
+                <Label Text="{Binding Localizer[PlacesLabel]}"
+                       Style="{StaticResource SectionLabelStyle}"
+                       Margin="0,0,28,0"/>
+
+                <CollectionView ItemsSource="{Binding Places}"
+                                HeightRequest="360"
+                                HorizontalScrollBarVisibility="Never"
+                                SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"
+                                           ItemSpacing="16"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <Grid Padding="0,28,28,0">
+                            <Label Text="{Binding Source={x:Reference ExploreRoot}, Path=BindingContext.Localizer[EmptyFavorites]}"
+                                   FontFamily="OpenSansRegular"
+                                   FontSize="15"
+                                   TextColor="#8C8C8C"
+                                   HorizontalTextAlignment="Center"/>
+                        </Grid>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border WidthRequest="{OnIdiom Phone=226, Default=260}"
+                                    HeightRequest="344"
+                                    StrokeThickness="0"
+                                    BackgroundColor="#EFEFEF">
+                                <Border.StrokeShape>
+                                    <shapes:RoundRectangle CornerRadius="24"/>
+                                </Border.StrokeShape>
+                                <Border.Shadow>
+                                    <Shadow Brush="#000000"
+                                            Offset="0,8"
+                                            Radius="18"
+                                            Opacity="0.12"/>
+                                </Border.Shadow>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnPlaceTapped"
+                                                          CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid>
+                                    <Image Source="{Binding Image}"
+                                           Aspect="AspectFill"/>
+                                    <BoxView Color="#000000"
+                                             Opacity="0.22"/>
+                                    <BoxView VerticalOptions="End"
+                                             HeightRequest="170"
+                                             Opacity="0.72">
+                                        <BoxView.Background>
+                                            <LinearGradientBrush StartPoint="0,0"
+                                                                 EndPoint="0,1">
+                                                <GradientStop Color="#00000000"
+                                                              Offset="0"/>
+                                                <GradientStop Color="#202020"
+                                                              Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </BoxView.Background>
+                                    </BoxView>
+
+                                    <ImageButton Source="unliked.png"
+                                                 CommandParameter="{Binding .}"
+                                                 Clicked="OnFavoriteClicked"
+                                                 WidthRequest="42"
+                                                 HeightRequest="42"
+                                                 Padding="0"
+                                                 BackgroundColor="Transparent"
+                                                 Aspect="AspectFit"
+                                                 HorizontalOptions="End"
+                                                 VerticalOptions="Start"
+                                                 Margin="0,18,18,0"/>
+
+                                    <VerticalStackLayout VerticalOptions="End"
+                                                         Padding="22,0,22,24"
+                                                         Spacing="12">
+                                        <Label Text="{Binding Name}"
+                                               FontFamily="PoppinsBold"
+                                               FontSize="19"
+                                               TextColor="#FFFFFF"
+                                               LineBreakMode="TailTruncation"
+                                               MaxLines="2"/>
+                                        <Border Padding="8,4"
+                                                StrokeThickness="0"
+                                                BackgroundColor="#5D5D5D"
+                                                HorizontalOptions="Start">
+                                            <Border.StrokeShape>
+                                                <shapes:RoundRectangle CornerRadius="12"/>
+                                            </Border.StrokeShape>
+                                            <HorizontalStackLayout Spacing="5">
+                                                <Label Text="★"
+                                                       TextColor="#F1D38B"
+                                                       FontSize="14"
+                                                       VerticalTextAlignment="Center"/>
+                                                <Label Text="{Binding Rating}"
+                                                       FontFamily="OpenSansRegular"
+                                                       FontSize="13"
+                                                       TextColor="#EDEDED"
+                                                       VerticalTextAlignment="Center"/>
+                                            </HorizontalStackLayout>
+                                        </Border>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

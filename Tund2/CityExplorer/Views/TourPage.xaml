@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
+             x:Class="Tund2.CityExplorer.Views.TourPage"
+             x:Name="TourRoot"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#FFFFFF">
+    <Grid RowDefinitions="*,Auto">
+        <ScrollView>
+            <VerticalStackLayout Padding="{OnIdiom Phone='20,22,20,20', Default='34,32,34,24'}"
+                                 Spacing="22">
+                <Grid HeightRequest="{OnIdiom Phone=526, Default=602}">
+                    <Border HeightRequest="{OnIdiom Phone=488, Default=560}"
+                            StrokeThickness="0"
+                            BackgroundColor="#EFEFEF"
+                            VerticalOptions="Start">
+                        <Border.StrokeShape>
+                            <shapes:RoundRectangle CornerRadius="24"/>
+                        </Border.StrokeShape>
+                        <Border.Shadow>
+                            <Shadow Brush="#000000"
+                                    Offset="0,8"
+                                    Radius="18"
+                                    Opacity="0.13"/>
+                        </Border.Shadow>
+
+                        <Grid>
+                            <Image Source="{Binding Place.Image}"
+                                   Aspect="AspectFill"/>
+                            <BoxView Color="#000000"
+                                     Opacity="0.10"/>
+
+                            <ImageButton Source="back.png"
+                                         Clicked="OnBackClicked"
+                                         WidthRequest="40"
+                                         HeightRequest="40"
+                                         Padding="0"
+                                         BackgroundColor="Transparent"
+                                         Aspect="AspectFit"
+                                         HorizontalOptions="Start"
+                                         VerticalOptions="Start"
+                                         Margin="28"/>
+
+                            <Border Padding="8,7,22,7"
+                                    StrokeThickness="0"
+                                    BackgroundColor="#666666"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="End"
+                                    Margin="30,0,0,30">
+                                <Border.StrokeShape>
+                                    <shapes:RoundRectangle CornerRadius="26"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="40,Auto"
+                                      ColumnSpacing="12">
+                                    <Border WidthRequest="40"
+                                            HeightRequest="40"
+                                            StrokeThickness="0"
+                                            BackgroundColor="{Binding CategoryColor}">
+                                        <Border.StrokeShape>
+                                            <shapes:RoundRectangle CornerRadius="20"/>
+                                        </Border.StrokeShape>
+                                        <Label Text="{Binding CategoryIcon}"
+                                               FontFamily="PoppinsBold"
+                                               FontSize="22"
+                                               TextColor="#FFFFFF"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"/>
+                                    </Border>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding CategoryTitle}"
+                                           FontFamily="PoppinsBold"
+                                           FontSize="18"
+                                           TextColor="#FFFFFF"
+                                           VerticalTextAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <ImageButton Source="unliked.png"
+                                 Clicked="OnFavoriteClicked"
+                                 WidthRequest="78"
+                                 HeightRequest="78"
+                                 Padding="0"
+                                 BackgroundColor="Transparent"
+                                 Aspect="AspectFit"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="End"
+                                 Margin="0,0,20,0"/>
+                </Grid>
+
+                <VerticalStackLayout Spacing="8"
+                                     Margin="10,8,10,0">
+                    <Label Text="{Binding Place.Name}"
+                           FontFamily="PoppinsBold"
+                           FontSize="{OnIdiom Phone=28, Default=34}"
+                           TextColor="#202020"
+                           LineBreakMode="WordWrap"
+                           MaxLines="3"/>
+                    <Label Text="{Binding Place.ShortDescription}"
+                           FontFamily="OpenSansRegular"
+                           FontSize="16"
+                           TextColor="#686868"
+                           LineBreakMode="TailTruncation"
+                           MaxLines="3"/>
+                    <HorizontalStackLayout Spacing="8"
+                                           Margin="0,2,0,0">
+                        <Label Text="{Binding Localizer[ReadMore]}"
+                               FontFamily="PoppinsMedium"
+                               FontSize="15"
+                               TextColor="#FF5B86">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnReadMoreTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Image Source="arrow_dropdown.png"
+                               WidthRequest="14"
+                               HeightRequest="14"
+                               Aspect="AspectFit"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <Grid ColumnDefinitions="*,*,*"
+                      ColumnSpacing="12"
+                      Margin="40,0,40,8">
+                    <Border Padding="10,12"
+                            StrokeThickness="0"
+                            BackgroundColor="#FAFAFA">
+                        <Border.StrokeShape>
+                            <shapes:RoundRectangle CornerRadius="14"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="6">
+                            <Image Source="price.png"
+                                   WidthRequest="32"
+                                   HeightRequest="32"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="{Binding Place.PriceText}"
+                                   FontFamily="OpenSansRegular"
+                                   FontSize="12"
+                                   TextColor="#777777"
+                                   HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Column="1"
+                            Padding="10,12"
+                            StrokeThickness="0"
+                            BackgroundColor="#FAFAFA">
+                        <Border.StrokeShape>
+                            <shapes:RoundRectangle CornerRadius="14"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="6">
+                            <Image Source="distance.png"
+                                   WidthRequest="32"
+                                   HeightRequest="32"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="{Binding Place.DistanceText}"
+                                   FontFamily="OpenSansRegular"
+                                   FontSize="12"
+                                   TextColor="#777777"
+                                   HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Column="2"
+                            Padding="10,12"
+                            StrokeThickness="0"
+                            BackgroundColor="#FAFAFA">
+                        <Border.StrokeShape>
+                            <shapes:RoundRectangle CornerRadius="14"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="6">
+                            <Image Source="breakfast.png"
+                                   WidthRequest="32"
+                                   HeightRequest="32"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="{Binding Place.TagText}"
+                                   FontFamily="OpenSansRegular"
+                                   FontSize="12"
+                                   TextColor="#777777"
+                                   HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Button Grid.Row="1"
+                Text="{Binding BuyButtonText}"
+                ImageSource="arrow.png"
+                ContentLayout="Right,14"
+                Clicked="OnBuyClicked"
+                HeightRequest="66"
+                CornerRadius="28"
+                Margin="28,10,28,24"
+                BackgroundColor="#FF5B86"
+                TextColor="#FFFFFF"
+                FontFamily="PoppinsBold"
+                FontSize="16"/>
+    </Grid>
+</ContentPage>

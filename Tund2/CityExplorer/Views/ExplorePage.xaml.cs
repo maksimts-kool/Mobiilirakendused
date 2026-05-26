@@ -6,7 +6,6 @@ namespace Tund2.CityExplorer.Views;
 public partial class ExplorePage : ContentPage
 {
     private readonly ExploreViewModel viewModel;
-    private readonly IDispatcherTimer autoScrollTimer;
 
     public ExplorePage(ExploreViewModel viewModel)
     {
@@ -14,31 +13,6 @@ public partial class ExplorePage : ContentPage
 
         this.viewModel = viewModel;
         BindingContext = viewModel;
-
-        autoScrollTimer = Dispatcher.CreateTimer();
-        autoScrollTimer.Interval = TimeSpan.FromSeconds(4);
-        autoScrollTimer.Tick += (_, _) =>
-        {
-            if (viewModel.Places.Count <= 1 || PlaceCarousel.IsDragging)
-            {
-                return;
-            }
-
-            var nextPosition = (PlaceCarousel.Position + 1) % viewModel.Places.Count;
-            PlaceCarousel.ScrollTo(nextPosition, position: ScrollToPosition.Center, animate: true);
-        };
-    }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        autoScrollTimer.Start();
-    }
-
-    protected override void OnDisappearing()
-    {
-        autoScrollTimer.Stop();
-        base.OnDisappearing();
     }
 
     private async void OnPlaceTapped(object? sender, TappedEventArgs e)
@@ -48,22 +22,23 @@ public partial class ExplorePage : ContentPage
             return;
         }
 
-        var addFavorite = await DisplayAlertAsync(
-            place.Name,
-            place.Detail,
-            viewModel.Localizer["AddFavorite"],
-            viewModel.Localizer["Close"]);
+        await Navigation.PushAsync(new TourPage(place, viewModel));
+    }
 
-        if (!addFavorite)
+    private async void OnFavoriteClicked(object? sender, EventArgs e)
+    {
+        if (sender is not ImageButton { CommandParameter: Place place } button)
         {
             return;
         }
 
         try
         {
-            var wasAdded = await viewModel.AddFavoriteAsync(place);
-            var title = wasAdded ? viewModel.Localizer["AddedFavoriteTitle"] : viewModel.Localizer["AlreadyFavoriteTitle"];
-            var message = wasAdded ? viewModel.Localizer["AddedFavoriteMessage"] : viewModel.Localizer["AlreadyFavoriteMessage"];
+            var isFavorite = await viewModel.ToggleFavoriteAsync(place);
+            await AnimateFavoriteIconAsync(button, isFavorite);
+
+            var title = isFavorite ? viewModel.Localizer["AddedFavoriteTitle"] : viewModel.Localizer["RemovedFavoriteTitle"];
+            var message = isFavorite ? viewModel.Localizer["AddedFavoriteMessage"] : viewModel.Localizer["RemovedFavoriteMessage"];
 
             await DisplayAlertAsync(title, message, "OK");
         }
@@ -71,5 +46,24 @@ public partial class ExplorePage : ContentPage
         {
             await DisplayAlertAsync(viewModel.Localizer["DatabaseError"], ex.Message, "OK");
         }
+    }
+
+    private static async Task AnimateFavoriteIconAsync(ImageButton button, bool isLiked)
+    {
+        await Task.WhenAll(
+            button.ScaleToAsync(0.72, 90, Easing.CubicOut),
+            button.RotateToAsync(-10, 90, Easing.CubicOut),
+            button.FadeToAsync(0.65, 90, Easing.CubicOut));
+
+        button.Source = isLiked ? "liked.png" : "unliked.png";
+
+        await Task.WhenAll(
+            button.ScaleToAsync(1.12, 150, Easing.SpringOut),
+            button.RotateToAsync(8, 150, Easing.CubicOut),
+            button.FadeToAsync(1, 150, Easing.CubicOut));
+
+        await Task.WhenAll(
+            button.ScaleToAsync(1, 90, Easing.CubicOut),
+            button.RotateToAsync(0, 90, Easing.CubicOut));
     }
 }

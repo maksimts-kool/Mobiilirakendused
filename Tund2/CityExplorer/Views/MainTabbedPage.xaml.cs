@@ -13,9 +13,15 @@ public partial class MainTabbedPage : TabbedPage
     {
         InitializeComponent();
 
+        NavigationPage.SetHasNavigationBar(this, false);
+
         this.explorePage = explorePage;
         this.favoritesPage = favoritesPage;
         this.settingsPage = settingsPage;
+
+        explorePage.IconImageSource = "cityexplorer_tab_grid.png";
+        favoritesPage.IconImageSource = "cityexplorer_tab_heart.png";
+        settingsPage.IconImageSource = "cityexplorer_tab_settings.png";
 
         Children.Add(explorePage);
         Children.Add(favoritesPage);

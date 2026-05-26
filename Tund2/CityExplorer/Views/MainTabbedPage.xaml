@@ -2,9 +2,10 @@
 <TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             x:Class="Tund2.CityExplorer.Views.MainTabbedPage"
+            NavigationPage.HasNavigationBar="False"
             BarBackgroundColor="#FFFFFF"
-            BarTextColor="#165B66"
-            SelectedTabColor="#165B66"
-            UnselectedTabColor="#697386"
-            BackgroundColor="#F7F9FB">
+            BarTextColor="#202020"
+            SelectedTabColor="#F45158"
+            UnselectedTabColor="#202020"
+            BackgroundColor="#FFFFFF">
 </TabbedPage>
