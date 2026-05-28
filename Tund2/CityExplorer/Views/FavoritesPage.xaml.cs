@@ -6,12 +6,14 @@ namespace Tund2.CityExplorer.Views;
 public partial class FavoritesPage : ContentPage
 {
     private readonly FavoritesViewModel viewModel;
+    private readonly ExploreViewModel exploreViewModel;
 
-    public FavoritesPage(FavoritesViewModel viewModel)
+    public FavoritesPage(FavoritesViewModel viewModel, ExploreViewModel exploreViewModel)
     {
         InitializeComponent();
 
         this.viewModel = viewModel;
+        this.exploreViewModel = exploreViewModel;
         BindingContext = viewModel;
     }
 
@@ -88,17 +90,29 @@ public partial class FavoritesPage : ContentPage
         }
     }
 
+    private async void OnFavoritePlaceTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is not BindableObject { BindingContext: Place place })
+        {
+            return;
+        }
+
+        await Navigation.PushAsync(new TourPage(place, exploreViewModel));
+    }
+
     private static async Task ExpandGroupAsync(FavoriteCategoryGroup group, Border contentPanel)
     {
+        contentPanel.AbortAnimation("SlideHeight");
         group.IsExpanded = true;
 
-        contentPanel.AbortAnimation("SlideHeight");
         contentPanel.IsVisible = true;
+        contentPanel.HeightRequest = -1;
         contentPanel.Opacity = 0;
         contentPanel.TranslationY = -12;
-        contentPanel.HeightRequest = 0;
 
         var targetHeight = MeasurePanelHeight(contentPanel);
+
+        contentPanel.HeightRequest = 0;
 
         await Task.WhenAll(
             AnimateHeightAsync(contentPanel, 0, targetHeight),
@@ -124,9 +138,10 @@ public partial class FavoritesPage : ContentPage
             contentPanel.TranslateToAsync(0, -12, 180, Easing.CubicIn));
 
         group.IsExpanded = false;
-        contentPanel.HeightRequest = -1;
-        contentPanel.Opacity = 1;
-        contentPanel.TranslationY = 0;
+        contentPanel.HeightRequest = 0;
+        contentPanel.IsVisible = false;
+        contentPanel.Opacity = 0;
+        contentPanel.TranslationY = -12;
     }
 
     private static double MeasurePanelHeight(VisualElement panel)

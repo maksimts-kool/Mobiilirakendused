@@ -39,10 +39,15 @@ public class FavoriteCategoryGroup : INotifyPropertyChanged
             isExpanded = value;
             OnPropertyChanged();
             OnPropertyChanged(nameof(ArrowRotation));
+            OnPropertyChanged(nameof(HeaderCornerRadius));
         }
     }
 
     public double ArrowRotation => IsExpanded ? 180 : 0;
+
+    public CornerRadius HeaderCornerRadius => IsExpanded
+        ? new CornerRadius(16, 16, 0, 0)
+        : new CornerRadius(16);
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

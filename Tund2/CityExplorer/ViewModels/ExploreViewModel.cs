@@ -28,12 +28,12 @@ public class ExploreViewModel : BaseViewModel
 
         allPlaces =
         [
-            new() { Id = 1, CategoryKey = "history", Image = "cityexplorer_toompea.png", NameKey = "PlaceToompeaName", ShortDescriptionKey = "PlaceToompeaShort", DetailKey = "PlaceToompeaDetail", Rating = "4,9", PriceTextKey = "TourPriceHistory", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagHistory" },
-            new() { Id = 2, CategoryKey = "history", Image = "cityexplorer_oldtown.png", NameKey = "PlaceOldTownName", ShortDescriptionKey = "PlaceOldTownShort", DetailKey = "PlaceOldTownDetail", Rating = "4,8", PriceTextKey = "TourPriceHistory", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagHistory" },
-            new() { Id = 3, CategoryKey = "parks", Image = "cityexplorer_kadriorg.png", NameKey = "PlaceKadriorgName", ShortDescriptionKey = "PlaceKadriorgShort", DetailKey = "PlaceKadriorgDetail", Rating = "5,0", PriceTextKey = "TourPriceNature", DistanceTextKey = "TourDistanceQuiet", TagTextKey = "TourTagNature" },
-            new() { Id = 4, CategoryKey = "parks", Image = "cityexplorer_pirita.png", NameKey = "PlacePiritaName", ShortDescriptionKey = "PlacePiritaShort", DetailKey = "PlacePiritaDetail", Rating = "4,7", PriceTextKey = "TourPriceNature", DistanceTextKey = "TourDistanceSea", TagTextKey = "TourTagNature" },
-            new() { Id = 5, CategoryKey = "food", Image = "cityexplorer_market.png", NameKey = "PlaceMarketName", ShortDescriptionKey = "PlaceMarketShort", DetailKey = "PlaceMarketDetail", Rating = "4,9", PriceTextKey = "TourPriceFood", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagFood" },
-            new() { Id = 6, CategoryKey = "food", Image = "cityexplorer_telliskivi.png", NameKey = "PlaceTelliskiviName", ShortDescriptionKey = "PlaceTelliskiviShort", DetailKey = "PlaceTelliskiviDetail", Rating = "4,8", PriceTextKey = "TourPriceFood", DistanceTextKey = "TourDistanceTram", TagTextKey = "TourTagFood" }
+            new() { Id = 1, CategoryKey = "history", Image = "cityexplorer_toompea.jpg", NameKey = "PlaceToompeaName", ShortDescriptionKey = "PlaceToompeaShort", DetailKey = "PlaceToompeaDetail", Rating = "4,9", PriceTextKey = "TourPriceHistory", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagHistory" },
+            new() { Id = 2, CategoryKey = "history", Image = "cityexplorer_oldtown.jpg", NameKey = "PlaceOldTownName", ShortDescriptionKey = "PlaceOldTownShort", DetailKey = "PlaceOldTownDetail", Rating = "4,8", PriceTextKey = "TourPriceHistory", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagHistory" },
+            new() { Id = 3, CategoryKey = "parks", Image = "cityexplorer_kadriorg.jpg", NameKey = "PlaceKadriorgName", ShortDescriptionKey = "PlaceKadriorgShort", DetailKey = "PlaceKadriorgDetail", Rating = "5,0", PriceTextKey = "TourPriceNature", DistanceTextKey = "TourDistanceQuiet", TagTextKey = "TourTagNature" },
+            new() { Id = 4, CategoryKey = "parks", Image = "cityexplorer_pirita.jpg", NameKey = "PlacePiritaName", ShortDescriptionKey = "PlacePiritaShort", DetailKey = "PlacePiritaDetail", Rating = "4,7", PriceTextKey = "TourPriceNature", DistanceTextKey = "TourDistanceSea", TagTextKey = "TourTagNature" },
+            new() { Id = 5, CategoryKey = "food", Image = "cityexplorer_market.jpg", NameKey = "PlaceMarketName", ShortDescriptionKey = "PlaceMarketShort", DetailKey = "PlaceMarketDetail", Rating = "4,9", PriceTextKey = "TourPriceFood", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagFood" },
+            new() { Id = 6, CategoryKey = "food", Image = "cityexplorer_telliskivi.jpg", NameKey = "PlaceTelliskiviName", ShortDescriptionKey = "PlaceTelliskiviShort", DetailKey = "PlaceTelliskiviDetail", Rating = "4,8", PriceTextKey = "TourPriceFood", DistanceTextKey = "TourDistanceTram", TagTextKey = "TourTagFood" }
         ];
 
         Places = new ObservableCollection<Place>();
@@ -109,10 +109,12 @@ public class ExploreViewModel : BaseViewModel
     {
         if (await databaseService.FavoriteExistsAsync(place.Id))
         {
+            place.IsFavorite = true;
             return false;
         }
 
         await databaseService.SaveFavoriteAsync(place);
+        place.IsFavorite = true;
         return true;
     }
 
@@ -121,11 +123,21 @@ public class ExploreViewModel : BaseViewModel
         if (await databaseService.FavoriteExistsAsync(place.Id))
         {
             await databaseService.DeleteFavoriteAsync(place.Id);
+            place.IsFavorite = false;
             return false;
         }
 
         await databaseService.SaveFavoriteAsync(place);
+        place.IsFavorite = true;
         return true;
+    }
+
+    public async Task RefreshFavoriteStatesAsync()
+    {
+        foreach (var place in allPlaces)
+        {
+            place.IsFavorite = await databaseService.FavoriteExistsAsync(place.Id);
+        }
     }
 
     private void RefreshPlaces()

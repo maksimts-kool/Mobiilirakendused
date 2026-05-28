@@ -69,6 +69,8 @@ public class FavoritesViewModel : BaseViewModel
         {
             IsBusy = true;
 
+            var expandedStates = FavoriteGroups.ToDictionary(group => group.CategoryKey, group => group.IsExpanded);
+
             Favorites.Clear();
             FavoriteGroups.Clear();
             var savedPlaces = await databaseService.GetFavoritesAsync();
@@ -90,7 +92,9 @@ public class FavoritesViewModel : BaseViewModel
                     HeaderColor = definition.HeaderColor,
                     BodyColor = definition.BodyColor,
                     ItemBorderColor = definition.ItemBorderColor,
-                    IsExpanded = FavoriteGroups.Count == 0
+                    IsExpanded = expandedStates.TryGetValue(group.Key, out var wasExpanded)
+                        ? wasExpanded
+                        : FavoriteGroups.Count == 0
                 };
 
                 foreach (var place in group)

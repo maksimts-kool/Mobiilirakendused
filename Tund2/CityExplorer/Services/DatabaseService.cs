@@ -69,10 +69,11 @@ public class DatabaseService
             {
                 Id = reader.GetInt32(0),
                 CategoryKey = reader.GetString(1),
-                Image = reader.GetString(2),
+                Image = GetCurrentImageName(reader.GetInt32(0), reader.GetString(2)),
                 NameKey = reader.GetString(3),
                 ShortDescriptionKey = reader.GetString(4),
-                DetailKey = reader.GetString(5)
+                DetailKey = reader.GetString(5),
+                IsFavorite = true
             });
         }
 
@@ -132,5 +133,19 @@ public class DatabaseService
         command.Parameters.AddWithValue("$id", placeId);
 
         await command.ExecuteNonQueryAsync();
+    }
+
+    private static string GetCurrentImageName(int placeId, string savedImage)
+    {
+        return placeId switch
+        {
+            1 => "cityexplorer_toompea.jpg",
+            2 => "cityexplorer_oldtown.jpg",
+            3 => "cityexplorer_kadriorg.jpg",
+            4 => "cityexplorer_pirita.jpg",
+            5 => "cityexplorer_market.jpg",
+            6 => "cityexplorer_telliskivi.jpg",
+            _ => savedImage
+        };
     }
 }

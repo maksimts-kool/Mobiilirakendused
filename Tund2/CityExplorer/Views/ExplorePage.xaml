@@ -178,7 +178,7 @@
                                         </BoxView.Background>
                                     </BoxView>
 
-                                    <ImageButton Source="unliked.png"
+                                    <ImageButton Source="{Binding FavoriteIcon}"
                                                  CommandParameter="{Binding .}"
                                                  Clicked="OnFavoriteClicked"
                                                  WidthRequest="42"

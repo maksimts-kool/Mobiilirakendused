@@ -43,9 +43,10 @@ public partial class StartPage : ContentPage
 			new("CityExplorer", "Nutikas Tallinna giid karusselli, lemmikute ja keelevalikuga", () =>
 			{
 				var databaseService = new DatabaseService();
+				var exploreViewModel = new ExploreViewModel(databaseService);
 				return new MainTabbedPage(
-					new ExplorePage(new ExploreViewModel(databaseService)),
-					new FavoritesPage(new FavoritesViewModel(databaseService)),
+					new ExplorePage(exploreViewModel),
+					new FavoritesPage(new FavoritesViewModel(databaseService), exploreViewModel),
 					new SettingsPage(new SettingsViewModel()));
 			}, "CE", "#E8F7F7", "#165B66")
 		};

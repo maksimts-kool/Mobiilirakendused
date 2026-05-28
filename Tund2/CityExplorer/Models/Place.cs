@@ -6,6 +6,8 @@ namespace Tund2.CityExplorer.Models;
 
 public class Place : INotifyPropertyChanged
 {
+    private bool isFavorite;
+
     public int Id { get; set; }
 
     public string CategoryKey { get; set; } = string.Empty;
@@ -37,6 +39,24 @@ public class Place : INotifyPropertyChanged
     public string DistanceText => LocalizationManager.Instance[DistanceTextKey];
 
     public string TagText => LocalizationManager.Instance[TagTextKey];
+
+    public bool IsFavorite
+    {
+        get => isFavorite;
+        set
+        {
+            if (isFavorite == value)
+            {
+                return;
+            }
+
+            isFavorite = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(FavoriteIcon));
+        }
+    }
+
+    public string FavoriteIcon => IsFavorite ? "liked.png" : "unliked.png";
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

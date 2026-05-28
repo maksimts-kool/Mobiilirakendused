@@ -36,6 +36,9 @@
   <data name="FavoritesTitle" xml:space="preserve">
     <value>Favorite places</value>
   </data>
+  <data name="FavoritesTabTitle" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
   <data name="FavoritesSubtitle" xml:space="preserve">
     <value>Your saved places from the SQLite database.</value>
   </data>
@@ -59,6 +62,9 @@
   </data>
   <data name="ReadMore" xml:space="preserve">
     <value>Read more</value>
+  </data>
+  <data name="ShowLess" xml:space="preserve">
+    <value>Show less</value>
   </data>
   <data name="BuyTour" xml:space="preserve">
     <value>Buy tour</value>

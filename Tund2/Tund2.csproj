@@ -49,6 +49,10 @@
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Remove="Resources\Images\cityexplorer_*.svg" />
 		<MauiImage Include="Resources\Images\cityexplorer\*" />
+		<MauiImage Remove="Resources\Images\cityexplorer\cityexplorer_pirita.png" />
+		<MauiImage Update="Resources\Images\cityexplorer\cityexplorer_tab_grid.svg" Resize="True" BaseSize="28,28" />
+		<MauiImage Update="Resources\Images\cityexplorer\cityexplorer_tab_heart.svg" Resize="True" BaseSize="28,28" />
+		<MauiImage Update="Resources\Images\cityexplorer\cityexplorer_tab_settings.svg" Resize="True" BaseSize="28,28" />
 		<MauiImage Include="Resources\Images\memogame\*" />
 		<MauiImage Include="Resources\Images\tictactoe\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />

@@ -78,7 +78,7 @@
                         </Grid>
                     </Border>
 
-                    <ImageButton Source="unliked.png"
+                    <ImageButton Source="{Binding Place.FavoriteIcon}"
                                  Clicked="OnFavoriteClicked"
                                  WidthRequest="78"
                                  HeightRequest="78"
@@ -90,7 +90,8 @@
                                  Margin="0,0,20,0"/>
                 </Grid>
 
-                <VerticalStackLayout Spacing="8"
+                <VerticalStackLayout x:Name="DescriptionSection"
+                                     Spacing="8"
                                      Margin="10,8,10,0">
                     <Label Text="{Binding Place.Name}"
                            FontFamily="PoppinsBold"
@@ -104,25 +105,40 @@
                            TextColor="#686868"
                            LineBreakMode="TailTruncation"
                            MaxLines="3"/>
+                    <Grid x:Name="ExpandedDescriptionClip"
+                          HeightRequest="0"
+                          IsClippedToBounds="True"
+                          IsVisible="False">
+                        <Label x:Name="ExpandedDescriptionLabel"
+                               Text="{Binding Place.Detail}"
+                               FontFamily="OpenSansRegular"
+                               FontSize="16"
+                               TextColor="#686868"
+                               LineBreakMode="WordWrap"
+                               Opacity="0"/>
+                    </Grid>
                     <HorizontalStackLayout Spacing="8"
                                            Margin="0,2,0,0">
-                        <Label Text="{Binding Localizer[ReadMore]}"
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnReadMoreTapped"/>
+                        </HorizontalStackLayout.GestureRecognizers>
+                        <Label x:Name="ReadMoreLabel"
+                               Text="{Binding ReadMoreButtonText}"
                                FontFamily="PoppinsMedium"
                                FontSize="15"
-                               TextColor="#FF5B86">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnReadMoreTapped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <Image Source="arrow_dropdown.png"
+                               TextColor="#FF5B86"/>
+                        <Image x:Name="ReadMoreArrow"
+                               Source="arrow_dropdown.png"
                                WidthRequest="14"
                                HeightRequest="14"
                                Aspect="AspectFit"
+                               Rotation="{Binding ReadMoreArrowRotation}"
                                VerticalOptions="Center"/>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
 
-                <Grid ColumnDefinitions="*,*,*"
+                <Grid x:Name="InfoCardsGrid"
+                      ColumnDefinitions="*,*,*"
                       ColumnSpacing="12"
                       Margin="40,0,40,8">
                     <Border Padding="10,12"

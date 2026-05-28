@@ -15,6 +15,25 @@ public partial class ExplorePage : ContentPage
         BindingContext = viewModel;
     }
 
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        await RefreshFavoriteStatesAsync();
+    }
+
+    public async Task RefreshFavoriteStatesAsync()
+    {
+        try
+        {
+            await viewModel.RefreshFavoriteStatesAsync();
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync(viewModel.Localizer["DatabaseError"], ex.Message, "OK");
+        }
+    }
+
     private async void OnPlaceTapped(object? sender, TappedEventArgs e)
     {
         if (e.Parameter is not Place place)
@@ -36,11 +55,6 @@ public partial class ExplorePage : ContentPage
         {
             var isFavorite = await viewModel.ToggleFavoriteAsync(place);
             await AnimateFavoriteIconAsync(button, isFavorite);
-
-            var title = isFavorite ? viewModel.Localizer["AddedFavoriteTitle"] : viewModel.Localizer["RemovedFavoriteTitle"];
-            var message = isFavorite ? viewModel.Localizer["AddedFavoriteMessage"] : viewModel.Localizer["RemovedFavoriteMessage"];
-
-            await DisplayAlertAsync(title, message, "OK");
         }
         catch (Exception ex)
         {
@@ -54,8 +68,6 @@ public partial class ExplorePage : ContentPage
             button.ScaleToAsync(0.72, 90, Easing.CubicOut),
             button.RotateToAsync(-10, 90, Easing.CubicOut),
             button.FadeToAsync(0.65, 90, Easing.CubicOut));
-
-        button.Source = isLiked ? "liked.png" : "unliked.png";
 
         await Task.WhenAll(
             button.ScaleToAsync(1.12, 150, Easing.SpringOut),

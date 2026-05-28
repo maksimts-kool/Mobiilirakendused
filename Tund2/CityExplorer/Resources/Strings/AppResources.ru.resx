@@ -36,6 +36,9 @@
   <data name="FavoritesTitle" xml:space="preserve">
     <value>Избранные места</value>
   </data>
+  <data name="FavoritesTabTitle" xml:space="preserve">
+    <value>Избранное</value>
+  </data>
   <data name="FavoritesSubtitle" xml:space="preserve">
     <value>Ваши сохраненные места из базы данных SQLite.</value>
   </data>
@@ -59,6 +62,9 @@
   </data>
   <data name="ReadMore" xml:space="preserve">
     <value>Читать дальше</value>
+  </data>
+  <data name="ShowLess" xml:space="preserve">
+    <value>Показать меньше</value>
   </data>
   <data name="BuyTour" xml:space="preserve">
     <value>Купить экскурсию</value>

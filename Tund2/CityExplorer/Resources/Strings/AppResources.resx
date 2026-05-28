@@ -36,6 +36,9 @@
   <data name="FavoritesTitle" xml:space="preserve">
     <value>Lemmikkohad</value>
   </data>
+  <data name="FavoritesTabTitle" xml:space="preserve">
+    <value>Lemmikud</value>
+  </data>
   <data name="FavoritesSubtitle" xml:space="preserve">
     <value>Sinu salvestatud kohad SQLite andmebaasist.</value>
   </data>
@@ -59,6 +62,9 @@
   </data>
   <data name="ReadMore" xml:space="preserve">
     <value>Loe edasi</value>
+  </data>
+  <data name="ShowLess" xml:space="preserve">
+    <value>Näita vähem</value>
   </data>
   <data name="BuyTour" xml:space="preserve">
     <value>Osta ekskursioon</value>
