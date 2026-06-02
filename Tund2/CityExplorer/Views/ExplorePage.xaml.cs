@@ -53,29 +53,12 @@ public partial class ExplorePage : ContentPage
 
         try
         {
-            var isFavorite = await viewModel.ToggleFavoriteAsync(place);
-            await AnimateFavoriteIconAsync(button, isFavorite);
+            await viewModel.ToggleFavoriteAsync(place);
+            await FavoriteIconAnimator.PopAsync(button);
         }
         catch (Exception ex)
         {
             await DisplayAlertAsync(viewModel.Localizer["DatabaseError"], ex.Message, "OK");
         }
-    }
-
-    private static async Task AnimateFavoriteIconAsync(ImageButton button, bool isLiked)
-    {
-        await Task.WhenAll(
-            button.ScaleToAsync(0.72, 90, Easing.CubicOut),
-            button.RotateToAsync(-10, 90, Easing.CubicOut),
-            button.FadeToAsync(0.65, 90, Easing.CubicOut));
-
-        await Task.WhenAll(
-            button.ScaleToAsync(1.12, 150, Easing.SpringOut),
-            button.RotateToAsync(8, 150, Easing.CubicOut),
-            button.FadeToAsync(1, 150, Easing.CubicOut));
-
-        await Task.WhenAll(
-            button.ScaleToAsync(1, 90, Easing.CubicOut),
-            button.RotateToAsync(0, 90, Easing.CubicOut));
     }
 }

@@ -12,8 +12,10 @@ public class SettingsViewModel : BaseViewModel
 
         Localizer.CultureChanged += (_, _) =>
         {
-            OnPropertyChanged(nameof(CurrentLanguageText));
-            OnPropertyChanged(nameof(CurrentLanguageCode));
+            OnPropertyChanged(nameof(Localizer));
+            OnPropertiesChanged(
+                nameof(CurrentLanguageText),
+                nameof(CurrentLanguageCode));
         };
     }
 

@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Microsoft.Maui.Graphics;
 using Tund2.CityExplorer.Models;
 using Tund2.CityExplorer.Services;
 
@@ -9,7 +8,7 @@ namespace Tund2.CityExplorer.ViewModels;
 public class ExploreViewModel : BaseViewModel
 {
     private readonly DatabaseService databaseService;
-    private readonly List<Place> allPlaces;
+    private readonly IReadOnlyList<Place> allPlaces;
     private Category? selectedCategory;
     private Place? selectedPlace;
     private string searchText = string.Empty;
@@ -19,41 +18,13 @@ public class ExploreViewModel : BaseViewModel
         this.databaseService = databaseService;
         Localizer = LocalizationManager.Instance;
 
-        Categories = new ObservableCollection<Category>
-        {
-            new() { Key = "history", Emoji = "⭐", Icon = "★", TitleKey = "CategoryHistory", AccentColor = Color.FromArgb("#F1D38B"), SoftColor = Color.FromArgb("#F7F7F7") },
-            new() { Key = "parks", Emoji = "🌳", Icon = "♣", TitleKey = "CategoryParks", AccentColor = Color.FromArgb("#8BE3C3"), SoftColor = Color.FromArgb("#DFF8EF") },
-            new() { Key = "food", Emoji = "🍽", Icon = "◆", TitleKey = "CategoryFood", AccentColor = Color.FromArgb("#FFC78E"), SoftColor = Color.FromArgb("#FFF3E6") }
-        };
-
-        allPlaces =
-        [
-            new() { Id = 1, CategoryKey = "history", Image = "cityexplorer_toompea.jpg", NameKey = "PlaceToompeaName", ShortDescriptionKey = "PlaceToompeaShort", DetailKey = "PlaceToompeaDetail", Rating = "4,9", PriceTextKey = "TourPriceHistory", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagHistory" },
-            new() { Id = 2, CategoryKey = "history", Image = "cityexplorer_oldtown.jpg", NameKey = "PlaceOldTownName", ShortDescriptionKey = "PlaceOldTownShort", DetailKey = "PlaceOldTownDetail", Rating = "4,8", PriceTextKey = "TourPriceHistory", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagHistory" },
-            new() { Id = 3, CategoryKey = "parks", Image = "cityexplorer_kadriorg.jpg", NameKey = "PlaceKadriorgName", ShortDescriptionKey = "PlaceKadriorgShort", DetailKey = "PlaceKadriorgDetail", Rating = "5,0", PriceTextKey = "TourPriceNature", DistanceTextKey = "TourDistanceQuiet", TagTextKey = "TourTagNature" },
-            new() { Id = 4, CategoryKey = "parks", Image = "cityexplorer_pirita.jpg", NameKey = "PlacePiritaName", ShortDescriptionKey = "PlacePiritaShort", DetailKey = "PlacePiritaDetail", Rating = "4,7", PriceTextKey = "TourPriceNature", DistanceTextKey = "TourDistanceSea", TagTextKey = "TourTagNature" },
-            new() { Id = 5, CategoryKey = "food", Image = "cityexplorer_market.jpg", NameKey = "PlaceMarketName", ShortDescriptionKey = "PlaceMarketShort", DetailKey = "PlaceMarketDetail", Rating = "4,9", PriceTextKey = "TourPriceFood", DistanceTextKey = "TourDistanceCenter", TagTextKey = "TourTagFood" },
-            new() { Id = 6, CategoryKey = "food", Image = "cityexplorer_telliskivi.jpg", NameKey = "PlaceTelliskiviName", ShortDescriptionKey = "PlaceTelliskiviShort", DetailKey = "PlaceTelliskiviDetail", Rating = "4,8", PriceTextKey = "TourPriceFood", DistanceTextKey = "TourDistanceTram", TagTextKey = "TourTagFood" }
-        ];
-
+        Categories = new ObservableCollection<Category>(CityExplorerCatalog.CreateCategories());
+        allPlaces = CityExplorerCatalog.CreatePlaces();
         Places = new ObservableCollection<Place>();
         ChangeCategoryCommand = new Command<Category>(category => SelectedCategory = category);
         AddFavoriteCommand = new Command<Place>(async place => await AddFavoriteFromCommandAsync(place));
 
-        Localizer.CultureChanged += (_, _) =>
-        {
-            foreach (var category in Categories)
-            {
-                category.RefreshLanguage();
-            }
-
-            foreach (var place in allPlaces)
-            {
-                place.RefreshLanguage();
-            }
-
-            OnPropertyChanged(nameof(SelectedCategoryTitle));
-        };
+        Localizer.CultureChanged += OnCultureChanged;
 
         SelectedCategory = Categories.First();
     }
@@ -105,6 +76,8 @@ public class ExploreViewModel : BaseViewModel
 
     public string SelectedCategoryTitle => SelectedCategory?.Title ?? string.Empty;
 
+    public bool HasPlaces => Places.Count > 0;
+
     public async Task<bool> AddFavoriteAsync(Place place)
     {
         if (await databaseService.FavoriteExistsAsync(place.Id))
@@ -134,10 +107,29 @@ public class ExploreViewModel : BaseViewModel
 
     public async Task RefreshFavoriteStatesAsync()
     {
+        var favoriteIds = await databaseService.GetFavoriteIdsAsync();
+
         foreach (var place in allPlaces)
         {
-            place.IsFavorite = await databaseService.FavoriteExistsAsync(place.Id);
+            place.IsFavorite = favoriteIds.Contains(place.Id);
         }
+    }
+
+    private void OnCultureChanged(object? sender, EventArgs e)
+    {
+        OnPropertyChanged(nameof(Localizer));
+
+        foreach (var category in Categories)
+        {
+            category.RefreshLanguage();
+        }
+
+        foreach (var place in allPlaces)
+        {
+            place.RefreshLanguage();
+        }
+
+        OnPropertyChanged(nameof(SelectedCategoryTitle));
     }
 
     private void RefreshPlaces()
@@ -147,23 +139,37 @@ public class ExploreViewModel : BaseViewModel
         if (selectedCategory is null)
         {
             SelectedPlace = null;
-            OnPropertyChanged(nameof(HasPlaces));
+            NotifyPlacesChanged();
             return;
         }
 
-        var normalizedSearch = searchText.Trim();
-        var filteredPlaces = allPlaces
-            .Where(place => place.CategoryKey == selectedCategory.Key)
-            .Where(place => string.IsNullOrWhiteSpace(normalizedSearch)
-                || place.Name.Contains(normalizedSearch, StringComparison.CurrentCultureIgnoreCase)
-                || place.ShortDescription.Contains(normalizedSearch, StringComparison.CurrentCultureIgnoreCase));
-
-        foreach (var place in filteredPlaces)
+        foreach (var place in GetFilteredPlaces())
         {
             Places.Add(place);
         }
 
         SelectedPlace = Places.FirstOrDefault();
+        NotifyPlacesChanged();
+    }
+
+    private IEnumerable<Place> GetFilteredPlaces()
+    {
+        var normalizedSearch = searchText.Trim();
+
+        return allPlaces
+            .Where(place => place.CategoryKey == selectedCategory?.Key)
+            .Where(place => MatchesSearch(place, normalizedSearch));
+    }
+
+    private static bool MatchesSearch(Place place, string normalizedSearch)
+    {
+        return string.IsNullOrWhiteSpace(normalizedSearch)
+            || place.Name.Contains(normalizedSearch, StringComparison.CurrentCultureIgnoreCase)
+            || place.ShortDescription.Contains(normalizedSearch, StringComparison.CurrentCultureIgnoreCase);
+    }
+
+    private void NotifyPlacesChanged()
+    {
         OnPropertyChanged(nameof(HasPlaces));
     }
 
@@ -176,6 +182,4 @@ public class ExploreViewModel : BaseViewModel
 
         await AddFavoriteAsync(place);
     }
-
-    public bool HasPlaces => Places.Count > 0;
 }

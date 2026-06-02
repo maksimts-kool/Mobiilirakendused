@@ -1,10 +1,9 @@
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using Tund2.CityExplorer.Common;
 using Tund2.CityExplorer.Services;
 
 namespace Tund2.CityExplorer.Models;
 
-public class Place : INotifyPropertyChanged
+public class Place : ObservableObject
 {
     private bool isFavorite;
 
@@ -45,33 +44,25 @@ public class Place : INotifyPropertyChanged
         get => isFavorite;
         set
         {
-            if (isFavorite == value)
+            if (!SetProperty(ref isFavorite, value))
             {
                 return;
             }
 
-            isFavorite = value;
-            OnPropertyChanged();
             OnPropertyChanged(nameof(FavoriteIcon));
         }
     }
 
     public string FavoriteIcon => IsFavorite ? "liked.png" : "unliked.png";
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-
     public void RefreshLanguage()
     {
-        OnPropertyChanged(nameof(Name));
-        OnPropertyChanged(nameof(ShortDescription));
-        OnPropertyChanged(nameof(Detail));
-        OnPropertyChanged(nameof(PriceText));
-        OnPropertyChanged(nameof(DistanceText));
-        OnPropertyChanged(nameof(TagText));
-    }
-
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        OnPropertiesChanged(
+            nameof(Name),
+            nameof(ShortDescription),
+            nameof(Detail),
+            nameof(PriceText),
+            nameof(DistanceText),
+            nameof(TagText));
     }
 }

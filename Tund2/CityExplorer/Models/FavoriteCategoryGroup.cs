@@ -1,12 +1,11 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Microsoft.Maui.Graphics;
+using Tund2.CityExplorer.Common;
 using Tund2.CityExplorer.Services;
 
 namespace Tund2.CityExplorer.Models;
 
-public class FavoriteCategoryGroup : INotifyPropertyChanged
+public class FavoriteCategoryGroup : ObservableObject
 {
     private bool isExpanded = true;
 
@@ -31,15 +30,14 @@ public class FavoriteCategoryGroup : INotifyPropertyChanged
         get => isExpanded;
         set
         {
-            if (isExpanded == value)
+            if (!SetProperty(ref isExpanded, value))
             {
                 return;
             }
 
-            isExpanded = value;
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(ArrowRotation));
-            OnPropertyChanged(nameof(HeaderCornerRadius));
+            OnPropertiesChanged(
+                nameof(ArrowRotation),
+                nameof(HeaderCornerRadius));
         }
     }
 
@@ -49,8 +47,6 @@ public class FavoriteCategoryGroup : INotifyPropertyChanged
         ? new CornerRadius(16, 16, 0, 0)
         : new CornerRadius(16);
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-
     public void RefreshLanguage()
     {
         OnPropertyChanged(nameof(Title));
@@ -59,10 +55,5 @@ public class FavoriteCategoryGroup : INotifyPropertyChanged
         {
             place.RefreshLanguage();
         }
-    }
-
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

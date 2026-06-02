@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Microsoft.Maui.Graphics;
 using Tund2.CityExplorer.Models;
 using Tund2.CityExplorer.Services;
 
@@ -9,13 +8,6 @@ namespace Tund2.CityExplorer.ViewModels;
 public class FavoritesViewModel : BaseViewModel
 {
     private readonly DatabaseService databaseService;
-    private readonly CategoryDefinition[] categoryDefinitions =
-    [
-        new("history", "CategoryHistory", "★", Color.FromArgb("#F1D38B"), Color.FromArgb("#FFF5DF"), Color.FromArgb("#E4B752")),
-        new("parks", "CategoryParks", "♣", Color.FromArgb("#8BE3C3"), Color.FromArgb("#E7FAF2"), Color.FromArgb("#69D8B1")),
-        new("food", "CategoryFood", "◆", Color.FromArgb("#FFC78E"), Color.FromArgb("#FFF0E0"), Color.FromArgb("#F2A85E"))
-    ];
-
     private bool isBusy;
 
     public FavoritesViewModel(DatabaseService databaseService)
@@ -26,18 +18,7 @@ public class FavoritesViewModel : BaseViewModel
         FavoriteGroups = new ObservableCollection<FavoriteCategoryGroup>();
         RemoveFavoriteCommand = new Command<Place>(async place => await RemoveFavoriteAsync(place));
 
-        Localizer.CultureChanged += (_, _) =>
-        {
-            foreach (var place in Favorites)
-            {
-                place.RefreshLanguage();
-            }
-
-            foreach (var group in FavoriteGroups)
-            {
-                group.RefreshLanguage();
-            }
-        };
+        Localizer.CultureChanged += OnCultureChanged;
     }
 
     public LocalizationManager Localizer { get; }
@@ -70,46 +51,20 @@ public class FavoritesViewModel : BaseViewModel
             IsBusy = true;
 
             var expandedStates = FavoriteGroups.ToDictionary(group => group.CategoryKey, group => group.IsExpanded);
-
-            Favorites.Clear();
-            FavoriteGroups.Clear();
             var savedPlaces = await databaseService.GetFavoritesAsync();
 
+            Favorites.Clear();
             foreach (var place in savedPlaces)
             {
                 Favorites.Add(place);
             }
 
-            foreach (var group in savedPlaces.GroupBy(place => place.CategoryKey))
-            {
-                var definition = categoryDefinitions.FirstOrDefault(item => item.Key == group.Key)
-                    ?? categoryDefinitions[0];
-                var favoriteGroup = new FavoriteCategoryGroup
-                {
-                    CategoryKey = group.Key,
-                    TitleKey = definition.TitleKey,
-                    Icon = definition.Icon,
-                    HeaderColor = definition.HeaderColor,
-                    BodyColor = definition.BodyColor,
-                    ItemBorderColor = definition.ItemBorderColor,
-                    IsExpanded = expandedStates.TryGetValue(group.Key, out var wasExpanded)
-                        ? wasExpanded
-                        : FavoriteGroups.Count == 0
-                };
-
-                foreach (var place in group)
-                {
-                    favoriteGroup.Places.Add(place);
-                }
-
-                FavoriteGroups.Add(favoriteGroup);
-            }
+            RebuildFavoriteGroups(savedPlaces, expandedStates);
         }
         finally
         {
             IsBusy = false;
-            OnPropertyChanged(nameof(HasFavorites));
-            OnPropertyChanged(nameof(HasNoFavorites));
+            NotifyFavoriteStateChanged();
         }
     }
 
@@ -134,15 +89,45 @@ public class FavoritesViewModel : BaseViewModel
             }
         }
 
-        OnPropertyChanged(nameof(HasFavorites));
-        OnPropertyChanged(nameof(HasNoFavorites));
+        NotifyFavoriteStateChanged();
     }
 
-    private sealed record CategoryDefinition(
-        string Key,
-        string TitleKey,
-        string Icon,
-        Color HeaderColor,
-        Color BodyColor,
-        Color ItemBorderColor);
+    private void OnCultureChanged(object? sender, EventArgs e)
+    {
+        OnPropertyChanged(nameof(Localizer));
+
+        foreach (var group in FavoriteGroups)
+        {
+            group.RefreshLanguage();
+        }
+    }
+
+    private void RebuildFavoriteGroups(
+        IEnumerable<Place> savedPlaces,
+        IReadOnlyDictionary<string, bool> expandedStates)
+    {
+        FavoriteGroups.Clear();
+
+        foreach (var group in savedPlaces.GroupBy(place => place.CategoryKey))
+        {
+            var favoriteGroup = CityExplorerCatalog.CreateFavoriteGroup(group.Key);
+            favoriteGroup.IsExpanded = expandedStates.TryGetValue(group.Key, out var wasExpanded)
+                ? wasExpanded
+                : FavoriteGroups.Count == 0;
+
+            foreach (var place in group)
+            {
+                favoriteGroup.Places.Add(place);
+            }
+
+            FavoriteGroups.Add(favoriteGroup);
+        }
+    }
+
+    private void NotifyFavoriteStateChanged()
+    {
+        OnPropertiesChanged(
+            nameof(HasFavorites),
+            nameof(HasNoFavorites));
+    }
 }

@@ -6,6 +6,7 @@ namespace Tund2.CityExplorer.Services;
 
 public sealed class LocalizationManager : INotifyPropertyChanged
 {
+    private const string DefaultLanguageCode = "et";
     private const string LanguagePreferenceKey = "CityExplorerLanguage";
 
     private static readonly ResourceManager ResourceManager =
@@ -33,14 +34,7 @@ public sealed class LocalizationManager : INotifyPropertyChanged
 
     public void SetCulture(string languageCode)
     {
-        var normalizedCode = string.IsNullOrWhiteSpace(languageCode)
-            ? "et"
-            : languageCode.Trim().ToLowerInvariant();
-
-        if (!SupportedLanguages.Contains(normalizedCode))
-        {
-            normalizedCode = "et";
-        }
+        var normalizedCode = NormalizeLanguageCode(languageCode);
 
         if (normalizedCode == CurrentLanguageCode)
         {
@@ -71,9 +65,22 @@ public sealed class LocalizationManager : INotifyPropertyChanged
 
     private static CultureInfo ResolveInitialCulture()
     {
-        var savedLanguage = Preferences.Default.Get(LanguagePreferenceKey, "et");
-        var languageCode = SupportedLanguages.Contains(savedLanguage) ? savedLanguage : "et";
+        var savedLanguage = Preferences.Default.Get(LanguagePreferenceKey, DefaultLanguageCode);
+        var languageCode = NormalizeLanguageCode(savedLanguage);
 
         return new CultureInfo(languageCode);
+    }
+
+    private static string NormalizeLanguageCode(string? languageCode)
+    {
+        if (string.IsNullOrWhiteSpace(languageCode))
+        {
+            return DefaultLanguageCode;
+        }
+
+        var normalizedCode = languageCode.Trim().ToLowerInvariant();
+        return SupportedLanguages.Contains(normalizedCode)
+            ? normalizedCode
+            : DefaultLanguageCode;
     }
 }

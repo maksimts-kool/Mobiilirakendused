@@ -30,29 +30,11 @@ public partial class TourPage : ContentPage
 
     public LocalizationManager Localizer { get; }
 
-    public string CategoryTitle => Place.CategoryKey switch
-    {
-        "history" => Localizer["CategoryHistory"],
-        "parks" => Localizer["CategoryParks"],
-        "food" => Localizer["CategoryFood"],
-        _ => Localizer["PlacesLabel"]
-    };
+    public string CategoryTitle => CityExplorerCatalog.GetTourCategoryTitle(Place.CategoryKey, Localizer);
 
-    public string CategoryIcon => Place.CategoryKey switch
-    {
-        "history" => "★",
-        "parks" => "♣",
-        "food" => "◆",
-        _ => "★"
-    };
+    public string CategoryIcon => CityExplorerCatalog.GetTourCategoryIcon(Place.CategoryKey);
 
-    public Color CategoryColor => Place.CategoryKey switch
-    {
-        "history" => Color.FromArgb("#F1D38B"),
-        "parks" => Color.FromArgb("#8BE3C3"),
-        "food" => Color.FromArgb("#FFC78E"),
-        _ => Color.FromArgb("#8BE3C3")
-    };
+    public Color CategoryColor => CityExplorerCatalog.GetTourCategoryColor(Place.CategoryKey);
 
     public string BuyButtonText => Localizer["BuyTour"];
 
@@ -114,10 +96,10 @@ public partial class TourPage : ContentPage
     {
         try
         {
-            var isFavorite = await exploreViewModel.ToggleFavoriteAsync(Place);
+            await exploreViewModel.ToggleFavoriteAsync(Place);
             if (sender is ImageButton button)
             {
-                await AnimateFavoriteIconAsync(button, isFavorite);
+                await FavoriteIconAnimator.PopAsync(button);
             }
         }
         catch (Exception ex)
@@ -237,22 +219,5 @@ public partial class TourPage : ContentPage
             finished: (_, _) => completionSource.SetResult());
 
         return completionSource.Task;
-    }
-
-    private static async Task AnimateFavoriteIconAsync(ImageButton button, bool isLiked)
-    {
-        await Task.WhenAll(
-            button.ScaleToAsync(0.72, 90, Easing.CubicOut),
-            button.RotateToAsync(-10, 90, Easing.CubicOut),
-            button.FadeToAsync(0.65, 90, Easing.CubicOut));
-
-        await Task.WhenAll(
-            button.ScaleToAsync(1.12, 150, Easing.SpringOut),
-            button.RotateToAsync(8, 150, Easing.CubicOut),
-            button.FadeToAsync(1, 150, Easing.CubicOut));
-
-        await Task.WhenAll(
-            button.ScaleToAsync(1, 90, Easing.CubicOut),
-            button.RotateToAsync(0, 90, Easing.CubicOut));
     }
 }
